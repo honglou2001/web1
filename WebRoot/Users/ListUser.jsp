@@ -5,7 +5,7 @@
  <!DOCTYPE html>
 <html>
 <head>
-    <title>轻云平台ooo</title>
+    <title>轻云平台</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/web1/css/default.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="/web1/css/easyui.css" />
