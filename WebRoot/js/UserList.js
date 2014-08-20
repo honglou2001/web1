@@ -185,42 +185,7 @@ function clearbox() {
     $('#txtEndDate').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);
     searchFun();
 }
-function seeView(deviceid, devicename, date) {
-    $("#div_FeedDetil").show().dialog("open");
 
-    var postData = {
-        deviceID: deviceid,
-        feedDate: date
-    };
-  
-    options.series[0].data.splice(0, options.series[0].data.length);
-    options.series[1].data.splice(0, options.series[1].data.length);
-    options.xAxis.categories.splice(0, options.xAxis.categories.length);
-
-    $.getJSON("/FeedReport/GetSingleReport", postData, function (data) {
-
-        for (var i = 0; i < data.rows.length; i++) {
-            options.xAxis.categories.push(data.rows[i]["FPigState"].toString());
-            options.series[0].data.push(parseFloat(data.rows[i]["FFeedAmount"].toString()));
-            options.series[1].data.push(parseFloat(data.rows[i]["FDayFeedAmount"].toString()));
-        }
-        options.title.text = data.rows[0]["FFeedDate"].substr(0, 10) + " 至 " + data.rows[data.rows.length - 1]["FFeedDate"].substr(0, 10);
-        options.subtitle.text = devicename;
-        options.tooltip.formatter = function () {
-
-            var feeddate = "";
-            for (var i = 0; i < data.rows.length; i++) {
-                if (this.x == data.rows[i]["FPigState"]) {
-                    feeddate = data.rows[i]["FFeedDate"].substr(0, 10);
-                }
-            }
-            return '日 期：' + feeddate + '<br/>' + this.series.name + '：' + this.y + 'kg';
-
-        };
-        Chart1 = new Highcharts.Chart(options);
-        //$("body").children("div.datagrid-mask-msg").remove();
-    });
-}
 function add(id) {
     $('#div_AddUser').dialog('open');
 }
@@ -253,6 +218,50 @@ function AddUser() {
             $.messager.alert('提示', data, 'error');
         }
     });
+}
+//实现删除数据
+function deleteUser() {
+    //得到用户选择的数据的ID
+    var rows = $("#dgFeedReport").datagrid("getSelections");
+    //首先判断用户是否已经选择了需要删除的数据,然后循环将用户选择的数据传递到后台
+    if (rows.length >= 1) {
+        //遍历出用户选择的数据的信息，这就是用户选择删除的分组ID的信息
+        var ids = "";   //1,2,3,4,5
+        var UserNames = "";
+        for (var i = 0; i < rows.length; i++) {
+            //异步将删除的ID发送到后台，后台删除之后，返回前台，前台刷洗表格
+            ids += rows[i].id + ",";
+            //获取用户选择的分组信息
+            UserNames += rows[i].name + ",";
+        }
+        //最后去掉最后的那一个,
+        ids = ids.substring(0, ids.length - 1);
+        UserNames = UserNames.substring(0, UserNames.length - 1);
+        var postData = {
+        		fid: ids
+        }
+
+        //然后确认发送异步请求的信息到后台删除数据
+        $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + UserNames + "</font>吗？", function (DeleteUser) {
+            if (DeleteUser) {
+                $.post("/web1/DelJson.action", postData, function (data) {
+                	//debugger;
+                	if (data.success == true) {
+                        //添加成功  1.关闭弹出层，2.刷新DataGird
+                    	$.messager.alert('提示', data.message, 'info');
+                        refresh();
+                        rows.length = "";
+                    }
+                    else {
+                        $.messager.alert("提示", data.message, "error");
+                    }
+                });
+            }
+        });
+    }
+    else {
+        $.messager.alert("提示", "请选择你要删除的数据！", "info");
+    }
 }
 
 

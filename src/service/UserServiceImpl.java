@@ -198,6 +198,14 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	@Override
 	public String DeleteUser() {
 		userDao.Delete(fid);
+		
+		this.message ="É¾³ý³É¹¦";
+		
+		dataMap = new HashMap<String, Object>();
+		dataMap.put("id", fid);
+		dataMap.put("success", true);
+		dataMap.put("message", this.message);
+		  
 	    return SUCCESS;
 	}
 	@Override
