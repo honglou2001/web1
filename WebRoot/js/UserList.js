@@ -9,26 +9,6 @@ $(function () {
     searchFun1();  
 });
 
-function GetArgumentFromUrl(url) {
-    //debugger;
-    var returnObj = {};
-    //构造参数对象并初始化 
-    var name, value = '', i;
-    var str = url.toLowerCase(); //获得浏览器地址栏URL串
-    var num = str.indexOf("?")
-    if (num < 0) return;
-    str = str.substr(num + 1); //截取“?”后面的参数串
-    var arrtmp = str.split("&"); //将各参数分离形成参数数组
-    for (i = 0; i < arrtmp.length; i++) {
-        num = arrtmp[i].indexOf("=");
-        if (num > 0) {
-            name = arrtmp[i].substring(0, num); //取得参数名称
-            value = arrtmp[i].substr(num + 1); //取得参数值
-            returnObj[name] = value; //定义对象属性并初始化
-        }
-    }
-    return returnObj;
-}
 
 function initTable(queryData) {
     $('#dgFeedReport').datagrid({
@@ -40,7 +20,6 @@ function initTable(queryData) {
         pageSize: 10,
         nowrap: true,
         fitColumns: true,
-        //autoRowHeight: false,
         singleSelect:true,
         striped: true,
         collapsible: true,
@@ -99,7 +78,6 @@ function initTable(queryData) {
 //主要目的用于点击链接过来加载
 function searchFun1() { 
     var queryData = {
-        //FSerialNumber: $("#txtFSerialNumber").val(),
         FStartDate: $("#txtStartDate").datebox('getValue'),
         FEndDate: $("#txtEndDate").datebox('getValue'),
         FDeviceID: urldevices,
@@ -161,7 +139,7 @@ function BindShowUpdateInfo() {
     //首先用户发送一个异步请求去后台实现方法
     var ID = $("#dgFeedReport").datagrid("getSelections")[0].id;  //获取到了用用户选择的ID  
     $.post("/web1/Edit.action", { fid: ID }, function (callbackdata) {
-    	//debugger;
+    	debugger;
         $("#id").val(ID);
         $("#name").val(callbackdata.user.name);        
         $("#Pwd").val(callbackdata.user.pwd);        
@@ -245,7 +223,7 @@ function deleteUser() {
         $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + UserNames + "</font>吗？", function (DeleteUser) {
             if (DeleteUser) {
                 $.post("/web1/DelJson.action", postData, function (data) {
-                	//debugger;
+                	debugger;
                 	if (data.success == true) {
                         //添加成功  1.关闭弹出层，2.刷新DataGird
                     	$.messager.alert('提示', data.message, 'info');
@@ -262,18 +240,6 @@ function deleteUser() {
     else {
         $.messager.alert("提示", "请选择你要删除的数据！", "info");
     }
-}
-
-
-function ChangeDateFormat(time) {
-    if (time != null) {
-        var date = new Date(parseInt(time.replace("/Date(", "").replace(")/", ""), 10));
-        //月份为0-11，所以+1，月份小于10时补个0
-        var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-        var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-        return date.getFullYear() + "-" + month + "-" + currentDate;
-    }
-    return "";
 }
 
 

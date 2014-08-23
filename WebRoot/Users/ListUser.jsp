@@ -8,7 +8,7 @@
     <title>轻云平台</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/web1/css/default.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/web1/css/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="/web1/css/gray/easyui.css" />
     <link rel="stylesheet" type="text/css" href="/web1/css/icon.css" />
     <link href="/web1/css/syCss.css" rel="stylesheet" />
     <script type="text/javascript" src="/web1/js/jquery-1.8.0.min.js"></script>
