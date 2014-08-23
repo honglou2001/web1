@@ -70,50 +70,31 @@ function initTable(queryData) {
                 }
             }
             
-      ]],      
-        
+      ]],              
         toolbar: "#div_Menu"
     });
 }
 //主要目的用于点击链接过来加载
 function searchFun1() { 
     var queryData = {
-        FStartDate: $("#txtStartDate").datebox('getValue'),
-        FEndDate: $("#txtEndDate").datebox('getValue'),
-        FDeviceID: urldevices,
-        FDays: $("#txtDay").val(),
-        FCompare: $("#txtdindex").combobox("getValue"),
-        FFeedAmount: $("#txtFeedAmount").val(),
-        FIsweight: $('input:radio[name="FIsweight"]:checked').val(),
-        FEarNumber: $("#txtFEarNumber").val(),
-        FSituation: situation
+//        FStartTime: $("#txtStartTime").datebox('getValue'),
+//        FEndTime: $("#txtEndTime").datebox('getValue'),
+    	"user.id": $("#txtFname").val(),
+        "user.name": $("#txtFname").val(),
+        "user.Mobile": $("#txtFMobile").val(),
+        "user.Adress": $("#txtFAddress").val()
     };
     initTable(queryData);    
 }
 
 function searchFun() {
-    situation = "";
-    urldevices = "";
-    var t = $('#txtDeviceName').combotree('tree');
-    var n = t.tree('getChecked');
-    var deviceids = '';
-    for (var i = 0; i < n.length; i++) {
-        deviceids += "'" + n[i].id + "',";
-    }
-    if (deviceids.length > 1) {
-        deviceids = deviceids.substr(0, deviceids.length - 1);
-    }
     var queryData = {
-        //FSerialNumber: $("#txtFSerialNumber").val(),
-        FStartDate: $("#txtStartDate").datebox('getValue'),
-        FEndDate: $("#txtEndDate").datebox('getValue'),
-        FDeviceID: deviceids,
-        FDays: $("#txtDay").val(),
-        FCompare: $("#txtdindex").combobox("getValue"),
-        FFeedAmount: $("#txtFeedAmount").val(),
-        FIsweight: $('input:radio[name="FIsweight"]:checked').val(),
-        FEarNumber: $("#txtFEarNumber").val(),
-        FSituation: situation
+//         FStartTime: $("#txtStartTime").datebox('getValue'),
+//         FEndTime: $("#txtEndTime").datebox('getValue'),
+    	 "user.id": $("#txtFname").val(),	
+         "user.name": $("#txtFname").val(),
+         "user.Mobile": $("#txtFMobile").val(),
+         "user.Adress": $("#txtFAddress").val()
     };
     initTable(queryData);
 }
@@ -156,11 +137,10 @@ function clearbox() {
     var date = new Date();
     var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
     var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    $('#txtDeviceName').combotree("setValue", "");
+    $('#txtFname').combotree("setValue", "");
     $('#searchForm input').val('');
-    $('#txtdindex').combobox('setValue', '0');
-    $('#txtStartDate').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);
-    $('#txtEndDate').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);
+    $('#txtStartTime').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);
+    $('#txtEndTime').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);    
     searchFun();
 }
 

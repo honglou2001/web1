@@ -94,6 +94,12 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		dataMap = new HashMap<String, Object>();		
 //		Collection<User> jsusr = new ArrayList<User>(); 
 		
+		if(user!=null)
+		{
+			System.out.println(user.getName());
+			System.out.println(user.getMobile());
+		}
+		
 		HttpServletRequest request=ServletActionContext.getRequest();
 		String path=request.getRequestURI();
 		String queryInfo=request.getQueryString();
@@ -101,6 +107,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		System.out.println("请求的URL"+path +queryInfo);
 		
 
+		
         
 		int offset = this.getPage();
 		
@@ -135,29 +142,26 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	}
 	@Override
 	public String ListUsers() {
-		//users = userDao.getAll();
 		
-		
-		int offset = this.getPage();
-		int pagesize = Constants.PAGE_SIZE;
-		
-		users = userDao.getAll(offset, pagesize);
-		
-		int size = userDao.GetUserCount();
-		
-		HttpServletRequest request=ServletActionContext.getRequest();
-		String path=request.getRequestURI();
-		String queryInfo=request.getQueryString();
-		System.out.println(path);
-		System.out.println("请求的URL"+path +queryInfo);
-		
-		String url ="http://127.0.0.1:8080/web1/List.action";
-		
-		System.out.println("mmmm"+url);
-		Pager p = new Pager(offset, size, pagesize, url, "Page Navigation");
-		request.setAttribute("pager", p);
+//		int offset = this.getPage();
+//		int pagesize = Constants.PAGE_SIZE;
+//		
+//		users = userDao.getAll(offset, pagesize);
+//		
+//		int size = userDao.GetUserCount();
+//		
+//		HttpServletRequest request=ServletActionContext.getRequest();
+//		String path=request.getRequestURI();
+//		String queryInfo=request.getQueryString();
+//		System.out.println(path);
+//		System.out.println("请求的URL"+path +queryInfo);
+//		
+//		String url ="http://127.0.0.1:8080/web1/List.action";
+//		
+//		System.out.println("mmmm"+url);
+//		Pager p = new Pager(offset, size, pagesize, url, "Page Navigation");
+//		request.setAttribute("pager", p);
 		 
-		/*users = daoUser.getAll();*/
 	    return SUCCESS;
 	}
 	

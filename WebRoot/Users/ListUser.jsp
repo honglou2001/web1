@@ -26,36 +26,29 @@
             <table class="tableForm datagrid-toolbar" style="background-color: White;">
                 <tr>
 
-                    <th style="width: 60px;">饲喂日期：
+                    <th style="width: 60px;">注册时间：
                     </th>
                     <td style="min-width: 200px;">
-                        <input id="txtStartDate" name="FStartDate" class="easyui-datebox" style="width: 100px;" />&nbsp;&nbsp;-
-                        <input id="txtEndDate" name="FEndDate" class="easyui-datebox" style="width: 100px;" />
+                        <input id="txtStartTime" name="txtStartTime" class="easyui-datebox" style="width: 100px;" />&nbsp;&nbsp;-
+                        <input id="txtEndTime" name="txtStartTime" class="easyui-datebox" style="width: 100px;" />
                     </td>
-                    <th style="width: 60px;">连续
+                    <th style="width: 60px;">注册地址：
                     </th>
                     <td style="width: 350px;">
-                        
-                        <input id="txtDay" name="FDay" class="easyui-numberbox" style="width: 50px;" />天 采食量
-                       <select id="txtdindex" class="easyui-combobox" name="FCompare" style="width: 80px;">
-                           <option value="0">小于等于</option>
-                           <option value="1">大于</option>
-                       </select>
-                        <input id="txtFeedAmount" name="FFeedAmount" class="easyui-numberbox" style="width: 50px;" />
-                        <input id="rdFFeedAmountA" name="FIsweight" type="radio" checked="checked" value="1" style="width: 20px;" />%
-                        <input id="rdFFeedAmountB" name="FIsweight" type="radio" value="2" style="width: 25px;" />kg
+                             <input type="text" id="txtFAddress" name="txtFAddress" class="easyui-validatebox" style="width: 120px" value="1112" />&nbsp;
+                   
                     </td>
                 </tr>
                 <tr>
-                    <th style="width: 60px;">设备名称：
+                    <th style="width: 60px;">注册账号：
                     </th>
                     <td>
-                        <input id='txtDeviceName' name='FDeviceID' class="easyui-combotree"
+                        <input id='txtFname' name='FDeviceID' class="easyui-combotree"
                             multiple="multiple" data-options="url:'/FeedReport/GetComboTree'" style="width: 217px;" />
                     </td>
-                    <th>耳牌号：</th>
+                    <th>注册手机：</th>
                     <td>
-                        <input type="text" id="txtFEarNumber" name="FEarNumber" class="easyui-validatebox" style="width: 120px" value="" />&nbsp;
+                        <input type="text" id="txtFMobile" name="txtFMobile" class="easyui-validatebox" style="width: 120px" value="sss" />&nbsp;
 
                             <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="searchFun();">查询</a>
                             <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a>
