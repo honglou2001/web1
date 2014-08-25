@@ -28,8 +28,15 @@
  	
 	<bean name="refUserDao" class="dao.UserDaoIml">
 		<property name="sessionFactory" ref="sessionFactory" />
-	</bean>
-		
+	</bean>		 	
+ 		
+ 	<bean id="SPMenuAction" class="service.MenuServiceImpl"  scope="prototype">
+ 		 <property name="menuDao" ref="refMenuDao"></property>
+ 	</bean>
+ 	 	
+	<bean name="refMenuDao" class="dao.MenuDaoIml">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>		
  	
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"

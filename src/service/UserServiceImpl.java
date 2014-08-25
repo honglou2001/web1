@@ -19,7 +19,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	UserDaoIml daoUser = new UserDaoIml();
+	//UserDaoIml daoUser = new UserDaoIml();
 	private User user;
 	private String fid;
 	
