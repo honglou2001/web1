@@ -2,24 +2,15 @@ package service;
 
 
 import com.opensymphony.xwork2.ActionSupport;
-
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.HashMap;  
 import java.util.Map;  
-  
-import org.apache.struts2.json.annotations.JSON;  
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import domain.User;
 import dao.UserDaoIml;
-import bean.Pager;
 import bean.Constants;
 
 public class UserServiceImpl extends ActionSupport implements  UserService   {
@@ -105,10 +96,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		String queryInfo=request.getQueryString();
 		System.out.println(path);
 		System.out.println("请求的URL"+path +queryInfo);
-		
-
-		
-        
+				       
 		int offset = this.getPage();
 		
 		System.out.println("offset:"+offset);
@@ -122,14 +110,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		users = userDao.getAll(offset, pagesize);
 		
 		int size = userDao.GetUserCount();
-		
-//		User user = new User();
-//		user.setName("张三");
-//		user.setPwd("123");
-//		
-//		jsusr.add(user);
-//		jsusr.add(user);
-		
+				
 		dataMap.put("rows", users);
 		// 放入一个是否操作成功的标识
 		dataMap.put("total", size);
@@ -143,24 +124,6 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	@Override
 	public String ListUsers() {
 		
-//		int offset = this.getPage();
-//		int pagesize = Constants.PAGE_SIZE;
-//		
-//		users = userDao.getAll(offset, pagesize);
-//		
-//		int size = userDao.GetUserCount();
-//		
-//		HttpServletRequest request=ServletActionContext.getRequest();
-//		String path=request.getRequestURI();
-//		String queryInfo=request.getQueryString();
-//		System.out.println(path);
-//		System.out.println("请求的URL"+path +queryInfo);
-//		
-//		String url ="http://127.0.0.1:8080/web1/List.action";
-//		
-//		System.out.println("mmmm"+url);
-//		Pager p = new Pager(offset, size, pagesize, url, "Page Navigation");
-//		request.setAttribute("pager", p);
 		 
 	    return SUCCESS;
 	}

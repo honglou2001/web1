@@ -15,6 +15,7 @@
         <property name="show_sql">true</property>   <!-- 设置为true，则如果执行SQL语句，则会显示在console中 -->  
         <property name="hbm2ddl.auto">update</property> <!-- 更新数据库 -->  
         <mapping resource="domain/User.hbm.xml"/> <!-- 指定映射文件 -->  
+        <mapping resource="domain/AuthorityMenu.hbm.xml"/> <!-- 指定映射文件 -->  
     
     </session-factory>
 
