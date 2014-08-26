@@ -72,12 +72,12 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
     }
 	
 	  public String getMessage() {  
-		        return message;  
-		    }  
-		  
-		    public void setMessage(String message) {  
-		        this.message = message;  
-		    } 
+        return message;  
+    }  
+  
+    public void setMessage(String message) {  
+        this.message = message;  
+    } 
 	
 	
 	public String json() {

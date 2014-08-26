@@ -6,14 +6,74 @@ $(function () {
         cache: false
     });
    
-    searchFun1();  
+    initTable();  
 });
 
 
-function initTable(queryData) {
+function initTable() {
+	
+	$('#dgMenu').treegrid({
+		title:'TreeGrid with Footer',
+		iconCls:'icon-ok',
+		 width: "auto",
+		height:750,
+		rownumbers: true,
+		animate:true,
+		collapsible:true,
+		fitColumns:true,
+		url:'http://lenovo-pcyang:8090/web1/MenuList.action',
+		idField:'fid',
+		treeField:'fmenuName',
+		showFooter:false,
+		columns:[[
+            {title:'菜单名称',field:'fmenuName',width:180},
+            {
+                field: "ftype", title: "类型", align: "left", width: "50",
+                formatter: function (value, row, index) { return value == 1 ? "菜单" : "模块" }
+            },
+             {
+                 field: "fauthorityVal", title: "权重", align: "left", width: 60
+             },
+            {
+                field: "flevel", title: "排序", align: "left", width: 60,
+                formatter: function (value, row, index) { return document.body.scrollHeight+"_"+document.documentElement.scrollHeight; }
+            },
+            {
+                field: "fstate", title: "状态", align: "left", width: 60,
+                formatter: function (value, row, index) { return value == "False" ? "正常" : "隐藏"; }
+            },
+            { field: "fdescription", title: "备注", align: "left", width: "180" }
+		]],
+       toolbar: "#div_Menu"
+	});
+//    $("#dgMenu").treegrid({
+//        loadMsg: "正在加载,请稍候......",
+//        url: "/web1/MenuList.action",
+//        width: "auto",
+//        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+//        nowrap: true,
+//        striped: true,
+//        idField: "fid",
+//        treeField: "fmenuName",
+//        iconCls:"ficon",
+//        rownumbers: true,
+//        border: true,
+//        fitColumns: true,
+//        sortOrder: "asc",
+//        singleSelect: false,
+//        columns: [[
+//            { field: "fmenuName", title: "菜单名称", align: "left", width: "160" },
+//            { field: "furl", title: "页面路径", align: "left", width: "200" },
+//            { field: "ficon", title: "图标", align: "left", width: "120" }
+//            ]],
+//        toolbar: "#div_Menu"
+//    });
+}
+
+function initTable_del(queryData) {
     $('#dgFeedReport').datagrid({
         loadMsg: "数据加载中,请稍候……",
-        url: '/web1/json.action',
+        url: '/web1/MenuList.action',
         width: "auto",
         height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 87,
         iconCls: 'icon-save',
@@ -25,8 +85,8 @@ function initTable(queryData) {
         collapsible: true,
         pagination: true,
         rownumbers: true, //行号
-        idField: 'id',
-        sortName: 'name',
+        idField: 'fid',
+        sortName: 'fmenuName',
         sortOrder: 'desc',
         queryParams: queryData,  //异步查询的参数
         onLoadSuccess: function (data) {
@@ -35,37 +95,37 @@ function initTable(queryData) {
         columns: [[
             { field: "ck", checkbox: true },
             {
-                field: 'name', title: 'Fname', width: 60, align: 'center', formatter: function (value) {
+                field: 'fmenuName', title: '菜单名称', width: 60, align: 'center', formatter: function (value) {
                     return value.length == 0 ? "" : value;
                 }
             }
             ,
             {
-                field: 'pwd', title: 'pwd', width: 60, align: 'center', formatter: function (value) {
+                field: 'furl', title: 'URL', width: 60, align: 'center', formatter: function (value) {
                     return value == 0 ? "" : value;
                 }
             },
             {
-                field: 'mobile', title: 'Mobile', width: 60, align: 'center', formatter: function (value) {
+                field: 'ficon', title: 'ICON', width: 60, align: 'center', formatter: function (value) {
                     return value == 0 ? "" : value;
                 }
             }
 
             ,
             {
-                field: 'id', title: 'id', width: 60, align: 'center', formatter: function (value) {
+                field: 'fauthorityVal', title: 'fauthorityVal', width: 60, align: 'center', formatter: function (value) {
                     return value == 0 ? "" : value;
                 }
             }
             ,
             {
-                field: 'adress', title: 'adress',width: 60, formatter: function (value) {
+                field: 'ftype', title: 'ftype',width: 60, formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'description', title: 'description',width: 60, formatter: function (value) {
+                field: 'fdescription', title: 'fdescription',width: 60, formatter: function (value) {
                     return value;
                 }
             }
@@ -76,15 +136,8 @@ function initTable(queryData) {
 }
 //主要目的用于点击链接过来加载
 function searchFun1() { 
-    var queryData = {
-//        FStartTime: $("#txtStartTime").datebox('getValue'),
-//        FEndTime: $("#txtEndTime").datebox('getValue'),
-    	"user.id": $("#txtFname").val(),
-        "user.name": $("#txtFname").val(),
-        "user.Mobile": $("#txtFMobile").val(),
-        "user.Adress": $("#txtFAddress").val()
-    };
-    initTable(queryData);    
+
+    //initTable();    
 }
 
 function searchFun() {
@@ -160,7 +213,7 @@ function AddUser() {
     
     //$.messager.alert("提示", postData, "info");
     //发送异步请求到后台保存分组数据
-    $.post("/web1/MenuFun.action", postData, function (data) {
+    $.post("/web1/MenuAdd.action", postData, function (data) {
     	debugger;
     	
     	
@@ -222,6 +275,8 @@ function deleteUser() {
     }
 }
 
+//折叠展开
+$("#wrap").toggle(function () { $("#dgMenu").treegrid("collapseAll"); }, function () { $("#dgMenu").treegrid("expandAll"); });
 
 function refresh() {
     $("#dgFeedReport").datagrid('reload');

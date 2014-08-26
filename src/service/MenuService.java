@@ -8,6 +8,8 @@ public interface MenuService {
 	
 	public String ListPage();
 	
-	public String AddMenu();
+	public String Add();
+	
+	public String List();
 	
 }

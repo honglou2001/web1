@@ -2,13 +2,14 @@ package domain;
 //default package
 
 import java.sql.Time;
+import java.util.Collection;
 
 
 /**
 * AuthorityMenu entity. @author MyEclipse Persistence Tools
 */
 
-public class AuthorityMenu {
+public class AuthorityMenu extends BaseEntity {
 
 
 	 // Fields    
@@ -30,10 +31,18 @@ public class AuthorityMenu {
 	  private Boolean fisDeleted;
 	  private Boolean fisFixed;
 	  private String fdescription;
-	
-	 // Property accessors
-	
-	 public String getFid() {
+	  
+//	  private Collection<AuthorityMenu> children;
+//	
+//	  public Collection<AuthorityMenu> getChildren() {
+//		return children;
+//	  }
+//
+//	  public void setChildren(Collection<AuthorityMenu> children) {
+//		this.children = children;
+//	  }
+
+	public String getFid() {
 	     return this.fid;
 	 }
 	 

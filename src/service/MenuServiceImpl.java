@@ -1,14 +1,17 @@
 package service;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.opensymphony.xwork2.ActionSupport;
+import javax.servlet.http.HttpServletRequest;
+import org.apache.struts2.ServletActionContext;
+import bean.Constants;
 
 import dao.MenuDaoIml;
-import domain.AuthorityMenu;;
+import domain.AuthorityMenu;
 
-public class MenuServiceImpl  extends ActionSupport implements MenuService {
+public class MenuServiceImpl  extends BaseService implements MenuService {
 	
 	/**
 	 * 
@@ -17,26 +20,6 @@ public class MenuServiceImpl  extends ActionSupport implements MenuService {
 
 	private AuthorityMenu menu;	
 	
-	private Map<String,Object> dataMap;
-	
-	private String message;  
-	
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-	public Map<String, Object> getDataMap() {
-		return dataMap;
-	}
-
-	public void setDataMap(Map<String, Object> dataMap) {
-		this.dataMap = dataMap;
-	}
-
 	public AuthorityMenu getMenu() {
 		return menu;
 	}
@@ -54,7 +37,17 @@ public class MenuServiceImpl  extends ActionSupport implements MenuService {
 	public void setMenuDao(MenuDaoIml menuDao) {
 		this.menuDao = menuDao;
 	}
+	
+	private Collection<AuthorityMenu> menus;
 
+	public Collection<AuthorityMenu> getMenus() {
+		return menus;
+	}
+
+	public void setMenus(Collection<AuthorityMenu> menus) {
+		this.menus = menus;
+	}
+	
 	@Override
 	public String ListPage() {
 				 
@@ -62,7 +55,7 @@ public class MenuServiceImpl  extends ActionSupport implements MenuService {
 	}
 	
 	@Override
-	public String AddMenu() {
+	public String Add() {
 
 	  if(menu.getFid() == null || menu.getFid().length() <= 0){		
 		  menu.setFparentId("222");
@@ -83,6 +76,40 @@ public class MenuServiceImpl  extends ActionSupport implements MenuService {
 	  dataMap.put("message", this.message);
 	  
 	  return SUCCESS;
+	}
+	
+	@Override
+	public String List()
+	{
+		// dataMap中的数据将会被Struts2转换成JSON字符串，所以这里要先清空其中的数据
+		dataMap = new HashMap<String, Object>();		
+
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String path=request.getRequestURI();
+		String queryInfo=request.getQueryString();
+		System.out.println(path);
+		System.out.println("请求的URL"+path +queryInfo);
+				       
+		int offset = this.getPage();
+		
+		System.out.println("offset:"+offset);
+		
+		int pagesize = Constants.PAGE_SIZE;
+		
+		if (offset>1){
+			offset = (offset-1) * pagesize;
+		}
+		
+		menus = menuDao.getAll(offset, pagesize);
+		
+		int size = menuDao.GetMenuCount();
+				
+		dataMap.put("rows", menus);
+		// 放入一个是否操作成功的标识
+		dataMap.put("total", size);
+		// 返回结果
+		return SUCCESS;
+		
 	}
 	
 }

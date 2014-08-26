@@ -1,6 +1,6 @@
 package domain;
 
-public class User {
+public class User  extends BaseEntity{
 
 	private String id;
 	private String name;

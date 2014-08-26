@@ -51,7 +51,7 @@
 		<action name="Menu" class="SPMenuAction" method="ListPage">
             <result>/Users/Menu.jsp</result>
         </action> 
- 		<action name="MenuFun" class="SPMenuAction" method="AddMenu">
+ 		<action name="Menu*" class="SPMenuAction" method="{1}">
  			<result type="json">
  				<param name="root">dataMap</param>
  			</result>	
