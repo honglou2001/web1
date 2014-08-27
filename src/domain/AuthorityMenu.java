@@ -14,7 +14,7 @@ public class AuthorityMenu extends BaseEntity {
 
 	 // Fields    
 	  private String fid;
-	  private String fparentId;
+//	  private String fparentId;
 	  private Integer fincreaseId;
 	  private String fmenuName;
 	  private String furl;
@@ -31,6 +31,7 @@ public class AuthorityMenu extends BaseEntity {
 	  private Boolean fisDeleted;
 	  private Boolean fisFixed;
 	  private String fdescription;
+	  private String _parentId;
 	  
 //	  private Collection<AuthorityMenu> children;
 //	
@@ -49,14 +50,14 @@ public class AuthorityMenu extends BaseEntity {
 	 public void setFid(String fid) {
 	     this.fid = fid;
 	 }
-	
-	 public String getFparentId() {
-	     return this.fparentId;
-	 }
-	 
-	 public void setFparentId(String fparentId) {
-	     this.fparentId = fparentId;
-	 }
+//	
+//	 public String getFparentId() {
+//	     return this.fparentId;
+//	 }
+//	 
+//	 public void setFparentId(String fparentId) {
+//	     this.fparentId = fparentId;
+//	 }
 	
 	 public Integer getFincreaseId() {
 	     return this.fincreaseId;
@@ -185,5 +186,13 @@ public class AuthorityMenu extends BaseEntity {
 	 public void setFdescription(String fdescription) {
 	     this.fdescription = fdescription;
 	 }
+
+	public String get_parentId() {
+		return _parentId;
+	}
+
+	public void set_parentId(String _parentId) {
+		this._parentId = _parentId;
+	}
 
 }

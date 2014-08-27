@@ -29,8 +29,13 @@
      <div id="div_AddUser" toolbar="#div_Toolbar" class="easyui-dialog" title="菜单信息" style="width: 400px; height: 400px; left: 100px; top: 100px;" icon="icon-edit" closed="true">
         <form id="frmUser" method="post" novalidate="novalidate">
         <input type="hidden" id="fid" name="menu.fid"/>
+        <input type="hidden" id="_parentId" name="menu._parentId"/>
             <div style="height: 180px">
                 <p>&nbsp;</p>
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">父级名称:</span>
+                    <input type="text" id="fparentName" name="fparentName" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                </div>                
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">菜单名称:</span>
                     <input type="text" id="fmenuName" name="menu.fmenuName" class="easyui-validatebox" style="width: 180px" required="true" value="" />
@@ -58,7 +63,7 @@
 
 
     <div id="div_Menu">
-            <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add();">增加</a>
+            <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add(-1);">增加</a>
                     <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="UpdateInfo()">修改</a>
                     <a href="#" id="txbDelte" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="deleteUser()">删除</a>
         <a href="#" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true" onclick="refresh();">刷新</a>

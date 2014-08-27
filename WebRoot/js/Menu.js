@@ -11,12 +11,12 @@ $(function () {
 
 
 function initTable() {
-	
+
 	$('#dgMenu').treegrid({
-		title:'TreeGrid with Footer',
+		//title:'TreeGrid with Footer',
 		iconCls:'icon-ok',
 		 width: "auto",
-		height:750,
+		 height: 750,
 		rownumbers: true,
 		animate:true,
 		collapsible:true,
@@ -26,6 +26,7 @@ function initTable() {
 		treeField:'fmenuName',
 		showFooter:false,
 		columns:[[
+		    { field: "ck", checkbox: true },
             {title:'菜单名称',field:'fmenuName',width:180},
             {
                 field: "ftype", title: "类型", align: "left", width: "50",
@@ -198,6 +199,13 @@ function clearbox() {
 }
 
 function add(id) {
+	var row = id == -1 ? $("#dgMenu").treegrid("getSelected") : $("#dgMenu").treegrid("find", id);
+    $('#div_AddUser input[type="text"],#div_AddUser textarea').val('');
+    $('#_parentId').val(row ? row.fid : '');
+    
+    //$.messager.alert("提示", row.fid, "info");
+    
+    $('#fparentName').val(row ? row.fmenuName : '无上级菜单');
     $('#div_AddUser').dialog('open');
 }
 //实现分组的修改

@@ -9,7 +9,7 @@
     		<id name="fid" type="java.lang.String">	
       			<column name="FID" length="50" />
 			</id>
-           <property name="fparentId" type="java.lang.String">
+           <property name="_parentId" type="java.lang.String">
                <column name="FParentID" length="50" />
            </property>
            <property name="fincreaseId" type="java.lang.Integer">
