@@ -156,17 +156,36 @@ function searchFun() {
 //修改分组的信息
 function UpdateInfo() {
     //首先取出来用户选择的数据的ID
-    var rows = $("#dgFeedReport").datagrid("getSelections");
+    var row = $("#dgMenu").treegrid("getSelections")
     //首先取出来值判断用户只能选择一个
-    if (rows.length != 1) {
-        $.messager.alert("提示", "每次只能修改一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
+    if (row.length != 1) {
+        $.messager.alert("提示", "每次只能修改一条，你已经选择了<font color='red'  size='6'>" + row.length + "</font>条。", "warning");
         return;
     }
+   
 
     //处理修改的信息，弹出修改的对话框,然后显示选择的分组的详细信息             
     $('#div_AddUser').dialog('open');
     //绑定修改显示详细信息的方法
-    BindShowUpdateInfo();
+ 
+    var parentRow = $("#dgMenu").treegrid("getParent", row[0].fid);
+    $("#_parentId").val(parentRow ? parentRow.fid : "");
+    $("#fparentName").val(parentRow ? parentRow.fmenuName : "无上级菜单");
+      
+    $("#fid").val(row ? row[0].fid : "");
+    $("#fmenuName").val(row ? row[0].fmenuName : "");
+    $("#furl").val(row ? row[0].furl : "");
+    $("#ficon").val(row ? row[0].ficon : "");
+    $("#fauthorityVal").val(row ? row[0].fauthorityVal : "");
+    $("#flevel").val(row ? row[0].flevel : "");  
+    $("#fdescription").val(row ? row[0].fdescription : "");
+
+}
+
+function initComboTree(authority) {
+    $('#fauthorityVal').combotree({
+        url: '/web1/MenuAutTree/'
+    });
 }
 
 //绑定修改显示详细信息的方法

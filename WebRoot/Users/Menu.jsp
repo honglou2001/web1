@@ -29,7 +29,7 @@
      <div id="div_AddUser" toolbar="#div_Toolbar" class="easyui-dialog" title="菜单信息" style="width: 400px; height: 400px; left: 100px; top: 100px;" icon="icon-edit" closed="true">
         <form id="frmUser" method="post" novalidate="novalidate">
         <input type="hidden" id="fid" name="menu.fid"/>
-        <input type="hidden" id="_parentId" name="menu._parentId"/>
+        <input type="hidden" id="_parentId" name="menu._parentId" value="00000000-0000-0000-0000-000000000000"/>
             <div style="height: 180px">
                 <p>&nbsp;</p>
                 <div class="a_left">
@@ -48,6 +48,14 @@
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">菜单图标:</span>
                     <input type="text" id="ficon" name="menu.ficon" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                 </div>
+              <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">菜单权限:</span>
+                    <input id="fauthorityVal" name="menu.fauthorityVal" class="easyui-combotree" multiple style="width: 180px" />
+                </div>                
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">排列序号:</span>
+                    <input type="text" id="flevel" name="menu.flevel" class="easyui-validatebox" style="width: 180px" value="" />
+                </div>                
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">描述:</span>
                     <input type="text" id="fdescription" name="menu.fdescription" class="easyui-validatebox" style="width: 180px" required="true" value="" />

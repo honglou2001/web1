@@ -58,7 +58,6 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 	public String Add() {
 
 	  if(menu.getFid() == null || menu.getFid().length() <= 0){		
-		  menu.set_parentId("222");
 		  menu.setFauthorityVal(111L);
 		  menu.setFsysId(1);
 		  menuDao.Add(menu);

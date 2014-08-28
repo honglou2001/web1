@@ -20,8 +20,7 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 	{
 		try{
 		menu.setFid(UUID.randomUUID().toString());
-		menu.set_parentId("00000000-0000-0000-0000-000000000000");
-		
+
 		getSession().save(menu);
 		}
 		catch(Exception ex)
