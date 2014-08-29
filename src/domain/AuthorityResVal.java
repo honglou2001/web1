@@ -1,35 +1,35 @@
 package domain;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 public class AuthorityResVal extends BaseEntity {
 
 	private String fid;
-	private String fsysid;
-	private String id;
+	private Integer fsysid;
+	private Long id;
 	private String text;
-	private Collection<AuthorityResVal> authotree;
+	private Collection<AuthorityResVal> children = new ArrayList<AuthorityResVal>();
 	
+
 	public String getFid() {
-		return fid;
-		
-		
+		return fid;		
 	}
 	public void setFid(String fid) {
 		this.fid = fid;
 	}
 	
-	public String getFsysid() {
+	public Integer getFsysid() {
 		return fsysid;
 	}
-	public void setFsysid(String fsysid) {
+	public void setFsysid(Integer fsysid) {
 		this.fsysid = fsysid;
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	
@@ -40,10 +40,10 @@ public class AuthorityResVal extends BaseEntity {
 		this.text = text;
 	}
 	
-	public Collection<AuthorityResVal> getAuthotree() {
-		return authotree;
+	public Collection<AuthorityResVal> getChildren() {
+		return children;
 	}
-	public void setAuthotree(Collection<AuthorityResVal> authotree) {
-		this.authotree = authotree;
+	public void setChildren(Collection<AuthorityResVal> children) {
+		this.children = children;
 	}
 }

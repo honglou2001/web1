@@ -162,29 +162,41 @@ function UpdateInfo() {
         $.messager.alert("提示", "每次只能修改一条，你已经选择了<font color='red'  size='6'>" + row.length + "</font>条。", "warning");
         return;
     }
-   
-
+    
     //处理修改的信息，弹出修改的对话框,然后显示选择的分组的详细信息             
     $('#div_AddUser').dialog('open');
     //绑定修改显示详细信息的方法
- 
+    var menuid = row ? row[0].fid:"";
+    
     var parentRow = $("#dgMenu").treegrid("getParent", row[0].fid);
     $("#_parentId").val(parentRow ? parentRow.fid : "");
     $("#fparentName").val(parentRow ? parentRow.fmenuName : "无上级菜单");
       
-    $("#fid").val(row ? row[0].fid : "");
+    $("#fid").val(menuid);
     $("#fmenuName").val(row ? row[0].fmenuName : "");
     $("#furl").val(row ? row[0].furl : "");
     $("#ficon").val(row ? row[0].ficon : "");
     $("#fauthorityVal").val(row ? row[0].fauthorityVal : "");
     $("#flevel").val(row ? row[0].flevel : "");  
     $("#fdescription").val(row ? row[0].fdescription : "");
+    
+    initComboTree(menuid);
 
 }
 
-function initComboTree(authority) {
+function initComboTree(menuid) {
     $('#fauthorityVal').combotree({
-        url: '/web1/MenuAutTree/'
+         url: '/web1/CbTreeVal.action',
+		 valueField: 'id',
+	     textField: 'text',
+	     required: true,
+	     editable: false,
+	     onClick: function (node) { 
+	         
+	     }, //全部折叠
+	     onLoadSuccess: function (node, data) {
+	        
+	     }	
     });
 }
 
@@ -226,6 +238,8 @@ function add(id) {
     
     $('#fparentName').val(row ? row.fmenuName : '无上级菜单');
     $('#div_AddUser').dialog('open');
+    
+    initComboTree("");
 }
 //实现分组的修改
 function AddUser() {
@@ -236,12 +250,26 @@ function AddUser() {
         return;
     }
     //获取需要传递的参数传递给前台
-    var postData = $("#frmUser").serializeArray();
+    //var postData = $("#frmUser").serializeArray();
+    //debugger;
+    var comval = $('#fauthorityVal').combotree('getValues');
+    var longval = GetComVal(comval); 
+    var postData = {
+     	 "menu.fid": $("#fid").val(),	
+     	 "menu._parentId": $("#_parentId").val(),	
+         "menu.fmenuName": $("#fmenuName").val(),
+         "menu.furl": $("#furl").val(),
+         "menu.fsysId": 1,//$("#fsysId").val(),
+         "menu.ficon": $("#ficon").val(),
+         "menu.fauthorityVal":longval,
+         "menu.flevel": $("#flevel").val(),
+         "menu.fdescription": $("#fdescription").val()
+     };
     
     //$.messager.alert("提示", postData, "info");
     //发送异步请求到后台保存分组数据
     $.post("/web1/MenuAdd.action", postData, function (data) {
-    	debugger;
+    	//debugger;
     	
     	
         if (data.success == true) {
@@ -251,12 +279,24 @@ function AddUser() {
             $("#div_AddUser").dialog("close");
             refresh();
             $("#frmUser input,textarea").val('');
+
         }
         else {
             $.messager.alert('提示', data, 'error');
         }
     });
 }
+
+function GetComVal(strArr) {	
+	//var s = str.split(",");
+	var sum = 0;
+	  $.each(strArr,function(key,val){
+		  sum = sum|val;
+	  });	
+	  
+	 return sum; 
+}
+
 //实现删除数据
 function deleteUser() {
     //得到用户选择的数据的ID

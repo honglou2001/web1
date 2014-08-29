@@ -14,4 +14,6 @@ public interface MenuDao {
 	public List<AuthorityMenu> getAll(int offset, int length);
 	
 	public int GetMenuCount();
+	
+	public void Update(AuthorityMenu menu);
 }

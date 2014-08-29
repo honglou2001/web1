@@ -1,6 +1,12 @@
 package service;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -39,5 +45,27 @@ public class BaseService  extends ActionSupport {
 
 	public void setPage(int page) {
 		this.page = page;
-	}	
+	}
+	
+	/**
+     * 获得HttpServletResponse对象
+     * 
+     * @return
+     */
+    public static HttpServletResponse getResponse() {
+        HttpServletResponse response = ServletActionContext.getResponse();
+        response.setContentType("text/html;charset=UTF-8");
+        return response;
+    }
+ 
+    public PrintWriter getPrintWriter() {
+        PrintWriter pw = null;
+        try {
+            pw = getResponse().getWriter();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return pw;
+    }
+
 }

@@ -29,6 +29,7 @@
      <div id="div_AddUser" toolbar="#div_Toolbar" class="easyui-dialog" title="菜单信息" style="width: 400px; height: 400px; left: 100px; top: 100px;" icon="icon-edit" closed="true">
         <form id="frmUser" method="post" novalidate="novalidate">
         <input type="hidden" id="fid" name="menu.fid"/>
+        <input type="hidden" id="fsysId" name="menu.fsysId" value="1"/>
         <input type="hidden" id="_parentId" name="menu._parentId" value="00000000-0000-0000-0000-000000000000"/>
             <div style="height: 180px">
                 <p>&nbsp;</p>

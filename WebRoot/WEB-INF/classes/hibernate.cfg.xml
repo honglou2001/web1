@@ -16,6 +16,8 @@
         <property name="hbm2ddl.auto">update</property> <!-- 更新数据库 -->  
         <mapping resource="domain/User.hbm.xml"/> <!-- 指定映射文件 -->  
         <mapping resource="domain/AuthorityMenu.hbm.xml"/> <!-- 指定映射文件 -->  
+        <mapping resource="domain/AuthorityResVal.hbm.xml"/> <!-- 指定映射文件 -->  
+        
     
     </session-factory>
 

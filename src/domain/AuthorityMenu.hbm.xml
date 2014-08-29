@@ -12,7 +12,7 @@
            <property name="_parentId" type="java.lang.String">
                <column name="FParentID" length="50" />
            </property>
-           <property name="fincreaseId" type="java.lang.Integer">
+           <property name="fincreaseId" type="java.lang.Integer" update="false">
                <column name="FIncreaseID" />
            </property>
            <property name="fmenuName" type="java.lang.String">
@@ -33,13 +33,13 @@
            <property name="fcreateUser" type="java.lang.String">
                <column name="FCreateUser" length="50" />
            </property>
-           <property name="fcreateTime" type="java.sql.Time">
+           <property name="fcreateTime" type="java.sql.Timestamp">
                <column name="FCreateTime" length="8" />
            </property>
            <property name="fmodifyUser" type="java.lang.String">
                <column name="FModifyUser" length="50" />
            </property>
-           <property name="fmodifyTime" type="java.lang.String">
+           <property name="fmodifyTime" type="java.sql.Timestamp">
                <column name="FModifyTime" length="50" />
            </property>
            <property name="flevel" type="java.lang.Integer">

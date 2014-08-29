@@ -2,6 +2,7 @@ package domain;
 //default package
 
 import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.Collection;
 
 
@@ -22,9 +23,9 @@ public class AuthorityMenu extends BaseEntity {
 	  private Long fauthorityVal;
 	  private Integer fsysId;
 	  private String fcreateUser;
-	  private Time fcreateTime;
+	  private Timestamp fcreateTime;
 	  private String fmodifyUser;
-	  private String fmodifyTime;
+	  private Timestamp fmodifyTime;
 	  private Integer flevel;
 	  private Integer ftype;
 	  private Integer fstate;
@@ -115,11 +116,11 @@ public class AuthorityMenu extends BaseEntity {
 	     this.fcreateUser = fcreateUser;
 	 }
 	
-	 public Time getFcreateTime() {
+	 public Timestamp getFcreateTime() {
 	     return this.fcreateTime;
 	 }
 	 
-	 public void setFcreateTime(Time fcreateTime) {
+	 public void setFcreateTime(Timestamp fcreateTime) {
 	     this.fcreateTime = fcreateTime;
 	 }
 	
@@ -131,11 +132,11 @@ public class AuthorityMenu extends BaseEntity {
 	     this.fmodifyUser = fmodifyUser;
 	 }
 	
-	 public String getFmodifyTime() {
+	 public Timestamp getFmodifyTime() {
 	     return this.fmodifyTime;
 	 }
 	 
-	 public void setFmodifyTime(String fmodifyTime) {
+	 public void setFmodifyTime(Timestamp fmodifyTime) {
 	     this.fmodifyTime = fmodifyTime;
 	 }
 	

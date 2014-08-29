@@ -1,5 +1,7 @@
 package dao;
 
+import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -8,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
 import domain.AuthorityMenu;
+import domain.AuthorityResVal;
 import domain.User;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -52,4 +55,29 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 	    int total = (new Integer(query.uniqueResult().toString()));	    
 		return total;
 	}
+	
+	
+	public List<AuthorityResVal> getResVal()
+	{
+		String hql = "from AuthorityResVal";		
+		Query query =getSession().createQuery(hql);		
+		query.setFirstResult(1);
+		query.setMaxResults(1000);
+		@SuppressWarnings("unchecked")
+		List<AuthorityResVal> list = query.list();
+		return list;
+	}
+	
+	@Override
+	public void Update(AuthorityMenu menu) {
+		try{
+		//menu.setFmodifyTime(new Timestamp(System.currentTimeMillis()));  
+			getSession().update(menu);		
+		}
+		catch(Exception ex)
+		{			
+			ex.printStackTrace();
+			System.err.println(ex.toString());
+		}
+	}	
 }

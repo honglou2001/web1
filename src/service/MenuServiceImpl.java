@@ -5,11 +5,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONArray;
+
 import org.apache.struts2.ServletActionContext;
 import bean.Constants;
 
 import dao.MenuDaoIml;
 import domain.AuthorityMenu;
+import domain.AuthorityResVal;
 
 public class MenuServiceImpl  extends BaseService implements MenuService {
 	
@@ -20,6 +24,16 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 
 	private AuthorityMenu menu;	
 	
+	private Collection<AuthorityResVal> resVal;
+	
+	public Collection<AuthorityResVal> getResVal() {
+		return resVal;
+	}
+
+	public void setResVal(Collection<AuthorityResVal> resVal) {
+		this.resVal = resVal;
+	}
+
 	public AuthorityMenu getMenu() {
 		return menu;
 	}
@@ -58,14 +72,13 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 	public String Add() {
 
 	  if(menu.getFid() == null || menu.getFid().length() <= 0){		
-		  menu.setFauthorityVal(111L);
-		  menu.setFsysId(1);
+		  System.out.println("offset:"+menu.getFauthorityVal());		 
 		  menuDao.Add(menu);
 		  this.message ="新增成功";
 
 	  }else
 	  {
-		 
+		  menuDao.Update(menu);
 		  this.message ="修改成功";
 	  }
 	  
@@ -107,8 +120,28 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 		// 放入一个是否操作成功的标识
 		dataMap.put("total", size);
 		// 返回结果
-		return SUCCESS;
-		
+		return SUCCESS;		
 	}
 	
+	public String AutTree()
+	{			
+
+		HttpServletRequest request=ServletActionContext.getRequest();
+		String path=request.getRequestURI();
+		//String queryInfo=request.getQueryString();
+		
+		System.out.println(path+"AutTree");
+			
+		resVal = menuDao.getResVal();
+				
+//		String json = JSONArray.fromObject(resVal).toString();//转化为JSON
+//		
+//        getPrintWriter().write(json);//
+//        
+//		dataMap.put("rows", resVal);
+//		// 放入一个是否操作成功的标识
+//		dataMap.put("total", resVal.size());
+		
+		return SUCCESS;		
+	}	
 }
