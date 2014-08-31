@@ -102,17 +102,7 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 		System.out.println(path);
 		System.out.println("请求的URL"+path +queryInfo);
 				       
-		int offset = this.getPage();
-		
-		System.out.println("offset:"+offset);
-		
-		int pagesize = Constants.PAGE_SIZE;
-		
-		if (offset>1){
-			offset = (offset-1) * pagesize;
-		}
-		
-		menus = menuDao.getAll(offset, pagesize);
+		menus = menuDao.getAll(0, 10000);
 		
 		int size = menuDao.GetMenuCount();
 				
@@ -131,8 +121,12 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 		//String queryInfo=request.getQueryString();
 		
 		System.out.println(path+"AutTree");
-			
-		resVal = menuDao.getResVal();
+		
+		long ival = 0;
+		 if(menu.getFauthorityVal() != null && menu.getFauthorityVal()> 0){		
+			 ival = menu.getFauthorityVal();
+		 }
+		resVal = menuDao.getResVal(ival);
 				
 //		String json = JSONArray.fromObject(resVal).toString();//转化为JSON
 //		

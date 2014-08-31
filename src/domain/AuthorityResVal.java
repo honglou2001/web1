@@ -10,8 +10,15 @@ public class AuthorityResVal extends BaseEntity {
 	private Long id;
 	private String text;
 	private Collection<AuthorityResVal> children = new ArrayList<AuthorityResVal>();
+	private Boolean checked = false;
 	
 
+	public Boolean getChecked() {
+		return checked;
+	}
+	public void setChecked(Boolean checked) {
+		this.checked = checked;
+	}
 	public String getFid() {
 		return fid;		
 	}

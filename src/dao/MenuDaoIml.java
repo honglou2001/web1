@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -57,15 +58,30 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 	}
 	
 	
-	public List<AuthorityResVal> getResVal()
+	public List<AuthorityResVal> getResVal(long fauthorityVal)
 	{
 		String hql = "from AuthorityResVal";		
 		Query query =getSession().createQuery(hql);		
-		query.setFirstResult(1);
+		query.setFirstResult(0);
 		query.setMaxResults(1000);
 		@SuppressWarnings("unchecked")
+		
 		List<AuthorityResVal> list = query.list();
-		return list;
+		
+		List<AuthorityResVal> listNew = new ArrayList<AuthorityResVal>();  
+
+		AuthorityResVal revVal = null;
+		
+		for(int i = 0; i < list.size(); i++)  
+        {  
+			revVal = list.get(i);
+			
+			if((revVal.getId()&fauthorityVal) == revVal.getId()){
+				revVal.setChecked(true);
+			}
+				listNew.add(revVal);  
+        }  		
+		return listNew;
 	}
 	
 	@Override

@@ -167,7 +167,7 @@ function UpdateInfo() {
     $('#div_AddUser').dialog('open');
     //绑定修改显示详细信息的方法
     var menuid = row ? row[0].fid:"";
-    
+    var authorityVal = row ? row[0].fauthorityVal : "";
     var parentRow = $("#dgMenu").treegrid("getParent", row[0].fid);
     $("#_parentId").val(parentRow ? parentRow.fid : "");
     $("#fparentName").val(parentRow ? parentRow.fmenuName : "无上级菜单");
@@ -176,26 +176,29 @@ function UpdateInfo() {
     $("#fmenuName").val(row ? row[0].fmenuName : "");
     $("#furl").val(row ? row[0].furl : "");
     $("#ficon").val(row ? row[0].ficon : "");
-    $("#fauthorityVal").val(row ? row[0].fauthorityVal : "");
+    //$("#fauthorityVal").val(authorityVal);
     $("#flevel").val(row ? row[0].flevel : "");  
     $("#fdescription").val(row ? row[0].fdescription : "");
     
-    initComboTree(menuid);
+    initComboTree(authorityVal);
 
 }
 
-function initComboTree(menuid) {
+function initComboTree(authorityVal) {
     $('#fauthorityVal').combotree({
-         url: '/web1/CbTreeVal.action',
+         url: '/web1/CbTreeVal.action?menu.fauthorityVal='+authorityVal,
 		 valueField: 'id',
 	     textField: 'text',
 	     required: true,
 	     editable: false,
+	     async: false,
+	     cache: false,
 	     onClick: function (node) { 
 	         
 	     }, //全部折叠
-	     onLoadSuccess: function (node, data) {
-	        
+	     onLoadSuccess: function (node, data) {	    	
+//	    	 debugger;
+//	    	 data[1].checked = true;
 	     }	
     });
 }
@@ -269,9 +272,7 @@ function AddUser() {
     //$.messager.alert("提示", postData, "info");
     //发送异步请求到后台保存分组数据
     $.post("/web1/MenuAdd.action", postData, function (data) {
-    	//debugger;
-    	
-    	
+    	//debugger;  	
         if (data.success == true) {
             //添加成功  1.关闭弹出层，2.刷新DataGird
         	 $.messager.alert('提示', data.message, 'info');
@@ -346,8 +347,8 @@ function deleteUser() {
 $("#wrap").toggle(function () { $("#dgMenu").treegrid("collapseAll"); }, function () { $("#dgMenu").treegrid("expandAll"); });
 
 function refresh() {
-    $("#dgFeedReport").datagrid('reload');
-    $("#dgFeedReport").datagrid('clearSelections');
+    $("#dgMenu").treegrid('reload');
+    $("#dgMenu").treegrid('clearSelections');
 }
 
 function cancel() {
