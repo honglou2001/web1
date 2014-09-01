@@ -206,8 +206,15 @@ public class UserDaoIml  implements  UserDao{
 	@Override
 	public void Delete(String id) {
 		
+		//getSession().delete("from Customer as c where c.id>8"); 
 		//getSession.delete(this.car.getCarid());
 		
+//	   String hql="delete from User as p where p.id=?";
+//	   Query query=getSession().createQuery(hql);
+//	   query.setString(0, id);
+//	   query.executeUpdate();
+	   //getSession().beginTransaction().commit();
+		   
 		getSession().delete(
 				getSession().load(User.class, id)	
 	    );

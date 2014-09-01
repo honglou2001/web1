@@ -108,10 +108,26 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 				
 		dataMap.put("rows", menus);
 		// 放入一个是否操作成功的标识
-		dataMap.put("total", size);
+		dataMap.put("total", 1);
+		
+		this.message ="成功删除";
 		// 返回结果
 		return SUCCESS;		
 	}
+	
+	public String Delete()
+	{
+		if(menu.getFid() != null && menu.getFid().length()>0){	
+			menuDao.Delete(menu.getFid());			
+			this.message ="删除成功";			
+			dataMap = new HashMap<String, Object>();
+			dataMap.put("id", menu.getFid());
+			dataMap.put("success", true);
+			dataMap.put("message", this.message);
+		 }		  
+	    return SUCCESS;
+	}	
+	
 	
 	public String AutTree()
 	{			

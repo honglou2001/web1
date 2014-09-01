@@ -84,6 +84,14 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 		return listNew;
 	}
 	
+	public void Delete(String id) {
+			   
+		getSession().delete(
+				getSession().load(AuthorityMenu.class, id)	
+	    );
+		
+	}
+	
 	@Override
 	public void Update(AuthorityMenu menu) {
 		try{

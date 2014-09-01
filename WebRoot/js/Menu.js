@@ -71,70 +71,7 @@ function initTable() {
 //    });
 }
 
-function initTable_del(queryData) {
-    $('#dgFeedReport').datagrid({
-        loadMsg: "数据加载中,请稍候……",
-        url: '/web1/MenuList.action',
-        width: "auto",
-        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 87,
-        iconCls: 'icon-save',
-        pageSize: 10,
-        nowrap: true,
-        fitColumns: true,
-        singleSelect:true,
-        striped: true,
-        collapsible: true,
-        pagination: true,
-        rownumbers: true, //行号
-        idField: 'fid',
-        sortName: 'fmenuName',
-        sortOrder: 'desc',
-        queryParams: queryData,  //异步查询的参数
-        onLoadSuccess: function (data) {
-           
-        },
-        columns: [[
-            { field: "ck", checkbox: true },
-            {
-                field: 'fmenuName', title: '菜单名称', width: 60, align: 'center', formatter: function (value) {
-                    return value.length == 0 ? "" : value;
-                }
-            }
-            ,
-            {
-                field: 'furl', title: 'URL', width: 60, align: 'center', formatter: function (value) {
-                    return value == 0 ? "" : value;
-                }
-            },
-            {
-                field: 'ficon', title: 'ICON', width: 60, align: 'center', formatter: function (value) {
-                    return value == 0 ? "" : value;
-                }
-            }
 
-            ,
-            {
-                field: 'fauthorityVal', title: 'fauthorityVal', width: 60, align: 'center', formatter: function (value) {
-                    return value == 0 ? "" : value;
-                }
-            }
-            ,
-            {
-                field: 'ftype', title: 'ftype',width: 60, formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fdescription', title: 'fdescription',width: 60, formatter: function (value) {
-                    return value;
-                }
-            }
-            
-      ]],              
-        toolbar: "#div_Menu"
-    });
-}
 //主要目的用于点击链接过来加载
 function searchFun1() { 
 
@@ -299,9 +236,9 @@ function GetComVal(strArr) {
 }
 
 //实现删除数据
-function deleteUser() {
+function deleteMenu() {
     //得到用户选择的数据的ID
-    var rows = $("#dgFeedReport").datagrid("getSelections");
+    var rows = $("#dgMenu").treegrid("getSelections");
     //首先判断用户是否已经选择了需要删除的数据,然后循环将用户选择的数据传递到后台
     if (rows.length >= 1) {
         //遍历出用户选择的数据的信息，这就是用户选择删除的分组ID的信息
@@ -309,22 +246,22 @@ function deleteUser() {
         var UserNames = "";
         for (var i = 0; i < rows.length; i++) {
             //异步将删除的ID发送到后台，后台删除之后，返回前台，前台刷洗表格
-            ids += rows[i].id + ",";
+            ids += rows[i].fid + ",";
             //获取用户选择的分组信息
-            UserNames += rows[i].name + ",";
+            UserNames += rows[i].fmenuName + ",";
         }
         //最后去掉最后的那一个,
         ids = ids.substring(0, ids.length - 1);
         UserNames = UserNames.substring(0, UserNames.length - 1);
         var postData = {
-        		fid: ids
+        		"menu.fid": ids
         }
 
         //然后确认发送异步请求的信息到后台删除数据
         $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + UserNames + "</font>吗？", function (DeleteUser) {
             if (DeleteUser) {
-                $.post("/web1/DelJson.action", postData, function (data) {
-                	debugger;
+                $.post("/web1/MenuDelete.action", postData, function (data) {
+                	//debugger;
                 	if (data.success == true) {
                         //添加成功  1.关闭弹出层，2.刷新DataGird
                     	$.messager.alert('提示', data.message, 'info');

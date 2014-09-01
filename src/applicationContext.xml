@@ -14,13 +14,58 @@
 	<!-- 启用spring注解支持 -->
 	<context:annotation-config />
 	
- 	<!-- 将hibernate数据源注入sessionFactory -->
-	<bean id="sessionFactory"
-		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-		<property name="configLocation"
-			value="classpath:hibernate.cfg.xml">
-		</property>
+	<!-- 配置Hibernate支持 -->
+<!--      <bean id="dataSource" -->
+<!--          class="org.apache.commons.dbcp.BasicDataSource"> -->
+<!--          <property name="driverClassName" value="com.mysql.jdbc.Driver"></property> -->
+<!--          <property name="url" value="jdbc:mysql://localhost:3306/dbtest"></property> -->
+<!--          <property name="username" value="root"></property> -->
+<!--          <property name="password" value="123456"></property> -->
+<!--      </bean> -->
+     
+	<bean id="dataSourceTarget" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="url" value="jdbc:mysql://localhost:3306/dbtest"></property>
+		<property name="username" value="root"></property>
+        <property name="password" value="123456"></property>
 	</bean>
+	
+	<bean id="dataSource" class="com.p6spy.engine.spy.P6DataSource">
+        <constructor-arg>
+            <ref local="dataSourceTarget"/>
+        </constructor-arg>
+   </bean>
+     
+     <bean id="sessionFactory"
+         class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+         <property name="dataSource">
+             <ref bean="dataSource" />
+         </property>
+         <property name="hibernateProperties">
+             <props>
+                 <prop key="hibernate.dialect">
+                     org.hibernate.dialect.MySQLDialect
+                 </prop>
+                 <prop key="hibernate.show_sql">true</prop>
+             </props>
+         </property>
+         <property name="mappingResources">
+             <list>
+                 <value>domain/User.hbm.xml</value>
+                 <value>domain/AuthorityMenu.hbm.xml</value>
+                 <value>domain/AuthorityResVal.hbm.xml</value>
+             </list>
+         </property>
+     </bean>
+	
+	
+ 	<!-- 将hibernate数据源注入sessionFactory -->
+<!-- 	<bean id="sessionFactory" -->
+<!-- 		class="org.springframework.orm.hibernate3.LocalSessionFactoryBean"> -->
+<!-- 		<property name="configLocation" -->
+<!-- 			value="classpath:hibernate.cfg.xml"> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 
  	<bean id="SPAddUserAction" class="service.UserServiceImpl"  scope="prototype">
  		 <property name="userDao" ref="refUserDao"></property>
