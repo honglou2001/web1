@@ -4,6 +4,8 @@ package domain;
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 
 /**
@@ -15,7 +17,7 @@ public class AuthorityMenu extends BaseEntity {
 
 	 // Fields    
 	  private String fid;
-//	  private String fparentId;
+	  private String fparentId;
 	  private Integer fincreaseId;
 	  private String fmenuName;
 	  private String furl;
@@ -33,7 +35,8 @@ public class AuthorityMenu extends BaseEntity {
 	  private Boolean fisFixed;
 	  private String fdescription;
 	  private String _parentId;
-	  
+	  private AuthorityMenu  menuparent;
+	  private Set<AuthorityMenu> children = new HashSet<AuthorityMenu>();
 //	  private Collection<AuthorityMenu> children;
 //	
 //	  public Collection<AuthorityMenu> getChildren() {
@@ -44,6 +47,23 @@ public class AuthorityMenu extends BaseEntity {
 //		this.children = children;
 //	  }
 
+
+	public Set<AuthorityMenu> getChildren() {
+		return children;
+	}
+
+	public void setChildren(Set<AuthorityMenu> children) {
+		this.children = children;
+	}
+
+	public AuthorityMenu getMenuparent() {
+		return menuparent;
+	}
+
+	public void setMenuparent(AuthorityMenu menuparent) {
+		this.menuparent = menuparent;
+	}
+
 	public String getFid() {
 	     return this.fid;
 	 }
@@ -51,14 +71,14 @@ public class AuthorityMenu extends BaseEntity {
 	 public void setFid(String fid) {
 	     this.fid = fid;
 	 }
-//	
-//	 public String getFparentId() {
-//	     return this.fparentId;
-//	 }
-//	 
-//	 public void setFparentId(String fparentId) {
-//	     this.fparentId = fparentId;
-//	 }
+	
+	 public String getFparentId() {
+	     return this.fparentId;
+	 }
+	 
+	 public void setFparentId(String fparentId) {
+	     this.fparentId = fparentId;
+	 }
 	
 	 public Integer getFincreaseId() {
 	     return this.fincreaseId;

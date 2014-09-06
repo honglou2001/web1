@@ -1,12 +1,8 @@
 package service;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,7 +15,7 @@ import dao.MenuDaoIml;
 import domain.AuthorityMenu;
 import domain.AuthorityResVal;
 
-public class MenuServiceImpl  extends BaseService implements MenuService {
+public class AuthRolesServiceImpl  extends BaseService implements AuthRolesService {
 	
 	/**
 	 * 
@@ -133,7 +129,7 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 	}	
 	
 	
-	public String ComAuth()
+	public String AutTree()
 	{			
 
 		HttpServletRequest request=ServletActionContext.getRequest();
@@ -156,58 +152,6 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 //		// 放入一个是否操作成功的标识
 //		dataMap.put("total", resVal.size());
 		
-		return SUCCESS;		
-	}	
-	
-	public String MenuResVal()
-	{			
-		List<AuthorityMenu> menus1 = menuDao.getAll(0, 10000);
-				
-		Iterator<AuthorityMenu> it = menus1.iterator(); // 获得一个迭代子
-		AuthorityMenu menuObj = null;
-		AuthorityMenu children1 = null;
-		
-		resVal = new ArrayList<AuthorityResVal>();  
-		
-		List<AuthorityResVal>  revValAll = menuDao.getResVal(0);
-		
-		while(it.hasNext())
-		{
-			AuthorityResVal item = new AuthorityResVal();		
-			
-			menuObj = it.next();	
-						
-			item.setText(menuObj.getFmenuName());
-			item.setId((long)menuObj.getFincreaseId());	
-						
-			Set<AuthorityMenu> menuchildren = menuObj.getChildren();
-			
-			Iterator<AuthorityMenu> childit = menuchildren.iterator();  
-			
-			
-			while (childit.hasNext()) {  
-				children1 = childit.next();  
-				 	
-				List<AuthorityResVal> itemchildren = new ArrayList<AuthorityResVal>();
-				
-				AuthorityResVal item1 = new AuthorityResVal();		
-				
-				item1.setText(children1.getFmenuName());
-				item1.setId((long)children1.getFincreaseId());				
-				
-				List<AuthorityResVal> resVal2 = menuDao.getResVal(children1.getFauthorityVal(),revValAll);
-				
-				item1.setChildren(resVal2);
-				
-				itemchildren.add(item1);
-				
-				item.setChildren(itemchildren);
-				
-			} 
-			resVal.add(item);
-			
-			
-		}		
 		return SUCCESS;		
 	}	
 }

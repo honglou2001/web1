@@ -17,7 +17,7 @@ import domain.User;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional 
-public class MenuDaoIml extends BaseDao implements  MenuDao{
+public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 		
 	@Override
 	public void Add(AuthorityMenu menu)
@@ -39,7 +39,7 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 	@Override
 	public List<AuthorityMenu> getAll(int offset, int length)
 	{
-		String hql = "from AuthorityMenu where _parentId ='' ";		
+		String hql = "from AuthorityMenu";		
 		Query query =getSession().createQuery(hql);		
 		query.setFirstResult(offset);
 		query.setMaxResults(length);
@@ -51,7 +51,7 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 	@Override
 	public int GetMenuCount()
 	{
-	    String hql = "select count(*) from AuthorityMenu  where _parentId ='' ";	    
+	    String hql = "select count(*) from AuthorityMenu";	    
 	    Query query =getSession().createQuery(hql);	    
 	    int total = (new Integer(query.uniqueResult().toString()));	    
 		return total;
@@ -80,33 +80,6 @@ public class MenuDaoIml extends BaseDao implements  MenuDao{
 				revVal.setChecked(true);
 			}
 				listNew.add(revVal);  
-        }  		
-		return listNew;
-	}
-	
-	
-	public List<AuthorityResVal> getResVal(long fauthorityVal,List<AuthorityResVal> list)
-	{		
-		List<AuthorityResVal> listNew = new ArrayList<AuthorityResVal>();  
-
-		AuthorityResVal revVal = null;
-		
-		for(int i = 0; i < list.size(); i++)  
-        {  
-			revVal = list.get(i);
-			
-			AuthorityResVal revValNew = new AuthorityResVal();
-			
-			revValNew.setChecked(false);
-			revValNew.setId(revVal.getId());
-			revValNew.setText(revVal.getText());
-			revValNew.setFid(revVal.getFid());
-			revValNew.setFsysid(revVal.getFsysid());
-			
-			if((revVal.getId()&fauthorityVal) == revVal.getId()){
-				//revValNew.setChecked(true);
-				listNew.add(revValNew);  
-			}				
         }  		
 		return listNew;
 	}

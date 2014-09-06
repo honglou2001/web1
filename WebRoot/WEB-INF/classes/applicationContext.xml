@@ -54,6 +54,7 @@
                  <value>domain/User.hbm.xml</value>
                  <value>domain/AuthorityMenu.hbm.xml</value>
                  <value>domain/AuthorityResVal.hbm.xml</value>
+                 <value>domain/AuthorityRoles.hbm.xml</value>
              </list>
          </property>
      </bean>

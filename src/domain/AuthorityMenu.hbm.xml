@@ -12,6 +12,9 @@
            <property name="_parentId" type="java.lang.String">
                <column name="FParentID" length="50" />
            </property>
+<!--             <property name="fparentId" type="java.lang.String"  update="false"  insert="false"> -->
+<!--                <column name="FParentID" length="50" /> -->
+<!--            </property>           -->
            <property name="fincreaseId" type="java.lang.Integer" update="false">
                <column name="FIncreaseID" />
            </property>
@@ -60,5 +63,11 @@
            <property name="fdescription" type="java.lang.String">
                <column name="FDescription" length="500" />
            </property>
+           <set name="children" inverse="true" lazy="false"> 
+			<key column="FParentID"></key> 
+			    <one-to-many class="domain.AuthorityMenu"/> 
+			</set> 
+           <many-to-one name="menuparent" column="FParentID" insert="false" update="false"  lazy="false"
+            class="domain.AuthorityMenu" not-found="ignore"></many-to-one>
     </class>
 </hibernate-mapping>

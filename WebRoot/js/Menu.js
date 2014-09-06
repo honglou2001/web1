@@ -123,7 +123,7 @@ function UpdateInfo() {
 
 function initComboTree(authorityVal) {
     $('#fauthorityVal').combotree({
-         url: '/web1/CbTreeVal.action?menu.fauthorityVal='+authorityVal,
+         url: '/web1/TreeComAuth.action?menu.fauthorityVal='+authorityVal,
 		 valueField: 'id',
 	     textField: 'text',
 	     required: true,

@@ -51,12 +51,16 @@
 		<action name="Menu" class="SPMenuAction" method="ListPage">
             <result>/Users/Menu.jsp</result>
         </action> 
+		<action name="Roles" class="SPMenuAction" method="ListPage">
+            <result>/Users/AuthRoles.jsp</result>
+        </action>         
+        
  		<action name="Menu*" class="SPMenuAction" method="{1}">
  			<result type="json">
  				<param name="root">dataMap</param>
  			</result>	
 		</action>
- 		<action name="CbTreeVal" class="SPMenuAction" method="AutTree">
+ 		<action name="Tree*" class="SPMenuAction" method="{1}">
  			<result type="json">
  				<param name="root">resVal</param>
  			</result>	

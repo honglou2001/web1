@@ -25,7 +25,8 @@
 								]
 						},{"menuid":"8","icon":"icon-sys","menuname":"权限管理",
 							"menus":[{"menuid":"21","menuname":"员工列表","icon":"icon-nav","url":"List.action"},
-									{"menuid":"22","menuname":"菜单管理","icon":"icon-nav","url":"Menu.action"}
+									{"menuid":"22","menuname":"菜单管理","icon":"icon-nav","url":"Menu.action"},
+									{"menuid":"23","menuname":"角色管理","icon":"icon-nav","url":"Roles.action"}
 								]
 						},{"menuid":"56","icon":"icon-sys","menuname":"部门管理",
 							"menus":[{"menuid":"31","menuname":"添加部门","icon":"icon-nav","url":"demo1.html"},
