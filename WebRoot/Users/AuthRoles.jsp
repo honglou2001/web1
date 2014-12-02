@@ -32,11 +32,11 @@
                         <p>&nbsp;</p>
                         <div class="a_left">
                             <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">角色名称:</span>
-                            <input type="text" id="txbRoleName" name="FRoleName" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                            <input type="text" id="txbRoleName" name="role.froleName" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                         </div>
                         <div class="a_left">
                             <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">备注信息:</span>
-                            <textarea id="txbComment" name="FComment" cols="22" rows="3" style="width: 180px;"></textarea>
+                            <textarea id="fdescription" name="role.fdescription" cols="22" rows="3" style="width: 180px;"></textarea>
                         </div>
                         <input type="hidden" id="txbRoleID" name="FRoleID" />
                         <input type="hidden" id="txbAction" name="action" value="add" />

@@ -12,7 +12,7 @@ import org.hibernate.SessionFactory;
 
 import domain.AuthorityMenu;
 import domain.AuthorityResVal;
-import domain.User;
+import domain.AuthorityRoles;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,12 +20,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 		
 	@Override
-	public void Add(AuthorityMenu menu)
+	public void Add(AuthorityRoles role)
 	{
 		try{
-		menu.setFid(UUID.randomUUID().toString());
+			
+			role.setFid(UUID.randomUUID().toString());
 
-		getSession().save(menu);
+		    getSession().save(role);
 		}
 		catch(Exception ex)
 		{
@@ -37,19 +38,19 @@ public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 	
 	
 	@Override
-	public List<AuthorityMenu> getAll(int offset, int length)
+	public List<AuthorityRoles> getAll(int offset, int length)
 	{
 		String hql = "from AuthorityMenu";		
 		Query query =getSession().createQuery(hql);		
 		query.setFirstResult(offset);
 		query.setMaxResults(length);
 		@SuppressWarnings("unchecked")
-		List<AuthorityMenu> list = query.list();
+		List<AuthorityRoles> list = query.list();
 		return list;
 	}
 	
 	@Override
-	public int GetMenuCount()
+	public int GetRolesCount()
 	{
 	    String hql = "select count(*) from AuthorityMenu";	    
 	    Query query =getSession().createQuery(hql);	    
@@ -93,9 +94,8 @@ public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 	}
 	
 	@Override
-	public void Update(AuthorityMenu menu) {
+	public void Update(AuthorityRoles menu) {
 		try{
-		//menu.setFmodifyTime(new Timestamp(System.currentTimeMillis()));  
 			getSession().update(menu);		
 		}
 		catch(Exception ex)

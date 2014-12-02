@@ -2,18 +2,18 @@ package dao;
 
 import java.util.List;
 
-import domain.AuthorityMenu;
-import domain.User;
+import domain.AuthorityRoles;
+
 
 
 public interface AuthRolesDao {
 	//Add a menu
-	public void Add(AuthorityMenu menu);
+	public void Add(AuthorityRoles menu);
 
 	//find all menus
-	public List<AuthorityMenu> getAll(int offset, int length);
+	public List<AuthorityRoles> getAll(int offset, int length);
 	
-	public int GetMenuCount();
+	public int GetRolesCount();
 	
-	public void Update(AuthorityMenu menu);
+	public void Update(AuthorityRoles menu);
 }

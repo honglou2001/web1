@@ -185,11 +185,11 @@ public class MenuServiceImpl  extends BaseService implements MenuService {
 			Iterator<AuthorityMenu> childit = menuchildren.iterator();  
 			
 			
+			List<AuthorityResVal> itemchildren = new ArrayList<AuthorityResVal>();
+			
 			while (childit.hasNext()) {  
 				children1 = childit.next();  
-				 	
-				List<AuthorityResVal> itemchildren = new ArrayList<AuthorityResVal>();
-				
+				 									
 				AuthorityResVal item1 = new AuthorityResVal();		
 				
 				item1.setText(children1.getFmenuName());

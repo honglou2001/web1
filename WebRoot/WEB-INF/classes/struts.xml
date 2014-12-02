@@ -64,7 +64,12 @@
  			<result type="json">
  				<param name="root">resVal</param>
  			</result>	
-		</action>				 	
+		</action>	
+ 		<action name="Role*" class="SPRoleAction" method="{1}">
+ 			<result type="json">
+ 				<param name="root">dataMap</param>
+ 			</result>	
+		</action>					 	
 		                    	             
 <!-- 		<action name="HelloWorld" class="action.HelloWorld"> -->
 <!-- 			<result>/HelloWorld.jsp</result> -->

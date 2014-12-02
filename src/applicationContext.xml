@@ -82,7 +82,16 @@
  	 	
 	<bean name="refMenuDao" class="dao.MenuDaoIml">
 		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>	
+		
+ 	<bean id="SPRoleAction" class="service.AuthRolesServiceImpl"  scope="prototype">
+ 		 <property name="roleDao" ref="refRoleDao"></property>
+ 	</bean>
+ 	 	
+	<bean name="refRoleDao" class="dao.AuthRolesDaoIml">
+		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>		
+	
  	
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"

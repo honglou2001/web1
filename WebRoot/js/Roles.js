@@ -112,9 +112,7 @@ function save() {
     }
    
     var noded = $('#ulpermission').tree('getChildren');
-    //var nodei = $('#ulpermission').tree('getChecked')
     var nodei = $('#ulpermission').tree('getChecked', 'indeterminate')
-    //var nodes = n1.concat(n2);
     var s = '';
     for (var i = 0; i < noded.length; i++) {
         if (noded[i].checked) {
@@ -134,13 +132,8 @@ function save() {
     $("#txbPermissions").val(s);
     //debugger;
     var actionType = $('#txbAction').val();
-    var url = "";
-    if (actionType == "add") {
-        url = "/Rights/AddBaseRole/";
-    }
-    else if (actionType == "edit") {
-        url = "/Rights/UpdateBaseRole/";
-    }
+    var url =  "/web1/RoleAdd.action";
+   
     //获取需要传递的参数传递给前台
     var postData = $("#ff_add").serializeArray();
    
