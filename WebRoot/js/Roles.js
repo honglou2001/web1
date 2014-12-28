@@ -9,9 +9,9 @@
 function initTable(queryData) {
     $('#t_Role').datagrid({
         loadMsg: "数据加载中,请稍候……",
-        url: '/Rights/GetRoleList',
+        url: '/web1/RoleList.action',
         width: "auto",
-        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) ,
+        //height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) ,
         pageSize: 20,
         nowrap: true,
         autoRowHeight: false,
@@ -19,8 +19,8 @@ function initTable(queryData) {
         collapsible: true,
         pagination: true,
         rownumbers: true, //行号
-        //singleSelect: true,
-        idField: 'FRoleID',
+        singleSelect: true,
+        idField: 'FID',
         sortName: 'FRoleName',
         sortOrder: 'asc',
         queryParams: queryData,  //异步查询的参数
@@ -28,9 +28,9 @@ function initTable(queryData) {
               { field: "ck", checkbox: true }
         ]],
         columns: [[
-            { field: "FRoleName", title: "角色名称", width: "160", align: "left", sortable: false },
-            { field: "FCreateDate", title: "注册时间", width: "160", align: "left",  formatter: function (value) { return value.replace("T", " ") }},
-            { field: "FComment", title: "备注", width: "220", align: "left", sortable: false }
+            { field: "froleName", title: "角色名称", width: "160", align: "left", sortable: false },
+            //{ field: "FUpdateTime", title: "注册时间", width: "160", align: "left",  formatter: function (value) { return value.replace("T", " ") }},
+            { field: "fdescription", title: "备注", width: "220", align: "left", sortable: false }
         ]],
         toolbar: "#div_Menu"
 
@@ -84,20 +84,15 @@ function edit(index) {
     
     $("#div_EditRole").show().dialog("open");
     if (index == -2) {
-        $("#txbRoleName").val(row[0].FRoleName);
-        $("#txbComment").val(row[0].FComment);
-        $("#txbRoleID").val(row[0].FRoleID);
+        $("#txtRoleName").val(row[0].froleName);
+        $("#txtDescription").val(row[0].fdescription);
+        $("#txbRoleID").val(row[0].fid);
         $("#txbAction").val("edit");
-        var state = row.RoleState;
-        if (state == 4) {
-            if ($("#txbRoleState").attr("checked") != true) $("#txbRoleState").attr("checked", true);
-        }
-        else
-            if (typeof ($("#txbRoleState").attr("checked")) != "undefined") $("#txbRoleState").removeAttr("checked");
+
     }
     else {
-        $("#txbRoleName").val('');
-        $("#txbComment").val('');
+        $("#txtRoleName").val('');
+        $("#txtDescription").val('');
         $("#txbRoleID").val('');
         $("#txbAction").val('add');
        
@@ -106,7 +101,7 @@ function edit(index) {
 }
 
 function save() {
-    if ($("#txbRoleName").val().length == 0) {
+    if ($("#txtRoleName").val().length == 0) {
         $.messager.alert("提示", "请输入角色名称！", "info");
         return;
     }
@@ -121,7 +116,7 @@ function save() {
         else {
             for (var j = 0; j < nodei.length; j++) {
                 if (noded[i].id == nodei[j].id) {
-                    s += noded[i].id + ',';
+                    s += noded[i].id + ',;';
                 }
             }
         }
@@ -129,6 +124,11 @@ function save() {
     if (s != '') {
         s = s.substr(0, s.length - 1);
     }
+    
+    $.messager.alert("提示123", s, "info");
+    
+    return;
+    
     $("#txbPermissions").val(s);
     //debugger;
     var actionType = $('#txbAction').val();

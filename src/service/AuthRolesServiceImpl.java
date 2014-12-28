@@ -94,11 +94,11 @@ public class AuthRolesServiceImpl  extends BaseService implements AuthRolesServi
 		// dataMap中的数据将会被Struts2转换成JSON字符串，所以这里要先清空其中的数据
 		dataMap = new HashMap<String, Object>();		
 
-		HttpServletRequest request=ServletActionContext.getRequest();
-		String path=request.getRequestURI();
-		String queryInfo=request.getQueryString();
-		System.out.println(path);
-		System.out.println("请求的URL"+path +queryInfo);
+//		HttpServletRequest request=ServletActionContext.getRequest();
+//		String path=request.getRequestURI();
+//		String queryInfo=request.getQueryString();
+//		System.out.println(path);
+//		System.out.println("请求的URL"+path +queryInfo);
 				       
 		roles = roleDao.getAll(0, 10000);
 		
@@ -106,7 +106,7 @@ public class AuthRolesServiceImpl  extends BaseService implements AuthRolesServi
 				
 		dataMap.put("rows", roles);
 		// 放入一个是否操作成功的标识
-		dataMap.put("total", 1);
+		dataMap.put("total", size);
 		
 		this.message ="成功删除";
 		// 返回结果

@@ -40,7 +40,7 @@ public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 	@Override
 	public List<AuthorityRoles> getAll(int offset, int length)
 	{
-		String hql = "from AuthorityMenu";		
+		String hql = "from AuthorityRoles";		
 		Query query =getSession().createQuery(hql);		
 		query.setFirstResult(offset);
 		query.setMaxResults(length);
@@ -52,7 +52,7 @@ public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 	@Override
 	public int GetRolesCount()
 	{
-	    String hql = "select count(*) from AuthorityMenu";	    
+	    String hql = "select count(*) from AuthorityRoles";	    
 	    Query query =getSession().createQuery(hql);	    
 	    int total = (new Integer(query.uniqueResult().toString()));	    
 		return total;
