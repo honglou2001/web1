@@ -9,9 +9,11 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-import domain.User;
+//import domain.User;
 import dao.UserDaoIml;
 import bean.Constants;
+
+import com.users.ejb.User;
 
 public class UserServiceImpl extends ActionSupport implements  UserService   {
 
@@ -27,7 +29,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	 private String message;  
 	private Map<String,Object> dataMap;
 	
-	private int page; //ÆðÊ¼¼ÇÂ¼µÄÎ»ÖÃ//Ã¿Ò³ÏÔÊ¾µÄ¼ÇÂ¼Êý
+	private int page; //ï¿½ï¿½Ê¼ï¿½ï¿½Â¼ï¿½ï¿½Î»ï¿½ï¿½//Ã¿Ò³ï¿½ï¿½Ê¾ï¿½Ä¼ï¿½Â¼ï¿½ï¿½
 					
 	public int getPage() {
 		return page;
@@ -81,7 +83,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	
 	
 	public String json() {
-		// dataMapÖÐµÄÊý¾Ý½«»á±»Struts2×ª»»³ÉJSON×Ö·û´®£¬ËùÒÔÕâÀïÒªÏÈÇå¿ÕÆäÖÐµÄÊý¾Ý
+		// dataMapï¿½Ðµï¿½ï¿½ï¿½Ý½ï¿½ï¿½á±»Struts2×ªï¿½ï¿½ï¿½ï¿½JSONï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½ï¿½ï¿½ï¿½
 		dataMap = new HashMap<String, Object>();		
 //		Collection<User> jsusr = new ArrayList<User>(); 
 		
@@ -95,7 +97,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		String path=request.getRequestURI();
 		String queryInfo=request.getQueryString();
 		System.out.println(path);
-		System.out.println("ÇëÇóµÄURL"+path +queryInfo);
+		System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½URL"+path +queryInfo);
 				       
 		int offset = this.getPage();
 		
@@ -112,9 +114,9 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		int size = userDao.GetUserCount();
 				
 		dataMap.put("rows", users);
-		// ·ÅÈëÒ»¸öÊÇ·ñ²Ù×÷³É¹¦µÄ±êÊ¶
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½Ä±ï¿½Ê¶
 		dataMap.put("total", size);
-		// ·µ»Ø½á¹û
+		// ï¿½ï¿½ï¿½Ø½ï¿½ï¿½
 		return SUCCESS;
 	}
 
@@ -147,12 +149,12 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 
 	  if(user.getId() == null || user.getId().length() <= 0){		
 		  userDao.Add(user);
-		  this.message ="ÐÂÔö³É¹¦";
+		  this.message ="æ–°å¢žæˆåŠŸ";
 
 	  }else
 	  {
 		  userDao.Update(user);
-		  this.message ="ÐÞ¸Ä³É¹¦";
+		  this.message ="æ›´æ–°æˆåŠŸ";
 	  }
 	  
 	  dataMap = new HashMap<String, Object>();
@@ -166,7 +168,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	public String DeleteUser() {
 		userDao.Delete(fid);
 		
-		this.message ="É¾³ý³É¹¦";
+		this.message ="É¾ï¿½ï¿½É¹ï¿½";
 		
 		dataMap = new HashMap<String, Object>();
 		dataMap.put("id", fid);

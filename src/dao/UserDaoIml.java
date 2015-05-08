@@ -4,8 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import domain.User;
-import ejbs.UserService;
+//import domain.User;
 
 
 import org.hibernate.Query;
@@ -18,6 +17,9 @@ import java.util.Properties;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import com.users.ejb.User;
+import com.users.ejb.UserService;
 
 @Transactional 
 public class UserDaoIml  implements  UserDao{
@@ -39,8 +41,23 @@ public class UserDaoIml  implements  UserDao{
 		User user=(User) query.uniqueResult();
 		return user;*/
 		
-		User user=(User) getSession().get(User.class, id);   
-		return user; 
+//		User user=(User) getSession().get(User.class, id);   
+//		return user; 
+		
+		User user = null;
+		
+		Context weblogicContext = getInitialConnection();
+		UserService serviceUser;
+		try {
+			serviceUser = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
+			user = serviceUser.find(id);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return user;
+		
 		
 		/*Query query = getSession().createQuery("select new domain.User(id,name,Pwd,Mobile,Email,Adress,description) from User  where id=?");    
 		query.setParameter(0, id);    
@@ -165,9 +182,21 @@ public class UserDaoIml  implements  UserDao{
 	public void Add(User user) {
 		// TODO Auto-generated method stub
 		
-		user.setId(UUID.randomUUID().toString());
+//		user.setId(UUID.randomUUID().toString());
+//		
+//		getSession().save(user);
 		
-		getSession().save(user);
+		Context weblogicContext = getInitialConnection();
+		UserService serviceUser;
+		try {
+			serviceUser = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
+			serviceUser.Add(user);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
 //		Configuration config = new Configuration().configure();	//��ȡhibernate.cfg.xml
 //		SessionFactory factory = config.buildSessionFactory();	//����Session����
 //		Session session = factory.openSession();	//����session
@@ -207,7 +236,20 @@ public class UserDaoIml  implements  UserDao{
 	
 	@Override
 	public void Update(User user) {
-		getSession().update(user);
+		
+		Context weblogicContext = getInitialConnection();
+		UserService serviceUser;
+		try {
+			serviceUser = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
+			serviceUser.Update(user);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//getSession().update(user);
+		
+		
 		// TODO Auto-generated method stub
 		/*Connection conn = null;
 		PreparedStatement pt = null;
@@ -251,9 +293,20 @@ public class UserDaoIml  implements  UserDao{
 //	   query.executeUpdate();
 	   //getSession().beginTransaction().commit();
 		   
-		getSession().delete(
-				getSession().load(User.class, id)	
-	    );
+//      ejb ok		
+//		getSession().delete(
+//				getSession().load(User.class, id)	
+//	    );
+		
+		Context weblogicContext = getInitialConnection();
+		UserService serviceUser;
+		try {
+			serviceUser = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
+			serviceUser.Delete(id);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		/*Connection conn = null;
 		PreparedStatement pt = null;
@@ -278,9 +331,23 @@ public class UserDaoIml  implements  UserDao{
 	@Override
 	public int GetUserCount()
 	{
-	    String hql = "select count(*) from User";	    
-	    Query query =getSession().createQuery(hql);	    
-	    int total = (new Integer(query.uniqueResult().toString()));	    
+		int total = 0 ;
+		
+//	    String hql = "select count(*) from User";	    
+//	    Query query =getSession().createQuery(hql);	    
+//	    int total = (new Integer(query.uniqueResult().toString()));	    
+//		return total;
+		
+		Context weblogicContext = getInitialConnection();
+		UserService serviceUser;
+		try {
+			serviceUser = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
+			total = serviceUser.GetUserCount();	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		return total;
 	}
 	

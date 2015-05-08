@@ -4,7 +4,8 @@ import java.util.List;
 
 import javax.naming.NamingException;
 
-import domain.User;
+//import domain.User;
+import com.users.ejb.User;
 
 public interface UserDao {
 

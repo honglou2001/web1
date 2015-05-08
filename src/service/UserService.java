@@ -2,7 +2,8 @@ package service;
 
 import java.util.List;
 
-import domain.User;
+//import domain.User;
+import com.users.ejb.User;
 
 public interface UserService {
 	
