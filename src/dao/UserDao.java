@@ -2,6 +2,8 @@ package dao;
 
 import java.util.List;
 
+import javax.naming.NamingException;
+
 import domain.User;
 
 public interface UserDao {
@@ -10,7 +12,7 @@ public interface UserDao {
 	public User find(String id);
 	
 	//find all users
-	public List<User> getAll();
+	public List<User> getAll() throws NamingException;
 	
 	//find all users
 	public List<User> getAll(int offset, int length);

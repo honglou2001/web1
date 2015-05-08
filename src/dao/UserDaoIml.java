@@ -1,22 +1,24 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
 import domain.User;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
+import ejbs.UserService;
 
-import javax.ejb.TransactionAttribute;
 
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.transaction.annotation.Transactional;
 
-import utils.DBManager;
+import java.util.Properties;
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+
 @Transactional 
 public class UserDaoIml  implements  UserDao{
 	
@@ -77,10 +79,44 @@ public class UserDaoIml  implements  UserDao{
 		}*/
 	}
 
+	private Context getInitialConnection() {
+		  final String INIT_FACTORY = "org.jnp.interfaces.NamingContextFactory";
+		  final String SERVER_URL = "jnp://localhost:1099";
+		  Context ctx = null;
+		  try {
+		   Properties props = new Properties();
+		   
+		   props.put(Context.INITIAL_CONTEXT_FACTORY, INIT_FACTORY);
+		   props.put(Context.PROVIDER_URL, SERVER_URL);
+		   ctx = new InitialContext(props);
+		  } catch (NamingException ne) {
+		   // TODO: handle exception
+		   System.err.println("‰∏çËÉΩËøûÊé•WebLogic ServerÂú®Ôºö" + SERVER_URL);
+		   ne.printStackTrace();
+		  }
+		  return ctx;
+		 }
 	
 	@Override
-	public List<User> getAll() {
+	public List<User> getAll() throws NamingException {
 		
+//		List<User> users =  new ArrayList<User>();
+		
+//		try{
+//		Context weblogicContext = getInitialConnection();
+//		UserService serviceList = (UserService)weblogicContext.lookup("UserServiceBean/remote");
+//		users = serviceList.ListUser();	
+//		
+//		System.err.println("users size()Ôºö" + users.size());
+//		return users;
+//		  } catch (NamingException ne) {
+//			   // TODO: handle exception
+//			   System.err.println("‰∏çËÉΩËøûÊé•NamingExceptionÂú®Ôºö");
+//			   ne.printStackTrace();
+//			  }
+//		
+//		return users;
+//		
 		String hql = "from User";      
 		Query query = getSession().createQuery(hql);      
 		@SuppressWarnings("unchecked")
@@ -132,12 +168,12 @@ public class UserDaoIml  implements  UserDao{
 		user.setId(UUID.randomUUID().toString());
 		
 		getSession().save(user);
-//		Configuration config = new Configuration().configure();	//∂¡»°hibernate.cfg.xml
-//		SessionFactory factory = config.buildSessionFactory();	//¥¥Ω®Sessionπ§≥ß
-//		Session session = factory.openSession();	//¥¥Ω®session
-//		Transaction t = session.beginTransaction();	//“ÚŒ™hibernate≤ª «◊‘∂ØÃ·Ωª£¨“Ú¥À–Ë“™¥¥Ω® ¬ŒÒ
+//		Configuration config = new Configuration().configure();	//ÔøΩÔøΩ»°hibernate.cfg.xml
+//		SessionFactory factory = config.buildSessionFactory();	//ÔøΩÔøΩÔøΩÔøΩSessionÔøΩÔøΩÔøΩÔøΩ
+//		Session session = factory.openSession();	//ÔøΩÔøΩÔøΩÔøΩsession
+//		Transaction t = session.beginTransaction();	//ÔøΩÔøΩŒ™hibernateÔøΩÔøΩÔøΩÔøΩÔøΩ‘∂ÔøΩÔøΩ·ΩªÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ“™ÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩÔøΩ
 //		session.save(user);	//POJO-->PO
-//		t.commit();	//Ã·Ωª ¬ŒÒ
+//		t.commit();	//ÔøΩ·ΩªÔøΩÔøΩÔøΩÔøΩ
 		
 		
 		/*Connection conn = null;
@@ -251,13 +287,50 @@ public class UserDaoIml  implements  UserDao{
 	@Override
 	public List<User> getAll(int offset, int length)
 	{
-		String hql = "from User";		
-		Query query =getSession().createQuery(hql);		
-		query.setFirstResult(offset);
-		query.setMaxResults(length);
-		@SuppressWarnings("unchecked")
-		List<User> list = query.list();
-		return list;
+//		String hql = "from User";		
+//		Query query =getSession().createQuery(hql);		
+//		query.setFirstResult(offset);
+//		query.setMaxResults(length);
+//		@SuppressWarnings("unchecked")
+//		List<User> list = query.list();
+//		return list;
+		
+		
+		List<User> users =  new ArrayList<User>();
+		
+		List<com.users.ejb.User> users1 =  new ArrayList<com.users.ejb.User>();
+		
+		try{
+		Context weblogicContext = getInitialConnection();
+		com.users.ejb.UserService serviceList = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
+		users1 = serviceList.ListUser(offset,length);	
+		
+		System.err.println("users size()Ôºö" + users.size());
+		
+		for(int i=0;i<users1.size();i++)
+		{
+			User u = new User();
+			com.users.ejb.User u2 = users1.get(i);
+			u.setAdress(u2.getAdress());
+			u.setDescription(u2.getDescription());
+			u.setEmail(u2.getEmail());
+			u.setId(u2.getId());
+			u.setMobile(u2.getMobile());
+			u.setName(u2.getName());
+			u.setPwd(u2.getPwd());
+			users.add(u);
+			
+		}
+		
+		//return users;
+		  } catch (NamingException ne) {
+			   // TODO: handle exception
+			   System.err.println("‰∏çËÉΩËøûÊé•NamingExceptionÂú®Ôºö"+ne.toString());
+			   ne.printStackTrace();
+			  }
+		
+		return users;
+		
 	}
 
 }
