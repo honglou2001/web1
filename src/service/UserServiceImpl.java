@@ -15,6 +15,7 @@ import bean.Constants;
 
 import com.users.ejb.User;
 
+
 public class UserServiceImpl extends ActionSupport implements  UserService   {
 
 	/**

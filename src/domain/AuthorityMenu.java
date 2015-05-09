@@ -37,6 +37,7 @@ public class AuthorityMenu extends BaseEntity {
 	  private String _parentId;
 	  private AuthorityMenu  menuparent;
 	  private Set<AuthorityMenu> children = new HashSet<AuthorityMenu>();
+	  private String froleid;
 //	  private Collection<AuthorityMenu> children;
 //	
 //	  public Collection<AuthorityMenu> getChildren() {
@@ -214,6 +215,14 @@ public class AuthorityMenu extends BaseEntity {
 
 	public void set_parentId(String _parentId) {
 		this._parentId = _parentId;
+	}
+
+	public String getFroleid() {
+		return froleid;
+	}
+
+	public void setFroleid(String froleid) {
+		this.froleid = froleid;
 	}
 
 }

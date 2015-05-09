@@ -1,9 +1,13 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.naming.Context;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONArray;
@@ -14,17 +18,26 @@ import dao.AuthRolesDaoIml;
 import domain.AuthorityRoles;
 import domain.AuthorityResVal;
 
-public class AuthRolesServiceImpl  extends BaseService implements AuthRolesService {
-	
+import com.users.ejb.User;
+import com.users.ejb.UserService;
+
+import com.users.ejb.RMenu;
+import com.users.ejb.RMenuService;
+
+import action.ejbproxy;
+
+public class AuthRolesServiceImpl extends BaseService implements
+		AuthRolesService {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private AuthorityRoles role;	
-	
+	private AuthorityRoles role;
+
 	private Collection<AuthorityResVal> resVal;
-	
+
 	public Collection<AuthorityResVal> getResVal() {
 		return resVal;
 	}
@@ -42,7 +55,7 @@ public class AuthRolesServiceImpl  extends BaseService implements AuthRolesServi
 	}
 
 	private AuthRolesDaoIml roleDao;
-		
+
 	public AuthRolesDaoIml getRoleDao() {
 		return roleDao;
 	}
@@ -50,7 +63,7 @@ public class AuthRolesServiceImpl  extends BaseService implements AuthRolesServi
 	public void setRoleDao(AuthRolesDaoIml roleDao) {
 		this.roleDao = roleDao;
 	}
-	
+
 	private Collection<AuthorityRoles> roles;
 
 	public Collection<AuthorityRoles> getRoles() {
@@ -60,87 +73,179 @@ public class AuthRolesServiceImpl  extends BaseService implements AuthRolesServi
 	public void setRoles(Collection<AuthorityRoles> roles) {
 		this.roles = roles;
 	}
-	
+
 	@Override
 	public String ListPage() {
-				 
-	    return SUCCESS;
+
+		return SUCCESS;
 	}
-	
+
+	private RMenu MenuExist(String menuid, List<RMenu> menus) {
+		for (int i = 0; i < menus.size(); i++) {
+			if (menus.get(i).getFmenuid().equals(menuid) ) {
+				return menus.get(i);
+			}
+
+		}
+		return null;
+	}
+
+	private List<RMenu> GetMenuRoles() {
+
+		String roldid = role.getFid();
+
+		String permission = role.getFpermissions();
+
+		List<RMenu> menus = new ArrayList<RMenu>();
+
+		if (permission != null && permission.length() > 0) {
+			String[] strArr = permission.split(",");
+
+			if (strArr != null && strArr.length > 0) {
+				for (int i = 0; i < strArr.length; i++) {
+					String str = strArr[i];
+
+					if (!str.endsWith(";")) {
+						String[] strArr1 = str.split(";");
+						if (strArr1 != null && strArr1.length > 1) {
+							long val = Long.parseLong(strArr1[0]);
+							String menuid = strArr1[1];
+
+							RMenu menuExist = MenuExist(menuid, menus);
+
+							if (menuExist != null) {
+								menuExist.setFauthval(val
+										| menuExist.getFauthval());
+							} else {
+								RMenu menuAdd = new RMenu();
+								menuAdd.setFauthval(val);
+								menuAdd.setFmenuid(menuid);
+								menuAdd.setFroleid(roldid);
+								menus.add(menuAdd);
+							}
+						}
+					}
+				}
+			}
+		}
+		return menus;
+	}
+
 	@Override
 	public String Add() {
 
-	  if(role.getFid() == null || role.getFid().length() <= 0){		 
-		  roleDao.Add(role);
-		  this.message ="ĞÂÔö³É¹¦";
+		if (role.getFid() == null || role.getFid().length() == 0) {
+			roleDao.Add(role);
 
-	  }else
-	  {
-		  roleDao.Update(role);
-		  this.message ="ĞŞ¸Ä³É¹¦";
-	  }
-	  
-	  dataMap = new HashMap<String, Object>();
-	  dataMap.put("menu", role);
-	  dataMap.put("success", true);
-	  dataMap.put("message", this.message);
-	  
-	  return SUCCESS;
-	}
-	
-	@Override
-	public String List()
-	{
-		// dataMapÖĞµÄÊı¾İ½«»á±»Struts2×ª»»³ÉJSON×Ö·û´®£¬ËùÒÔÕâÀïÒªÏÈÇå¿ÕÆäÖĞµÄÊı¾İ
-		dataMap = new HashMap<String, Object>();		
+			// å¢åŠ è§’è‰²å…³è”çš„èœå•æƒé™
+			List<RMenu> menus = GetMenuRoles();
+			if (menus.size() > 0) {
 
-//		HttpServletRequest request=ServletActionContext.getRequest();
-//		String path=request.getRequestURI();
-//		String queryInfo=request.getQueryString();
-//		System.out.println(path);
-//		System.out.println("ÇëÇóµÄURL"+path +queryInfo);
-				       
-		roles = roleDao.getAll(0, 10000);
-		
-		int size = roleDao.GetRolesCount();
+				Context weblogicContext = ejbproxy.getInitialConnection();
+				RMenuService serviceMenu;
+				try {
+					serviceMenu = (com.users.ejb.RMenuService) weblogicContext
+							.lookup("RMenuServiceBean/remote");					
 				
-		dataMap.put("rows", roles);
-		// ·ÅÈëÒ»¸öÊÇ·ñ²Ù×÷³É¹¦µÄ±êÊ¶
-		dataMap.put("total", size);
-		
-		this.message ="³É¹¦É¾³ı";
-		// ·µ»Ø½á¹û
-		return SUCCESS;		
+					for (int i = 0; i < menus.size(); i++) {
+						serviceMenu.Add(menus.get(i));
+					}
+
+				} catch (NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			// å¢åŠ è§’è‰²å…³è”çš„èœå•æƒé™
+
+			this.message = "æˆåŠŸæ–°å¢";
+
+		} else {
+			roleDao.Update(role);
+			
+			// å¢åŠ è§’è‰²å…³è”çš„èœå•æƒé™
+			List<RMenu> menus = GetMenuRoles();
+			if (menus.size() > 0) {
+
+				Context weblogicContext = ejbproxy.getInitialConnection();
+				RMenuService serviceMenu;
+				try {
+					serviceMenu = (com.users.ejb.RMenuService) weblogicContext
+							.lookup("RMenuServiceBean/remote");
+					
+					serviceMenu.Delete(role.getFid(), "");
+
+					for (int i = 0; i < menus.size(); i++) {
+						serviceMenu.Add(menus.get(i));
+					}
+
+				} catch (NamingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			// å¢åŠ è§’è‰²å…³è”çš„èœå•æƒé™
+			
+			this.message = "æˆåŠŸä¿®æ”¹";
+		}
+
+		dataMap = new HashMap<String, Object>();
+		dataMap.put("menu", role);
+		dataMap.put("success", true);
+		dataMap.put("message", this.message);
+
+		return SUCCESS;
 	}
-	
-	public String Delete()
-	{
-		if(role.getFid() != null && role.getFid().length()>0){	
-			roleDao.Delete(role.getFid());			
-			this.message ="É¾³ı³É¹¦";			
+
+	@Override
+	public String List() {
+		// dataMapï¿½Ğµï¿½ï¿½ï¿½İ½ï¿½ï¿½á±»Struts2×ªï¿½ï¿½ï¿½ï¿½JSONï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğµï¿½ï¿½ï¿½ï¿½
+		dataMap = new HashMap<String, Object>();
+
+		// HttpServletRequest request=ServletActionContext.getRequest();
+		// String path=request.getRequestURI();
+		// String queryInfo=request.getQueryString();
+		// System.out.println(path);
+		// System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½URL"+path +queryInfo);
+
+		roles = roleDao.getAll(0, 10000);
+
+		int size = roleDao.GetRolesCount();
+
+		dataMap.put("rows", roles);
+		// ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½ï¿½É¹ï¿½ï¿½Ä±ï¿½Ê¶
+		dataMap.put("total", size);
+
+		this.message = "ï¿½É¹ï¿½É¾ï¿½ï¿½";
+		// ï¿½ï¿½ï¿½Ø½ï¿½ï¿½
+		return SUCCESS;
+	}
+
+	public String Delete() {
+		if (role.getFid() != null && role.getFid().length() > 0) {
+			roleDao.Delete(role.getFid());
+			this.message = "É¾ï¿½ï¿½É¹ï¿½";
 			dataMap = new HashMap<String, Object>();
 			dataMap.put("id", role.getFid());
 			dataMap.put("success", true);
 			dataMap.put("message", this.message);
-		 }		  
-	    return SUCCESS;
-	}	
-	
-	
-	public String AutTree()
-	{			
+		}
+		return SUCCESS;
+	}
 
-//		HttpServletRequest request=ServletActionContext.getRequest();
-//		String path=request.getRequestURI();
-//		
-//		System.out.println(path+"AutTree");
-//		
-//		long ival = 0;
-//		 if(menu.getFauthorityVal() != null && menu.getFauthorityVal()> 0){		
-//			 ival = menu.getFauthorityVal();
-//		 }
-//		resVal = menuDao.getResVal(ival);
-//						
-		return SUCCESS;		
-	}	
+	public String AutTree() {
+
+		// HttpServletRequest request=ServletActionContext.getRequest();
+		// String path=request.getRequestURI();
+		//
+		// System.out.println(path+"AutTree");
+		//
+		// long ival = 0;
+		// if(menu.getFauthorityVal() != null && menu.getFauthorityVal()> 0){
+		// ival = menu.getFauthorityVal();
+		// }
+		// resVal = menuDao.getResVal(ival);
+		//
+		return SUCCESS;
+	}
 }

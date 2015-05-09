@@ -35,7 +35,7 @@
                     <th style="width: 60px;">注册地址：
                     </th>
                     <td style="width: 350px;">
-                             <input type="text" id="txtFAddress" name="txtFAddress" class="easyui-validatebox" style="width: 120px" value="1112" />&nbsp;
+                             <input type="text" id="txtFAddress" name="txtFAddress" class="easyui-validatebox" style="width: 120px" value="" />&nbsp;
                    
                     </td>
                 </tr>
@@ -48,7 +48,7 @@
                     </td>
                     <th>注册手机：</th>
                     <td>
-                        <input type="text" id="txtFMobile" name="txtFMobile" class="easyui-validatebox" style="width: 120px" value="sss" />&nbsp;
+                        <input type="text" id="txtFMobile" name="txtFMobile" class="easyui-validatebox" style="width: 120px" value="" />&nbsp;
 
                             <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="searchFun();">查询</a>
                             <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a>

@@ -16,6 +16,7 @@ public class AuthorityRoles {
 	private String fupdateTime;
 	private Boolean fisDelete;
 	private Boolean fisFixed;
+	private String fpermissions;
 
 	// Constructors
 
@@ -107,5 +108,13 @@ public class AuthorityRoles {
 
 	public void setFisFixed(Boolean fisFixed) {
 		this.fisFixed = fisFixed;
+	}
+
+	public String getFpermissions() {
+		return fpermissions;
+	}
+
+	public void setFpermissions(String fpermissions) {
+		this.fpermissions = fpermissions;
 	}
 }

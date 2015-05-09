@@ -2,6 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Map;
 
 public class AuthorityResVal extends BaseEntity {
 
@@ -11,6 +12,8 @@ public class AuthorityResVal extends BaseEntity {
 	private String text;
 	private Collection<AuthorityResVal> children = new ArrayList<AuthorityResVal>();
 	private Boolean checked = false;
+	private String fmenuid;
+	private Map<String, String> attributes=null; 
 	
 
 	public Boolean getChecked() {
@@ -52,5 +55,17 @@ public class AuthorityResVal extends BaseEntity {
 	}
 	public void setChildren(Collection<AuthorityResVal> children) {
 		this.children = children;
+	}
+	public String getFmenuid() {
+		return fmenuid;
+	}
+	public void setFmenuid(String fmenuid) {
+		this.fmenuid = fmenuid;
+	}
+	public Map<String, String> getAttributes() {
+		return attributes;
+	}
+	public void setAttributes(Map<String, String> attributes) {
+		this.attributes = attributes;
 	}
 }

@@ -38,9 +38,9 @@
                             <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">备注信息:</span>
                             <textarea id="txtDescription" name="role.fdescription" cols="22" rows="3" style="width: 180px;"></textarea>
                         </div>
-                        <input type="hidden" id="txbRoleID" name="FRoleID" />
+                        <input type="hidden" id="txbRoleID" name="role.fid" />
                         <input type="hidden" id="txbAction" name="action" value="add" />
-                        <input type="hidden" id="txbPermissions" name="Permissions" />
+                        <input type="hidden" id="txbPermissions" name="role.fpermissions" />
                     </div>
                 </form>
             </div>

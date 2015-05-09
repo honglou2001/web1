@@ -39,11 +39,16 @@ function initTable(queryData) {
 }
 
 function initTree(roleid) {
+	var froleid = $("#txbRoleID").val();
+	
+	//$.messager.alert("提示", froleid, "error");
     $('#ulpermission').tree({
-        url: '/web1/TreeMenuResVal.action?menu.fauthorityVal=0',
+        url: '/web1/TreeMenuResVal.action?menu.fauthorityVal=0&menu.froleid='+froleid,
         checkbox: true,
         cascadeCheck: true,
         onLoadSuccess: function (node, data) {
+        	//alert(eval(data));
+        	//debugger;
             $('#ulpermission').show();
         }
     });
@@ -108,26 +113,37 @@ function save() {
    
     var noded = $('#ulpermission').tree('getChildren');
     var nodei = $('#ulpermission').tree('getChecked', 'indeterminate')
+    //debugger;
     var s = '';
     for (var i = 0; i < noded.length; i++) {
         if (noded[i].checked) {
-            s += noded[i].id + ',';
+        	//var pnode = $('#ulpermission').tree('getParent',noded[i].target); 
+        	//debugger;
+        	var attr = noded[i].attributes;
+        	var attrval = "";
+        	
+        	if (attr !=null)
+        		{
+        			attrval = noded[i].attributes.menuid;
+        		}
+        	
+            s += noded[i].id + ';'+attrval+',';
         }
-        else {
-            for (var j = 0; j < nodei.length; j++) {
-                if (noded[i].id == nodei[j].id) {
-                    s += noded[i].id + ',;';
-                }
-            }
-        }
+//        else {
+//            for (var j = 0; j < nodei.length; j++) {
+//                if (noded[i].id == nodei[j].id) {
+//                    s += noded[i].id + ',;';
+//                }
+//            }
+//        }
     }
     if (s != '') {
         s = s.substr(0, s.length - 1);
     }
     
-    $.messager.alert("提示123", s, "info");
-    
-    return;
+//    $.messager.alert("提示123", s, "info");
+//    
+//    return;
     
     $("#txbPermissions").val(s);
     //debugger;
@@ -145,7 +161,7 @@ function save() {
             refresh();
         }
         else {
-            $.messager.alert("提示", data, "error");
+            $.messager.alert("提示", data.message, "error");
         }
     });
 }
