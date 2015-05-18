@@ -1,0 +1,16 @@
+﻿---
+把  log4j-1.2.11.jar 放在 Java\sdk\jre\lib\ext（放此位置会产生全局影响），其中Java\sdk为JAVA_HOME 
+
+java -cp .;G:/Java/workspace/web8/NRFCare.Watch/lib/log4j-1.2.11.jar; nrfCare.FrontEnd.nrfConsole
+
+java -cp .;myClass.jar packname.mainclassname   
+
+javac -cp .;G:/Java/workspace/web8/NRFCare.Watch/lib/log4j-1.2.11.jar; socketServer.java
+javac -cp .;G:/Java/workspace/web8/NRFCare.Watch/lib/log4j-1.2.11.jar;G:\Java\workspace\web8\NRFCare.Watch\src\nrfCare\FrontEnd\socketServer.class nrfConsole.java
+
+--所有java文件在同一目录下
+javac -d . *java
+
+-当前目录下运行 / nrfCare、.FrontEnd 分别为目录，同时也为包路径
+java nrfCare.FrontEnd.nrfConsole
+
