@@ -1,6 +1,8 @@
 package dao;
 
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,16 +22,19 @@ import domain.User;
 
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Connection;
 import com.users.ejb.RMenu;
 
 @Transactional
 public class MenuDaoIml extends BaseDao implements MenuDao {
 
+	private static final Logger log = Logger.getLogger(MenuDaoIml.class);
+	
 	@Override
 	public void Add(AuthorityMenu menu) {
 		try {
 			menu.setFid(UUID.randomUUID().toString());
-
+			
 			getSession().save(menu);
 		} catch (Exception ex) {
 
@@ -132,15 +139,40 @@ public class MenuDaoIml extends BaseDao implements MenuDao {
 		getSession().delete(getSession().load(AuthorityMenu.class, id));
 
 	}
-
+	
 	@Override
 	public void Update(AuthorityMenu menu) {
 		try {
-			// menu.setFmodifyTime(new Timestamp(System.currentTimeMillis()));
+			System.err.println(menu.getFmenuName());
+			log.debug(menu.getFmenuName());
+			
 			getSession().update(menu);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			System.err.println(ex.toString());
 		}
+		
+		
+//		Connection conn = null;
+//		PreparedStatement pt = null;
+//		ResultSet rs = null;
+
+//		try {
+//
+//			conn = utils.DBManager.getConnection();
+//			String sql = "update t_authority_menu set FMenuName = ? where FID=?";
+//			PreparedStatement ps = conn.prepareStatement(sql);
+//			ps.setString(1,"杨意义123");
+//			ps.setString(2,menu.getFid());
+//			ps.executeUpdate();
+//			ps.close();
+//			conn.close();
+//
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//
+//		} finally {
+//			utils.DBManager.closeDB(conn, pt, rs);
+//		}
 	}
 }

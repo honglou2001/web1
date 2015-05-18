@@ -120,7 +120,7 @@ function BindShowUpdateInfo() {
     //首先用户发送一个异步请求去后台实现方法
     var ID = $("#dgFeedReport").datagrid("getSelections")[0].id;  //获取到了用用户选择的ID  
     $.post("/web1/Edit.action", { fid: ID }, function (callbackdata) {
-    	debugger;
+    	//debugger;
         $("#id").val(ID);
         $("#name").val(callbackdata.user.name);        
         $("#Pwd").val(callbackdata.user.pwd);        

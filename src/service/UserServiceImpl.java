@@ -106,7 +106,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 		
 		int pagesize = Constants.PAGE_SIZE;
 		
-		if (offset>1){
+		if (offset>0){
 			offset = (offset-1) * pagesize;
 		}
 		
@@ -169,7 +169,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	public String DeleteUser() {
 		userDao.Delete(fid);
 		
-		this.message ="ɾ��ɹ�";
+		this.message ="成功删除";
 		
 		dataMap = new HashMap<String, Object>();
 		dataMap.put("id", fid);
@@ -187,7 +187,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	@Override
 	public List<User> getAll(int offset, int length)
 	{
-		 List<User> listUsers = userDao.getAll(offset, length);		 
+		 List<User> listUsers = userDao.getAll(0, 1000);		 
 		 return listUsers;
 	}
 	

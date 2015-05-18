@@ -85,11 +85,11 @@ public class MenuServiceImpl extends BaseService implements MenuService {
 		if (menu.getFid() == null || menu.getFid().length() <= 0) {
 			System.out.println("offset:" + menu.getFauthorityVal());
 			menuDao.Add(menu);
-			this.message = "�����ɹ�";
+			this.message = "成功新增菜单";
 
 		} else {
 			menuDao.Update(menu);
-			this.message = "�޸ĳɹ�";
+			this.message = "成功修改菜单";
 		}
 
 		dataMap = new HashMap<String, Object>();
@@ -119,7 +119,7 @@ public class MenuServiceImpl extends BaseService implements MenuService {
 		// ����һ���Ƿ�����ɹ��ı�ʶ
 		dataMap.put("total", 1);
 
-		this.message = "�ɹ�ɾ��";
+		this.message = "查询";
 		// ���ؽ��
 		return SUCCESS;
 	}
@@ -127,7 +127,7 @@ public class MenuServiceImpl extends BaseService implements MenuService {
 	public String Delete() {
 		if (menu.getFid() != null && menu.getFid().length() > 0) {
 			menuDao.Delete(menu.getFid());
-			this.message = "ɾ��ɹ�";
+			this.message = "成功删除菜单";
 			dataMap = new HashMap<String, Object>();
 			dataMap.put("id", menu.getFid());
 			dataMap.put("success", true);

@@ -88,7 +88,7 @@ public class AuthRolesDaoIml extends BaseDao implements  AuthRolesDao{
 	public void Delete(String id) {
 			   
 		getSession().delete(
-				getSession().load(AuthorityMenu.class, id)	
+				getSession().load(AuthorityRoles.class, id)	
 	    );
 		
 	}

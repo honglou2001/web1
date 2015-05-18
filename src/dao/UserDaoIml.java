@@ -365,29 +365,29 @@ public class UserDaoIml  implements  UserDao{
 		
 		List<User> users =  new ArrayList<User>();
 		
-		List<com.users.ejb.User> users1 =  new ArrayList<com.users.ejb.User>();
+//		List<com.users.ejb.User> users1 =  new ArrayList<com.users.ejb.User>();
 		
 		try{
 		Context weblogicContext = getInitialConnection();
 		com.users.ejb.UserService serviceList = (com.users.ejb.UserService)weblogicContext.lookup("UserServiceBean/remote");
-		users1 = serviceList.ListUser(offset,length);	
+		users = serviceList.ListUser(offset,length);	
 		
 		System.err.println("users size()：" + users.size());
-		
-		for(int i=0;i<users1.size();i++)
-		{
-			User u = new User();
-			com.users.ejb.User u2 = users1.get(i);
-			u.setAdress(u2.getAdress());
-			u.setDescription(u2.getDescription());
-			u.setEmail(u2.getEmail());
-			u.setId(u2.getId());
-			u.setMobile(u2.getMobile());
-			u.setName(u2.getName());
-			u.setPwd(u2.getPwd());
-			users.add(u);
-			
-		}
+//		
+//		for(int i=0;i<users1.size();i++)
+//		{
+//			User u = new User();
+//			com.users.ejb.User u2 = users1.get(i);
+//			u.setAdress(u2.getAdress());
+//			u.setDescription(u2.getDescription());
+//			u.setEmail(u2.getEmail());
+//			u.setId(u2.getId());
+//			u.setMobile(u2.getMobile());
+//			u.setName(u2.getName());
+//			u.setPwd(u2.getPwd());
+//			users.add(u);
+//			
+//		}
 		
 		//return users;
 		  } catch (NamingException ne) {

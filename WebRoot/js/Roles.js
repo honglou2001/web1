@@ -168,44 +168,43 @@ function save() {
 
 function del() {
     var rows = $("#t_Role").datagrid('getSelections');
-
+    debugger;
     var ids = "";
     var roleNames = "";
     for (var i = 0; i < rows.length; i++) {
-        if (rows[i].FFixed == 1) {
+        if (rows[i].fisFixed == 1) {
             $.messager.alert("提示", "<font color='red'  size='6'>" + rows[i].FRoleName + "</font>为系统数据，不可删除！", "warning");
             return false;
         }
       
-        ids += rows[i].FRoleID + ",";
-        roleNames += rows[i].FRoleName + ",";
+        ids += rows[i].fid + ",";
+        roleNames += rows[i].froleName + ",";
     }
     
     ids = ids.substr(0, ids.length - 1);
     roleNames = roleNames.substr(0, roleNames.length - 1);
     if (ids.length == 0) {
-        $.messager.alert("提示", "请选中要删除的权限！", "info");
+        $.messager.alert("提示", "请选中要删除的角色！", "info");
         return;
     }
 
     var postData = {
-        IDS: ids
+    		"role.fid": ids
     }
     if (rows.length > 0) {
         $.messager.confirm("提示", "确认删除<font color='red' size='3'>" + roleNames + "</font>？", function (r) {
             if (!r) {
                 return;
             }
-
-            $.post("/Rights/DeleteBaseRole", postData, function (data) {
-                if (data == "OK") {
+            $.post("/web1/RoleDelete.action", postData, function (data) {
+                if (data.success == true) {
                     //友情提示用户删除成功，刷新表格
-                    $.messager.alert("提示", "删除成功！", "info");
+                    $.messager.alert("提示",  data.message, "info");
                     refresh();
                     rows.length = "";
                 }
                 else {
-                    $.messager.alert("提示", data, "error");
+                    $.messager.alert("提示", data.message, "error");
                 }
             });
         });
@@ -217,4 +216,5 @@ function del() {
 
 function refresh() {
     $("#t_Role").datagrid('reload');
+    $("#t_Role").datagrid('clearSelections');
 }

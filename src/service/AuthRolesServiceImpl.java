@@ -35,9 +35,10 @@ public class AuthRolesServiceImpl extends BaseService implements
 	private static final long serialVersionUID = 1L;
 
 	private AuthorityRoles role;
-
 	private Collection<AuthorityResVal> resVal;
 
+
+	
 	public Collection<AuthorityResVal> getResVal() {
 		return resVal;
 	}
@@ -216,20 +217,26 @@ public class AuthRolesServiceImpl extends BaseService implements
 		// ����һ���Ƿ�����ɹ��ı�ʶ
 		dataMap.put("total", size);
 
-		this.message = "�ɹ�ɾ��";
+		this.message = "查询列表";
 		// ���ؽ��
 		return SUCCESS;
 	}
 
 	public String Delete() {
+		dataMap = new HashMap<String, Object>();
+		dataMap.put("id", role.getFid());		
 		if (role.getFid() != null && role.getFid().length() > 0) {
 			roleDao.Delete(role.getFid());
-			this.message = "ɾ��ɹ�";
-			dataMap = new HashMap<String, Object>();
-			dataMap.put("id", role.getFid());
-			dataMap.put("success", true);
-			dataMap.put("message", this.message);
+			this.message = "成功删除角色";						
+			dataMap.put("success", true);			
 		}
+		else
+		{
+			this.message = "无数据，删除失败";						
+			dataMap.put("success", false);
+
+		}
+		dataMap.put("message", this.message);
 		return SUCCESS;
 	}
 
