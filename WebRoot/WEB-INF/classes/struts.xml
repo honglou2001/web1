@@ -69,7 +69,17 @@
  			<result type="json">
  				<param name="root">dataMap</param>
  			</result>	
-		</action>					 	
+		</action>
+
+		<action name="Distributor" class="SPScmAction" method="List">
+            <result>/SCM/ScmDistributors.jsp</result>
+        </action>    
+        
+ 		<action name="Scm*" class="SPScmAction" method="{1}">
+ 			<result type="json">
+ 				<param name="root">dataMap</param>
+ 			</result>	
+		</action>							 	
 		                    	             
 <!-- 		<action name="HelloWorld" class="action.HelloWorld"> -->
 <!-- 			<result>/HelloWorld.jsp</result> -->

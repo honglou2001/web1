@@ -1,0 +1,97 @@
+﻿<%@ CodeTemplate Language="C#" TargetLanguage="Text" ResponseEncoding="UTF-8" Src="" Inherits="" Debug="True" Description="Template description here." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+
+<%-- 注册 定义的成员变量 --%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="DB" Description="请选择名的数据来源" %>
+<%@ Property Name="RootTableSpaceName" Type="System.String" Default="com.scm.{modelname模块名称}." Optional="False" Category="Context" Description="源码输出的模块名称" %>
+
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
+<%@ Map Name="JavaAlias" Src="System-JavaAlias.csmap" Description="Oracle to Java Type Map" %>
+<script runat="template">
+<!-- #include file=getNamefunction.cs -->
+//Debugger.Break();
+</script>
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+package <%=RootTableSpaceName%>;
+
+import java.util.List;
+import java.util.UUID;
+import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+/**
+ * <p>Title: ejb title </p>
+ * <p>Description: <%=SourceTable.Name%> EJB Interface Bean 处理类</p>
+ * @author yangqinxu 电话：137****5317
+ * @version 1.0 时间  <%= DateTime.Now.ToString()%>
+ */
+@Stateless(mappedName="<%= ModelName(SourceTable.Name)%>Service")
+public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(SourceTable.Name)%>Service {
+    
+    @PersistenceContext(unitName = "ejbpro1")	
+    private EntityManager manager;
+
+	@Override
+	public void Add(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) {  
+<% foreach (ColumnSchema column in this.SourceTable.Columns) 
+{ 
+%> 	     
+    <%if (column.IsPrimaryKeyMember) {%> 
+        <%= ParameterName(SourceTable.Name)%>Info.<%= setFunctionMemberVariableName(column.Name)%>(UUID.randomUUID().toString());
+    <% } %>
+<% 
+} 
+%>
+		manager.persist(<%= ParameterName(SourceTable.Name)%>Info);		
+	}
+	
+	@Override
+	public void Update(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) 
+	{
+		manager.merge(<%= ParameterName(SourceTable.Name)%>Info);		
+	}
+	
+	@Override
+	public void Delete(String id) 
+	{
+		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info = manager.find(<%= ModelName(SourceTable.Name)%>.class, id);
+		
+		manager.remove(<%= ParameterName(SourceTable.Name)%>Info);
+	}
+	
+	@Override
+	public <%= ModelName(SourceTable.Name)%> find(String id) 
+	{
+		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info = manager.find(<%= ModelName(SourceTable.Name)%>.class, id);
+		return <%= ParameterName(SourceTable.Name)%>Info;
+	}
+	
+	@Override
+	public int GetCount(){
+		
+		String hql = "select count(*) from <%= ModelName(SourceTable.Name)%>";	    
+		Query query =manager.createQuery(hql);   
+		int total = (new Integer(query.getSingleResult().toString()));	    
+		return total;
+	}	
+	
+	@Override 
+	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length) {					
+		String hql = "from <%= ModelName(SourceTable.Name)%>";      
+		Query query =manager.createQuery(hql);   
+		query.setFirstResult(offset);
+		query.setMaxResults(length);
+		@SuppressWarnings("unchecked")
+		List<<%= ModelName(SourceTable.Name)%>> <%= ModelName(SourceTable.Name)%>s = query.getResultList();   
+		return <%= ModelName(SourceTable.Name)%>s;		
+	}
+}

@@ -27,7 +27,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
 	private String fid;
 	
 	private UserDaoIml userDao;
-	 private String message;  
+	private String message;  
 	private Map<String,Object> dataMap;
 	
 	private int page; //��ʼ��¼��λ��//ÿҳ��ʾ�ļ�¼��
@@ -74,7 +74,7 @@ public class UserServiceImpl extends ActionSupport implements  UserService   {
         return fid;
     }
 	
-	  public String getMessage() {  
+	public String getMessage() {  
         return message;  
     }  
   

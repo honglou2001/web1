@@ -1,0 +1,133 @@
+﻿<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" ResponseEncoding="UTF-8" Src="" Inherits="" Debug="True" Description="Template description here." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+
+<%-- 注册 定义的成员变量 --%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="DB" Description="请选择名的数据来源" %>
+
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
+
+
+<script runat="template">
+<!-- #include file=getNamefunction.cs -->
+
+//Debugger.Break();
+
+
+</script>
+
+<%%@ page contentType="text/html; charset=GBK" %%>
+<%%@ include file="/taglibs.jsp" %%>
+<html>
+<html:base />
+<head>
+<title><%=SourceTable.Description%></title>
+<meta http-equiv="Content-Type" content="text/html; charset=GBK">
+<link href="../css/main.css" rel="stylesheet" type="text/css">
+<link href="../css/aa.css" rel="stylesheet" type="text/css">
+<SCRIPT type="text/javascript" src="../js/main.js"></SCRIPT>
+<script type="text/javascript" src="../js/timeview.js"></script>
+</head>
+
+<body>
+<html:form action="/<%=doName(SourceTable.Name)%>.do?method=list">
+<div id="listdiv">
+<div id="listedge"><%=SourceTable.Description%>综合展示</div>
+<div id="query">
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+	<td>
+		<table width="100%" border="0" cellspacing="1" cellpadding="1">
+			 
+		<% 
+		int i=0; 
+		foreach (ColumnSchema column in this.SourceTable.Columns) 
+		{ 
+			if(i == 0 || i==3)
+			{
+			  i=0;
+		%>
+		<tr>
+		<%
+			}			
+			i++;			
+		%>
+		<td align="right">
+		<%=column.Description%>:<html:text property="<%=IntanceName(SourceTable.Name)%>.<%=GetMemberVariableName(column.Name)%>" styleClass="button" />
+		</td>
+		
+		<%
+			if(i ==0)
+			{			
+		%>
+		
+		</tr>
+		
+		<% 
+		     }
+		} 
+		%>
+		
+		</table>	
+	</td>
+	<td align="center" width="15%">
+			<input type="submit" class="button" value="用户查询" />
+			<br>
+			<br>
+			<input type="reset" class="button" value="条件重置" />
+	</td>
+  </tr>
+</table>
+</div>
+<logic:notPresent name="begin">
+<table id="list" border="1" cellspacing="0" cellpadding="0" borderColor="#3366cc" bgColor="#f0f7ff" borderColorLight="#f0f7ff">
+  <thead>
+  <tr>
+	<% foreach (ColumnSchema column in this.SourceTable.Columns) 
+	{ 
+	%>
+	<td><%=column.Description%></td>
+	<% 
+	} 
+	%>
+  </thead>
+  <logic:notPresent name="data">
+    <tr><td colspan="<%=SourceTable.Columns.Count%>"><font color="red">搜索不到信息</font></td></tr>
+  </logic:notPresent>
+  <logic:present name="data">
+    <logic:iterate id="ls" name="data">
+      <tr>
+		<% foreach (ColumnSchema column in this.SourceTable.Columns) 
+		{ 
+		%>
+		<td><bean:write name="ls" property="<%= GetMemberVariableName(column.Name) %>"/></td>
+    	<% 
+    	} 
+    	%>
+      </tr>
+    </logic:iterate>
+  </logic:present>
+</table>
+<div id="listedge">
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td align="center"><page:pagination path="/<%=doName(SourceTable.Name)%>.do?method=list" name="pagination" parameter="page" formName="<%=FormName(SourceTable.Name)%>"/></td>
+    </tr>
+  </table>
+</div>
+</logic:notPresent>
+</html:form>
+</body>
+</html>
