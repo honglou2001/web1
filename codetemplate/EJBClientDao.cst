@@ -67,7 +67,7 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 		Context weblogicContext = action.ejbproxy.getInitialConnection();
 		<%= ModelName(SourceTable.Name)%>Service serviceClient;
 		try {
-			serviceClient = (ScmDistributorsService)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
 			total = serviceClient.GetCount();	
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
@@ -116,7 +116,7 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 		<%= ModelName(SourceTable.Name)%>Service serviceClient;
 		try {
 			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
-			serviceClient.Update(scmDistributors);	
+			serviceClient.Update(<%= ParameterName(SourceTable.Name)%>);	
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

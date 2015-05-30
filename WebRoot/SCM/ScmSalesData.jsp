@@ -1,29 +1,3 @@
-﻿<%-- 
-Name:
-Author: 
-Description: 
---%>
-<%@ CodeTemplate Language="C#" TargetLanguage="Text" ResponseEncoding="UTF-8" Src="" Inherits="" Debug="True" Description="Template description here." %>
-<%@ Assembly Name="SchemaExplorer" %>
-<%@ Import Namespace="SchemaExplorer" %>
-<%@ Assembly Name="System.Data" %>
-<%@ Import Namespace="System.Data" %>
-
-<%@ Import Namespace="System.Text.RegularExpressions" %>
-<%@ Import Namespace="System.IO" %>
-<%@ Import Namespace="System.Text.RegularExpressions" %>
-
-<%-- 注册 定义的成员变量 --%>
-<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="DB" Description="请选择名的数据来源" %>
-<%@ Property Name="RootTableSpaceName" Type="System.String" Default="com.scm.{modelname模块名称}." Optional="False" Category="Context" Description="源码输出的模块名称" %>
-
-<%-- 启用 MAP方式 System-CSharpAlias  --%>
-<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
-<%@ Map Name="JavaAlias" Src="System-JavaAlias.csmap" Description="Oracle to Java Type Map" %>
-
-<script runat="template">
-<!-- #include file=getNamefunction.cs -->
-</script>
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,7 +12,7 @@ Description:
     <script type="text/javascript" src="/web1/js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript" src="/web1/js/highcharts.js"></script>
     <script type="text/javascript" src="/web1/js/SysUtils.js"></script>  
-    <script type="text/javascript" src="/web1/js/<%= ModelName(SourceTable.Name)%>.js"></script>  
+    <script type="text/javascript" src="/web1/js/ScmSalesdata.js"></script>  
      
   </head>
 <body class="easyui-layout" style="overflow-y: hidden;">
@@ -66,7 +40,7 @@ Description:
                     </th>
                     <td>
                         <input id='txtFname' name='FDeviceID' class="easyui-combotree"
-                            multiple="multiple" data-options="url:'/FeedReport/GetComboTree'" style="width: 217px;" />
+                            multiple="multiple" style="width: 217px;" />
                     </td>
                     <th>注册手机：</th>
                     <td>
@@ -83,30 +57,57 @@ Description:
         </form>
     </div>
     <div region="center" style="background: #eee; overflow-y: hidden" split="true" id="center">
-        <table id="dg<%= ModelName(SourceTable.Name)%>">
+        <table id="dgScmSalesdata">
         </table>
     </div>
 
     <!--------------------------信息的弹出层---------------------------->
-    <div id="div_Add<%= ModelName(SourceTable.Name)%>" title="分组信息" toolbar="#div_Toolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
-        <form id="frm<%= ModelName(SourceTable.Name)%>" method="post" novalidate="novalidate">   
+    <div id="div_AddScmSalesdata" title="分组信息" toolbar="#div_Toolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
+        <form id="frmScmSalesdata" method="post" novalidate="novalidate">   
             <div style="height: 180px">                    
-                <% foreach (ColumnSchema column in this.SourceTable.Columns) { %> 
-                <%if (column.IsPrimaryKeyMember) {%> 
-                    <input type="hidden" id="<%= GetMemberVariableName(column.Name) %>" name="<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= GetMemberVariableName(column.Name) %>"/>
-                <% } else {%>   
+                    <input type="hidden" id="fsaledataid" name="scmsalesdata.fsaledataid"/>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px"><%= column.Name %>:</span>
-                    <input type="text" id="<%= GetMemberVariableName(column.Name) %>" name="<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= GetMemberVariableName(column.Name) %>" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">所属分销商:</span>                  
+                    <input class="easyui-combobox"   id="fdistributorid" name="scmsalesdata.fdistributorid" style="width:180px" required="true" >                    			
                 </div>
-                <% }} %>
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIncreaseID:</span> -->
+<!--                     <input type="text" id="fincreaseid" name="scmsalesdata.fincreaseid" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">销售价格:</span>
+                    <input type="text" id="fprice" name="scmsalesdata.fprice" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                </div>
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">销售数量:</span>
+                    <input type="text" id="famount" name="scmsalesdata.famount" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                </div>
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">销售类型:</span>
+                    <select class="easyui-combobox" id="ftype" name="scmsalesdata.ftype" style="width:180px;">   
+ 						<option value="1">网络营销</option>
+						<option value="2">市场营销</option>						
+ 					</select> 
+                </div>
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">销售日期:</span>
+                    <input type="text" id="fdate" name="scmsalesdata.fdate" class="easyui-datebox" style="width: 180px" required="true" value="" />
+                </div>
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FAddTime:</span> -->
+<!--                     <input type="text" id="faddtime" name="scmsalesdata.faddtime" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FUpdateTime:</span> -->
+<!--                     <input type="text" id="fupdatetime" name="scmsalesdata.fupdatetime" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
                
             </div>
         </form>
     </div>
 
     <div id="div_Toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="Add<%= ModelName(SourceTable.Name)%>();">保存</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="AddScmSalesdata();">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a>
     </div>
 
@@ -114,10 +115,8 @@ Description:
     <div id="div_Menu">
             <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add();">增加</a>
                     <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="UpdateInfo()">修改</a>
-                    <a href="#" id="txbDelte" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="Delete<%= ModelName(SourceTable.Name)%>()">删除</a>
+                    <a href="#" id="txbDelte" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="DeleteScmSalesdata()">删除</a>
         <a href="#" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true" onclick="refresh();">刷新</a>
     </div>
 
 </html>
-
-

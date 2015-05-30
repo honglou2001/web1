@@ -97,7 +97,14 @@
  	</bean>
  	 	
 	<bean name="refScmDao" class="dao.ScmDistributorsDaoIml">
-	</bean>		
+	</bean>	
+	
+ 	<bean id="SPSaleAction" class="service.ScmSalesdataImpl"  scope="prototype">
+ 		 <property name="scmsalesdataDao" ref="refSaleDao"></property>
+ 	</bean>
+ 	 	
+	<bean name="refSaleDao" class="dao.ScmSalesdataDaoIml">
+	</bean>			
 	
  	
  		<!-- 配置事务管理器 -->

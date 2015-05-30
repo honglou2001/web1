@@ -1,5 +1,6 @@
 package dao;
 
+import com.common.ejb.EjbException;
 import com.users.ejb.ScmDistributors;
 import com.users.ejb.ScmDistributorsService;
 import com.users.ejb.User;
@@ -20,7 +21,7 @@ import javax.naming.NamingException;
 
 public class ScmDistributorsDaoIml {	
 
-  	public void Add(ScmDistributors scmDistributors) {
+  	public void Add(ScmDistributors scmDistributors) throws EjbException {
 		Context weblogicContext = action.ejbproxy.getInitialConnection();
 		ScmDistributorsService serviceClient;
 		try {
@@ -64,6 +65,23 @@ public class ScmDistributorsDaoIml {
 		
 		return listScmDistributors;		
 	}
+	
+	public List<ScmDistributors> GetListAll(String fanme)
+	{		
+		List<ScmDistributors> listScmDistributors =  new ArrayList<ScmDistributors>();				
+		try{
+			Context weblogicContext = action.ejbproxy.getInitialConnection();			
+			ScmDistributorsService serviceClient = (ScmDistributorsService)weblogicContext.lookup("ScmDistributorsBean/remote");
+			listScmDistributors = serviceClient.ListScmDistributors(fanme);	
+
+		  } catch (NamingException ne) {
+			   // TODO: handle exception
+			   System.err.println("不能连接NamingException在："+ne.toString());
+			   ne.printStackTrace();
+			  }
+		
+		return listScmDistributors;		
+	}	
     
     public ScmDistributors Find(String fid)
 	{		
@@ -82,7 +100,7 @@ public class ScmDistributorsDaoIml {
 		return scmDistributors;		
 	}
     
-	public void Update(ScmDistributors scmDistributors) {		
+	public void Update(ScmDistributors scmDistributors)  throws EjbException {		
 		Context weblogicContext = action.ejbproxy.getInitialConnection();
 		ScmDistributorsService serviceClient;
 		try {

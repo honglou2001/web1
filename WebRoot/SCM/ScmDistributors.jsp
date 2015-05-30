@@ -66,86 +66,92 @@
         <form id="frmScmDistributors" method="post" novalidate="novalidate">   
             <div style="height: 180px">                    
                     <input type="hidden" id="fdistributorid" name="scmdistributors.fdistributorid"/>
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FParentID:</span> -->
+<!--                     <input type="text" id="fparentid" name="scmdistributors.fparentid" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIncreaseID:</span> -->
+<!--                     <input type="text" id="fincreaseid" name="scmdistributors.fincreaseid" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FParentID:</span>
-                    <input type="text" id="fparentid" name="scmdistributors.fparentid" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">分销商名称:</span>
+                    <input type="text" id="fname" name="scmdistributors.fname" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                </div>   
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIncreaseID:</span>
-                    <input type="text" id="fincreaseid" name="scmdistributors.fincreaseid" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIntroducer:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">介绍人:</span>
                     <input type="text" id="fintroducer" name="scmdistributors.fintroducer" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                 </div>
+             
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIntroerType:</span> -->
+<!--                     <input type="text" id="fintroertype" name="scmdistributors.fintroertype" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIntroerType:</span>
-                    <input type="text" id="fintroertype" name="scmdistributors.fintroertype" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FName:</span>
-                    <input type="text" id="fname" name="scmdistributors.fname" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FPhone:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">座机：:</span>
                     <input type="text" id="fphone" name="scmdistributors.fphone" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FMobile:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">手机：:</span>
                     <input type="text" id="fmobile" name="scmdistributors.fmobile" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FAddress:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">地址:</span>
                     <input type="text" id="faddress" name="scmdistributors.faddress" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FZipCode:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">邮编:</span>
                     <input type="text" id="fzipcode" name="scmdistributors.fzipcode" class="easyui-validatebox" style="width: 180px" required="true" value="" />
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FSex:</span>
-                    <input type="text" id="fsex" name="scmdistributors.fsex" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">性别:</span>
+                    
+ 					<select class="easyui-combobox" id="fsex" name="scmdistributors.fsex" style="width:180px;">   
+ 						<option value="1">男</option>
+						<option value="2">女</option>						
+ 					</select>                
+
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FBirthday:</span>
-                    <input type="text" id="fbirthday" name="scmdistributors.fbirthday" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">生日:</span>
+                    <input type="text" id="fbirthday" name="scmdistributors.fbirthday" class="easyui-datebox" style="width: 180px"  editable="false" formatter="timeFormatter" parser="timeParser" />
                 </div>
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FWeight:</span> -->
+<!--                     <input type="text" id="fweight" name="scmdistributors.fweight" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FHeight:</span> -->
+<!--                     <input type="text" id="fheight" name="scmdistributors.fheight" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FWeight:</span>
-                    <input type="text" id="fweight" name="scmdistributors.fweight" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">备注:</span>
+                    <textarea id="fremark" name="scmdistributors.fremark" cols="22" rows="3" style="width: 180px"></textarea>
                 </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FHeight:</span>
-                    <input type="text" id="fheight" name="scmdistributors.fheight" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FRemark:</span>
-                    <input type="text" id="fremark" name="scmdistributors.fremark" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FPicture:</span>
-                    <input type="text" id="fpicture" name="scmdistributors.fpicture" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FRelativeURL:</span>
-                    <input type="text" id="frelativeurl" name="scmdistributors.frelativeurl" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FRank:</span>
-                    <input type="text" id="frank" name="scmdistributors.frank" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FOrder:</span>
-                    <input type="text" id="forder" name="scmdistributors.forder" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FAddTime:</span>
-                    <input type="text" id="faddtime" name="scmdistributors.faddtime" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FUpdateTime:</span>
-                    <input type="text" id="fupdatetime" name="scmdistributors.fupdatetime" class="easyui-validatebox" style="width: 180px" required="true" value="" />
-                </div>
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FPicture:</span> -->
+<!--                     <input type="text" id="fpicture" name="scmdistributors.fpicture" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FRelativeURL:</span> -->
+<!--                     <input type="text" id="frelativeurl" name="scmdistributors.frelativeurl" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FRank:</span> -->
+<!--                     <input type="text" id="frank" name="scmdistributors.frank" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FOrder:</span> -->
+<!--                     <input type="text" id="forder" name="scmdistributors.forder" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FAddTime:</span> -->
+<!--                     <input type="text" id="faddtime" name="scmdistributors.faddtime" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
+<!--                 <div class="a_left"> -->
+<!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FUpdateTime:</span> -->
+<!--                     <input type="text" id="fupdatetime" name="scmdistributors.fupdatetime" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
+<!--                 </div> -->
                
             </div>
         </form>

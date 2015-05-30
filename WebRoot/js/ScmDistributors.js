@@ -10,6 +10,13 @@ $(function () {
 });
 
 
+function timeFormatter(date){
+    return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+}
+function timeParser(date){
+    return new Date(Date.parse(date.replace(/-/g,"/")));
+}
+
 function initTable(queryData) {
     $('#dgScmDistributors').datagrid({
         loadMsg: "数据加载中,请稍候……",
@@ -26,7 +33,7 @@ function initTable(queryData) {
         pagination: true,
         rownumbers: true, //行号
         idField: 'fdistributorid',
-        sortName: 'fupdatetime',
+        sortName: 'fincreaseid',
         sortOrder: 'desc',
         queryParams: queryData,  //异步查询的参数
         onLoadSuccess: function (data) {
@@ -34,129 +41,145 @@ function initTable(queryData) {
         },
         columns: [[
             { field: "ck", checkbox: true },
+//            {
+//                field: 'fdistributorid', title: 'FDistributorID', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'fparentid', title: 'FParentID', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'fincreaseid', title: 'FIncreaseID', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
             {
-                field: 'fdistributorid', title: 'FDistributorID', width: 60, align: 'center', formatter: function (value) {
+                field: 'fname', title: '名称', width: 60, align: 'center', formatter: function (value) {
+                    return value;
+                }
+            }
+            ,           
+            {
+                field: 'fintroducer', title: '介绍人', width: 60, align: 'center', formatter: function (value) {
+                    return value;
+                }
+            }
+            ,
+//            {
+//                field: 'fintroertype', title: 'FIntroerType', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+
+            {
+                field: 'fphone', title: '座机', width: 60, align: 'center', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'fparentid', title: 'FParentID', width: 60, align: 'center', formatter: function (value) {
+                field: 'fmobile', title: '手机', width: 60, align: 'center', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'fincreaseid', title: 'FIncreaseID', width: 60, align: 'center', formatter: function (value) {
+                field: 'faddress', title: '地址', width: 60, align: 'center', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'fintroducer', title: 'FIntroducer', width: 60, align: 'center', formatter: function (value) {
+                field: 'fzipcode', title: '邮编', width: 60, align: 'center', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'fintroertype', title: 'FIntroerType', width: 60, align: 'center', formatter: function (value) {
-                    return value;
+                field: 'fsex', title: '性别', width: 60, align: 'center', formatter: function (value) {
+                	 return value == '1' ? '男' : value == '2' ? '女' : '';
                 }
             }
             ,
             {
-                field: 'fname', title: 'FName', width: 60, align: 'center', formatter: function (value) {
+                field: 'fbirthday', title: '生日', width: 60, align: 'center', formatter: function (value) {
+                    if (value!=null){
+                    	return value.substr(0, 10);
+                    }
+                    else{
+                    	return value;
+                    }
+                }
+            }
+            ,
+//            {
+//                field: 'fweight', title: 'FWeight', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'fheight', title: 'FHeight', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+            {
+                field: 'fremark', title: '备注', width: 60, align: 'center', formatter: function (value) {
                     return value;
                 }
             }
             ,
+//            {
+//                field: 'fpicture', title: 'FPicture', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'frelativeurl', title: 'FRelativeURL', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'frank', title: 'FRank', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'forder', title: 'FOrder', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
+//            {
+//                field: 'faddtime', title: '录入时间', width: 60, align: 'center', formatter: function (value) {
+//                    if (value!=null){
+//                    	return value.replace("T"," ");
+//                    }
+//                    else{
+//                    	return value;
+//                    }
+//                }
+//            }
+//            ,
             {
-                field: 'fphone', title: 'FPhone', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fmobile', title: 'FMobile', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'faddress', title: 'FAddress', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fzipcode', title: 'FZipCode', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fsex', title: 'FSex', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fbirthday', title: 'FBirthday', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fweight', title: 'FWeight', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fheight', title: 'FHeight', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fremark', title: 'FRemark', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fpicture', title: 'FPicture', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'frelativeurl', title: 'FRelativeURL', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'frank', title: 'FRank', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'forder', title: 'FOrder', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'faddtime', title: 'FAddTime', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fupdatetime', title: 'FUpdateTime', width: 60, align: 'center', formatter: function (value) {
-                    return value;
+                field: 'fupdatetime', title: '更新时间', width: 60, align: 'center', formatter: function (value) {
+                    if (value!=null){
+                    	return value.replace("T"," ");
+                    }
+                    else{
+                    	return value;
+                    }
                 }
             }
             ,
@@ -209,26 +232,33 @@ function BindShowUpdateInfo() {
     $.post("/web1/ScmFindScmDistributors.action", { "scmdistributors.fdistributorid": ID }, function (cbData) {
     	//debugger;
         $("#fdistributorid").val(cbData.scmdistributors.fdistributorid); 
-        $("#fparentid").val(cbData.scmdistributors.fparentid); 
-        $("#fincreaseid").val(cbData.scmdistributors.fincreaseid); 
+//        $("#fparentid").val(cbData.scmdistributors.fparentid); 
+//        $("#fincreaseid").val(cbData.scmdistributors.fincreaseid); 
         $("#fintroducer").val(cbData.scmdistributors.fintroducer); 
-        $("#fintroertype").val(cbData.scmdistributors.fintroertype); 
+//        $("#fintroertype").val(cbData.scmdistributors.fintroertype); 
         $("#fname").val(cbData.scmdistributors.fname); 
         $("#fphone").val(cbData.scmdistributors.fphone); 
         $("#fmobile").val(cbData.scmdistributors.fmobile); 
         $("#faddress").val(cbData.scmdistributors.faddress); 
         $("#fzipcode").val(cbData.scmdistributors.fzipcode); 
-        $("#fsex").val(cbData.scmdistributors.fsex); 
-        $("#fbirthday").val(cbData.scmdistributors.fbirthday); 
-        $("#fweight").val(cbData.scmdistributors.fweight); 
-        $("#fheight").val(cbData.scmdistributors.fheight); 
+//        $("#fsex").val(cbData.scmdistributors.fsex); 
+        $('#fsex').combobox('setValue',cbData.scmdistributors.fsex);
+        
+        if (cbData.scmdistributors.fbirthday!=null){
+        	 $('#fbirthday').datebox('setValue',cbData.scmdistributors.fbirthday.substr(0, 10));
+        }
+        
+        $('#fbirthday').datebox('setValue',cbData.scmdistributors.fbirthday);
+//        $("#fbirthday").val(cbData.scmdistributors.fbirthday); 
+//        $("#fweight").val(cbData.scmdistributors.fweight); 
+//        $("#fheight").val(cbData.scmdistributors.fheight); 
         $("#fremark").val(cbData.scmdistributors.fremark); 
-        $("#fpicture").val(cbData.scmdistributors.fpicture); 
-        $("#frelativeurl").val(cbData.scmdistributors.frelativeurl); 
-        $("#frank").val(cbData.scmdistributors.frank); 
-        $("#forder").val(cbData.scmdistributors.forder); 
-        $("#faddtime").val(cbData.scmdistributors.faddtime); 
-        $("#fupdatetime").val(cbData.scmdistributors.fupdatetime); 
+//        $("#fpicture").val(cbData.scmdistributors.fpicture); 
+//        $("#frelativeurl").val(cbData.scmdistributors.frelativeurl); 
+//        $("#frank").val(cbData.scmdistributors.frank); 
+//        $("#forder").val(cbData.scmdistributors.forder); 
+//        $("#faddtime").val(cbData.scmdistributors.faddtime); 
+//        $("#fupdatetime").val(cbData.scmdistributors.fupdatetime); 
 
     });
 }
@@ -246,6 +276,7 @@ function clearbox() {
 }
 
 function add(id) {
+	$("#frmScmDistributors input,textarea").val('');
     $('#div_AddScmDistributors').dialog('open');
 }
 //实现分组的修改
@@ -263,7 +294,7 @@ function AddScmDistributors() {
     //发送异步请求到后台保存分组数据
     $.post("/web1/ScmAddScmDistributors.action", postData, function (data) {
     	//debugger;   	
-        if (data.success == true) {
+        if (data.success == true && data.errcode==0) {
             //添加成功  1.关闭弹出层，2.刷新DataGird
         	 $.messager.alert('提示', data.message, 'info');
 
@@ -272,7 +303,7 @@ function AddScmDistributors() {
             $("#frmScmDistributors input,textarea").val('');
         }
         else {
-            $.messager.alert('提示', data, 'error');
+            $.messager.alert('提示', data.message, 'error');
         }
     });
 }

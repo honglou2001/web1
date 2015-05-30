@@ -30,7 +30,7 @@ Description:
 </script>
 
 <%-- 启用 MAP方式 System-CSharpAlias  --%>
-package <%=RootTableSpaceName%>;
+package service;
 
 import bean.Constants;
 import com.users.ejb.<%= ModelName(SourceTable.Name)%>;
@@ -55,7 +55,16 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
     private String message;     
     private <%= ModelName(SourceTable.Name)%> <%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>;
     private int page; 
+    private int errcode;
     
+    public int getErrcode() {
+		return errcode;
+	}
+
+	public void setErrcode(int errcode) {
+		this.errcode = errcode;
+	}
+   
 	public <%= ModelName(SourceTable.Name)%> <%= getFunctionMemberVariableName(ParameterName(SourceTable.Name)) %>() {
 		return <%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>;
 	}
@@ -94,6 +103,7 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
        
 	public String Add<%= ModelName(SourceTable.Name)%>() {	
     
+    try {
  	  if(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= getFunctionMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>() == null || this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= getFunctionMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>().length() <= 0){		
 		  this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao.Add(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>);	
 		  this.message ="新增成功";
@@ -102,9 +112,14 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
 	  {
           this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao.Update(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>);	
 		  this.message ="更新成功";
-	  }
+	  }     
+      } catch (RuntimeException ex) {
+		  this.message = ex.getMessage();
+		  this.errcode = ex.hashCode();
+	   }
 	  
 	  dataMap = new HashMap<String, Object>();
+      dataMap.put("errcode", this.errcode);
 	  dataMap.put("success", true);
 	  dataMap.put("message", this.message);
 	  
@@ -146,7 +161,7 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
 		} 
         
         
-    public String DeleteScmDistributors() {
+    public String Delete<%= ModelName(SourceTable.Name)%>() {
 		this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>Dao
 				.Delete(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= getFunctionMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>());
 
