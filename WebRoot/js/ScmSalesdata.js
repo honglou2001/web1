@@ -6,7 +6,7 @@ $(function () {
         cache: false
     });
    
-    searchFun1();  
+    searchFun();  
 });
 
 
@@ -46,7 +46,7 @@ function initTable(queryData) {
         loadMsg: "数据加载中,请稍候……",
         url: '/web1/SaleQueryScmSalesdata.action',
         width: "auto",
-        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 87,
+        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 57,
         iconCls: 'icon-save',
         pageSize: 10,
         nowrap: true,
@@ -89,7 +89,13 @@ function initTable(queryData) {
                     return value;
                 }
             }
-
+            ,
+            {
+                field: 'ftotal', title: '总额', width: 60, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+            
             ,
             {
                 field: 'fdate', title: '销售日期', width: 60, align: 'center', formatter: function (value) {
@@ -101,7 +107,24 @@ function initTable(queryData) {
                     }
                 }
             }
-
+            ,
+            {
+                field: 'fsplit', title: '分成比例', width: 60, align: 'left', formatter: function (value) {                                      
+                    if (value!=null){
+                    	return  (parseFloat(value)* 1.00).toFixed(2)  + "%";
+                    }
+                    else
+                    	{
+                    	return "";
+                    	}
+                }
+            }
+            ,
+            {
+                field: 'fsplittoal', title: '分成总额', width: 60, align: 'left', formatter: function (value) {
+                    return  (parseFloat(value)* 1.00).toFixed(2);
+                }
+            }
             ,
             {
                 field: 'fupdatetime', title: '更新时间', width: 60, align: 'center', formatter: function (value) {
@@ -113,29 +136,17 @@ function initTable(queryData) {
                     }
                 }
             }
-            ,
             
       ]],              
         toolbar: "#div_Menu"
     });
 }
-//主要目的用于点击链接过来加载
-function searchFun1() { 
-    var queryData = {
-    	"user.id": $("#txtFname").val(),
-        "user.name": $("#txtFname").val(),
-        "user.Mobile": $("#txtFMobile").val(),
-        "user.Adress": $("#txtFAddress").val()
-    };
-    initTable(queryData);    
-}
 
 function searchFun() {
     var queryData = {
-    	 "user.id": $("#txtFname").val(),	
-         "user.name": $("#txtFname").val(),
-         "user.Mobile": $("#txtFMobile").val(),
-         "user.Adress": $("#txtFAddress").val()
+    	 "scmsalesdata.fdistributorid": $("#sftimebegin").datebox('getValue'),
+    	 "scmsalesdata.fsaledataid": $("#sftimeend").datebox('getValue'),   	 
+         "scmsalesdata.fdistributor": $("#sfdistributor").val()
     };
     initTable(queryData);
 }
@@ -169,9 +180,10 @@ function BindShowUpdateInfo() {
         $("#fincreaseid").val(cbData.scmsalesdata.fincreaseid); 
         $("#fprice").val(cbData.scmsalesdata.fprice); 
         $("#famount").val(cbData.scmsalesdata.famount); 
-        $("#ftype").val(cbData.scmsalesdata.ftype);         
-        if (cbData.scmdistributors.fbirthday!=null){
-       	 $('#fdate').datebox('setValue',cbData.scmdistributors.fdate.substr(0, 10));
+       
+        $('#ftype').combobox('setValue',cbData.scmsalesdata.ftype);
+        if (cbData.scmsalesdata.fdate!=null){
+       	 $('#fdate').datebox('setValue',cbData.scmsalesdata.fdate.substr(0, 10));
        }
         
         $("#faddtime").val(cbData.scmsalesdata.faddtime); 
@@ -182,13 +194,7 @@ function BindShowUpdateInfo() {
 
 
 function clearbox() {
-    var date = new Date();
-    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-    var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    $('#txtFname').combotree("setValue", "");
-    $('#searchForm input').val('');
-    $('#txtStartTime').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);
-    $('#txtEndTime').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);    
+    $('#searchForm input').val('');  
     searchFun();
 }
 
@@ -217,6 +223,10 @@ function ShowDistorCom()
 //实现分组的修改
 function AddScmSalesdata() {
 	
+	 if($("#frmScmSalesdata").form('validate')==false)
+		 {
+		   return ;
+		 }
 	//debugger;
     //if ($("#fname").val().length == 0) {
     //    $.messager.alert("提示", "请输入user.name！", "info");
@@ -255,7 +265,7 @@ function DeleteScmSalesdata() {
             //异步将删除的ID发送到后台，后台删除之后，返回前台，前台刷洗表格
             ids += rows[i].fsaledataid + ",";
             //获取用户选择的分组信息
-            names += rows[i].fname + ",";
+            names += rows[i].fdistributor + ",";
         }
         //最后去掉最后的那一个,
         ids = ids.substring(0, ids.length - 1);
@@ -265,7 +275,7 @@ function DeleteScmSalesdata() {
         };
 
         //然后确认发送异步请求的信息到后台删除数据
-        $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + names + "</font>吗？", function (DeleteUser) {
+        $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + names + "的销售记录</font>吗？", function (DeleteUser) {
             if (DeleteUser) {
                 $.post("/web1/SaleDeleteScmSalesdata.action", postData, function (data) {
                 	debugger;

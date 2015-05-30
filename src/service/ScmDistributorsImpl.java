@@ -115,10 +115,20 @@ public class ScmDistributorsImpl extends ActionSupport {
 			offset = (offset - 1) * pagesize;
 		}
 
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		if(this.scmdistributors!=null){
+			map.put("fname", scmdistributors.getFname());						
+			map.put("fintroducer", scmdistributors.getFintroducer());
+			map.put("faddress", scmdistributors.getFaddress());
+			map.put("fmobile", scmdistributors.getFmobile());
+		
+		}
+		
 		List<ScmDistributors> listScmDistributors = this.scmdistributorsDao
-				.GetAll(offset, pagesize);
+				.GetAll(offset, pagesize,map);
 
-		int size = this.scmdistributorsDao.GetCount();
+		int size = this.scmdistributorsDao.GetCount(map);
 
 		dataMap.put("rows", listScmDistributors);
 		dataMap.put("total", size);

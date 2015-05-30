@@ -33,7 +33,7 @@ $(function () {
         cache: false
     });
    
-    searchFun1();  
+    searchFun();  
 });
 
 
@@ -61,28 +61,19 @@ function initTable(queryData) {
         },
         columns: [[
             { field: "ck", checkbox: true },
-            <% foreach (ColumnSchema column in this.SourceTable.Columns) { %> 
+            <% for (int i = 1; i < SourceTable.Columns.Count; i++) {%>
             {
-                field: '<%= GetMemberVariableName(column.Name) %>', title: '<%= column.Name %>', width: 60, align: 'center', formatter: function (value) {
+                field: '<%= GetMemberVariableName(SourceTable.Columns[i].Name) %>', title: '<%= SourceTable.Columns[i].Name%>', width: 60, align: 'center', formatter: function (value) {
                     return value;
                 }
             }
+             <% if (i <  SourceTable.Columns.Count-1) {%>            
             ,
              <% } %>
-            
+             <% } %>           
       ]],              
         toolbar: "#div_Menu"
     });
-}
-//主要目的用于点击链接过来加载
-function searchFun1() { 
-    var queryData = {
-    	"user.id": $("#txtFname").val(),
-        "user.name": $("#txtFname").val(),
-        "user.Mobile": $("#txtFMobile").val(),
-        "user.Adress": $("#txtFAddress").val()
-    };
-    initTable(queryData);    
 }
 
 function searchFun() {
@@ -126,13 +117,7 @@ function BindShowUpdateInfo() {
 
 
 function clearbox() {
-    var date = new Date();
-    var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
-    var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-    $('#txtFname').combotree("setValue", "");
-    $('#searchForm input').val('');
-    $('#txtStartTime').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);
-    $('#txtEndTime').datebox('setValue', date.getFullYear() + '-' + month + '-' + currentDate);    
+    $('#searchForm input').val('');   
     searchFun();
 }
 
@@ -142,6 +127,10 @@ function add(id) {
 //实现分组的修改
 function Add<%= ModelName(SourceTable.Name)%>() {
 	
+	 if($("#frm<%= ModelName(SourceTable.Name)%>").form('validate')==false)
+	 {
+	   return ;
+	 }	
 	//debugger;
     //if ($("#fname").val().length == 0) {
     //    $.messager.alert("提示", "请输入user.name！", "info");

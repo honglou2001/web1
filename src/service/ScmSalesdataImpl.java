@@ -105,10 +105,23 @@ public class ScmSalesdataImpl extends ActionSupport {
 		if (offset>0){
 			offset = (offset-1) * pagesize;
 		}
+        
+		HashMap<String, String> map = new HashMap<String, String>();       
+		if(this.scmsalesdata!=null){
+			if(scmsalesdata.getFdistributorid()!=null && scmsalesdata.getFdistributorid().length()>0){
+				map.put("fdatebegin", scmsalesdata.getFdistributorid());	
+			}
+			if(scmsalesdata.getFsaledataid()!=null && scmsalesdata.getFsaledataid().length()>0){
+				map.put("fdateend", scmsalesdata.getFsaledataid());
+			}
+			if(scmsalesdata.getFdistributor()!=null && scmsalesdata.getFdistributor().length()>0){
+				map.put("fdistributor", scmsalesdata.getFdistributor());	
+			}
+		}
 		
-		List<ScmSalesdata>  listScmSalesdata= this.scmsalesdataDao.GetAll(offset, pagesize);
+		List<ScmSalesdata>  listScmSalesdata= this.scmsalesdataDao.GetAll(offset, pagesize,map);
 		
-		int size = this.scmsalesdataDao.GetCount();
+		int size = this.scmsalesdataDao.GetCount(map);
 				
 		dataMap.put("rows", listScmSalesdata);
 		dataMap.put("total", size);

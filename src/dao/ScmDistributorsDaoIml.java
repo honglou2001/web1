@@ -7,6 +7,7 @@ import com.users.ejb.User;
 import com.users.ejb.UserService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -33,14 +34,14 @@ public class ScmDistributorsDaoIml {
 	}
 	
 	
-	public int GetCount()
+	public int GetCount(HashMap<String, String> map)
 	{
 		int total = 0 ;			
 		Context weblogicContext = action.ejbproxy.getInitialConnection();
 		ScmDistributorsService serviceClient;
 		try {
 			serviceClient = (ScmDistributorsService)weblogicContext.lookup("ScmDistributorsBean/remote");
-			total = serviceClient.GetCount();	
+			total = serviceClient.GetCount(map);	
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -49,13 +50,13 @@ public class ScmDistributorsDaoIml {
 	}
 	
 
-	public List<ScmDistributors> GetAll(int offset, int length)
+	public List<ScmDistributors> GetAll(int offset, int length,HashMap<String, String> map)
 	{		
 		List<ScmDistributors> listScmDistributors =  new ArrayList<ScmDistributors>();				
 		try{
 			Context weblogicContext = action.ejbproxy.getInitialConnection();			
 			ScmDistributorsService serviceClient = (ScmDistributorsService)weblogicContext.lookup("ScmDistributorsBean/remote");
-			listScmDistributors = serviceClient.ListScmDistributors(offset, length);	
+			listScmDistributors = serviceClient.ListScmDistributors(offset, length,map);	
 
 		  } catch (NamingException ne) {
 			   // TODO: handle exception

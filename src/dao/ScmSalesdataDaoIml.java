@@ -4,6 +4,7 @@ import com.users.ejb.ScmSalesdata;
 import com.users.ejb.ScmSalesdataService;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.NamingException;
@@ -30,14 +31,14 @@ public class ScmSalesdataDaoIml {
 	}
 	
 	
-	public int GetCount()
+	public int GetCount(HashMap<String, String> map)
 	{
 		int total = 0 ;			
 		Context weblogicContext = action.ejbproxy.getInitialConnection();
 		ScmSalesdataService serviceClient;
 		try {
 			serviceClient = (ScmSalesdataService)weblogicContext.lookup("ScmSalesdataBean/remote");
-			total = serviceClient.GetCount();	
+			total = serviceClient.GetCount(map);	
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -46,13 +47,13 @@ public class ScmSalesdataDaoIml {
 	}
 	
 
-	public List<ScmSalesdata> GetAll(int offset, int length)
+	public List<ScmSalesdata> GetAll(int offset, int length,HashMap<String, String> map)
 	{		
 		List<ScmSalesdata> listScmSalesdata =  new ArrayList<ScmSalesdata>();				
 		try{
 			Context weblogicContext = action.ejbproxy.getInitialConnection();			
 			ScmSalesdataService serviceClient = (ScmSalesdataService)weblogicContext.lookup("ScmSalesdataBean/remote");
-			listScmSalesdata = serviceClient.ListScmSalesdata(offset, length);	
+			listScmSalesdata = serviceClient.ListScmSalesdata(offset, length,map);	
 
 		  } catch (NamingException ne) {
 			   // TODO: handle exception

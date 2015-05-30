@@ -89,7 +89,7 @@ Description:
 
     <!--------------------------信息的弹出层---------------------------->
     <div id="div_Add<%= ModelName(SourceTable.Name)%>" title="分组信息" toolbar="#div_Toolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
-        <form id="frm<%= ModelName(SourceTable.Name)%>" method="post" novalidate="novalidate">   
+        <form id="frm<%= ModelName(SourceTable.Name)%>" method="post">   
             <div style="height: 180px">                    
                 <% foreach (ColumnSchema column in this.SourceTable.Columns) { %> 
                 <%if (column.IsPrimaryKeyMember) {%> 

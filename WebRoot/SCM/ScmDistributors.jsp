@@ -19,40 +19,35 @@
     <div data-options="region:'north',collapsible:false,border:false,title:'查询条件'" style="height: 90px;"
         align="left">
         <form id="searchForm"  method="post" target="newWin">
-            <table class="tableForm datagrid-toolbar" style="background-color: White;">
-                <tr>
+            <table class="tableForm datagrid-toolbar"
+				style="background-color: White;">
+				<tr>
 
-                    <th style="width: 60px;">注册时间：
-                    </th>
-                    <td style="min-width: 200px;">
-                        <input id="txtStartTime" name="txtStartTime" class="easyui-datebox" style="width: 100px;" />&nbsp;&nbsp;-
-                        <input id="txtEndTime" name="txtStartTime" class="easyui-datebox" style="width: 100px;" />
-                    </td>
-                    <th style="width: 60px;">注册地址：
-                    </th>
-                    <td style="width: 350px;">
-                             <input type="text" id="txtFAddress" name="txtFAddress" class="easyui-validatebox" style="width: 120px" value="" />&nbsp;
-                   
-                    </td>
-                </tr>
-                <tr>
-                    <th style="width: 60px;">注册账号：
-                    </th>
-                    <td>
-                        <input id='txtFname' name='FDeviceID' class="easyui-combotree"
-                            multiple="multiple" data-options="url:'/FeedReport/GetComboTree'" style="width: 217px;" />
-                    </td>
-                    <th>注册手机：</th>
-                    <td>
-                        <input type="text" id="txtFMobile" name="txtFMobile" class="easyui-validatebox" style="width: 120px" value="" />&nbsp;
+					<th style="width: 80px;">分销商名称：</th>
+					<td style="min-width: 200px;"><input type="text" id="sfname" name="sfname"
+						class="easyui-validatebox" style="width: 200px" value="" /></td>
+					<th style="width: 60px;">注册地址：</th>
+					<td style="width: 350px;"><input type="text" id="sfaddress"
+						name="sfaddress" class="easyui-validatebox" style="width: 120px"
+						value="" />&nbsp;</td>
+				</tr>
+				<tr>
+					<th style="width: 80px;">介绍人名称：</th>
+					<td><input type="text" id="sinstroducer" name="sinstroducer"
+						class="easyui-validatebox" style="width: 200px" value="" /></td>
+					<th>注册手机：</th>
+					<td><input type="text" id="sfmobile" name="sfmobile"
+						class="easyui-validatebox" style="width: 120px" value="" />&nbsp;
 
-                            <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="searchFun();">查询</a>
-                            <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a>
-
-                            <a href="#" id="explort" class="easyui-linkbutton" iconcls="icon-page_white_excel" plain="true" onclick="exportExcel()">导出</a>
-                    </td>
-                </tr>
-            </table>
+						<a href="#" id="txbAdd" class="easyui-linkbutton"
+						iconcls="icon-search" plain="true" onclick="searchFun();">查询</a> <a
+						href="#" id="txbUpdate" class="easyui-linkbutton"
+						iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a> <a
+						href="#" id="explort" class="easyui-linkbutton"
+						iconcls="icon-page_white_excel" plain="true"
+						onclick="exportExcel()">导出</a></td>
+				</tr>
+			</table>
             <input type="hidden" id="txtExcel" value="1" />
         </form>
     </div>
@@ -63,7 +58,7 @@
 
     <!--------------------------信息的弹出层---------------------------->
     <div id="div_AddScmDistributors" title="分组信息" toolbar="#div_Toolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
-        <form id="frmScmDistributors" method="post" novalidate="novalidate">   
+        <form id="frmScmDistributors" method="post">   
             <div style="height: 180px">                    
                     <input type="hidden" id="fdistributorid" name="scmdistributors.fdistributorid"/>
 <!--                 <div class="a_left"> -->
@@ -76,11 +71,11 @@
 <!--                 </div> -->
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">分销商名称:</span>
-                    <input type="text" id="fname" name="scmdistributors.fname" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <input type="text" id="fname" name="scmdistributors.fname" class="easyui-validatebox" style="width: 180px" required="true" value="" missingMessage="分销商名称必须填写"/>
                 </div>   
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">介绍人:</span>
-                    <input type="text" id="fintroducer" name="scmdistributors.fintroducer" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <input type="text" id="fintroducer" name="scmdistributors.fintroducer"  style="width: 180px"  value="" />
                 </div>
              
 <!--                 <div class="a_left"> -->
@@ -88,20 +83,20 @@
 <!--                     <input type="text" id="fintroertype" name="scmdistributors.fintroertype" class="easyui-validatebox" style="width: 180px" required="true" value="" /> -->
 <!--                 </div> -->
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">座机：:</span>
-                    <input type="text" id="fphone" name="scmdistributors.fphone" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">座机：</span>
+                    <input type="text" id="fphone" name="scmdistributors.fphone" style="width: 180px" value="" class="easyui-validatebox" validtype="phone"/>
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">手机：:</span>
-                    <input type="text" id="fmobile" name="scmdistributors.fmobile" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px" >手机：</span>
+                    <input type="text" id="fmobile" name="scmdistributors.fmobile" style="width: 180px" value=""  class="easyui-validatebox" validtype="mobile"/>
                 </div>
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">地址:</span>
-                    <input type="text" id="faddress" name="scmdistributors.faddress" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <input type="text" id="faddress" name="scmdistributors.faddress" style="width: 180px" value="" />
                 </div>
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">邮编:</span>
-                    <input type="text" id="fzipcode" name="scmdistributors.fzipcode" class="easyui-validatebox" style="width: 180px" required="true" value="" />
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px" >邮编:</span>
+                    <input type="text" id="fzipcode" name="scmdistributors.fzipcode" style="width: 180px" value=""  class="easyui-validatebox" validtype="zip"/>
                 </div>
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">性别:</span>
