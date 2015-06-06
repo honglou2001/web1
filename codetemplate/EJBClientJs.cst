@@ -122,6 +122,7 @@ function clearbox() {
 }
 
 function add(id) {
+    $("#frm<%= ModelName(SourceTable.Name)%> input,textarea").val('');	
     $('#div_Add<%= ModelName(SourceTable.Name)%>').dialog('open');
 }
 //实现分组的修改
@@ -183,7 +184,7 @@ function Delete<%= ModelName(SourceTable.Name)%>() {
             if (DeleteUser) {
                 $.post("/web1/<%=StructPrefix%>Delete<%= ModelName(SourceTable.Name)%>.action", postData, function (data) {
                 	debugger;
-                	if (data.success == true) {
+                	if (data.success == true && data.errcode ==0) {
                         //添加成功  1.关闭弹出层，2.刷新DataGird
                     	$.messager.alert('提示', data.message, 'info');
                         refresh();
@@ -210,3 +211,24 @@ function refresh() {
 function cancel() {    
     $('#div_Add<%= ModelName(SourceTable.Name)%>').dialog('close');
 }
+/*
+-- struct action
+<action name="<%=StructPrefix%>" class="SP<%=StructPrefix%>Action" method="List">
+    <result>/SCM/<%= ModelName(SourceTable.Name)%>.jsp</result>
+</action> 
+ 
+<action name="<%=StructPrefix%>*" class="SP<%=StructPrefix%>Action" method="{1}">
+	<result type="json">
+		<param name="root">dataMap</param>
+	</result>	
+</action>	
+---
+-- spring action
+<bean id="SP<%=StructPrefix%>Action" class="service.<%= ModelName(SourceTable.Name)%>Impl"  scope="prototype">
+	 <property name="<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao" ref="ref<%=StructPrefix%>Dao"></property>
+</bean>
+ 	
+<bean name="ref<%=StructPrefix%>Dao" class="dao.<%= ModelName(SourceTable.Name)%>DaoIml">
+</bean>	
+---
+*/

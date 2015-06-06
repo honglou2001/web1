@@ -95,17 +95,8 @@ public class ScmSalesdataImpl extends ActionSupport {
 		  return SUCCESS;   			
 		}			
 
-  
-	public String QueryScmSalesdata() {
-		dataMap = new HashMap<String, Object>();		
-		int offset = this.getPage();		
-		
-		int pagesize = Constants.PAGE_SIZE;
-		
-		if (offset>0){
-			offset = (offset-1) * pagesize;
-		}
-        
+	private HashMap<String, String> GetQueryMap()
+	{
 		HashMap<String, String> map = new HashMap<String, String>();       
 		if(this.scmsalesdata!=null){
 			if(scmsalesdata.getFdistributorid()!=null && scmsalesdata.getFdistributorid().length()>0){
@@ -117,7 +108,29 @@ public class ScmSalesdataImpl extends ActionSupport {
 			if(scmsalesdata.getFdistributor()!=null && scmsalesdata.getFdistributor().length()>0){
 				map.put("fdistributor", scmsalesdata.getFdistributor());	
 			}
+			if(scmsalesdata.getFintroducer()!=null && scmsalesdata.getFintroducer().length()>0){
+				map.put("fintroducer", scmsalesdata.getFintroducer());	
+			}
+			if(scmsalesdata.getFparentid()!=null && scmsalesdata.getFparentid().length()>0){
+				map.put("fparentid", scmsalesdata.getFparentid());	
+			}			
+			
 		}
+		
+		return map;		
+	}
+	
+	public String QueryScmSalesdata() {
+		dataMap = new HashMap<String, Object>();		
+		int offset = this.getPage();		
+		
+		int pagesize = Constants.PAGE_SIZE;
+		
+		if (offset>0){
+			offset = (offset-1) * pagesize;
+		}
+        try{
+		HashMap<String, String> map = this.GetQueryMap();
 		
 		List<ScmSalesdata>  listScmSalesdata= this.scmsalesdataDao.GetAll(offset, pagesize,map);
 		
@@ -125,6 +138,15 @@ public class ScmSalesdataImpl extends ActionSupport {
 				
 		dataMap.put("rows", listScmSalesdata);
 		dataMap.put("total", size);
+		
+ 	    } catch (RuntimeException ex) {
+			this.message = ex.getMessage();
+			this.errcode = ex.hashCode();
+		}  
+        
+        dataMap.put("errcode", this.errcode);
+		dataMap.put("message", this.message);
+		
 		return SUCCESS;
 	} 
     

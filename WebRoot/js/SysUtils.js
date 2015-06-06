@@ -1,4 +1,141 @@
-﻿
+﻿$.extend($.fn.validatebox.defaults.rules, {
+    idcard: {// 验证身份证
+        validator: function (value) {
+            return /^\d{15}(\d{2}[A-Za-z0-9])?$/i.test(value);
+        },
+        message: '身份证号码格式不正确'
+    },
+    minLength: {
+        validator: function (value, param) {
+            return value.length >= param[0];
+        },
+        message: '请输入至少（2）个字符.'
+    },
+    length: { validator: function (value, param) {
+        var len = $.trim(value).length;
+        return len >= param[0] && len <= param[1];
+    },
+        message: "输入内容长度必须介于{0}和{1}之间."
+    },
+    phone: {// 验证电话号码
+        validator: function (value) {
+            return /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/i.test(value);
+        },
+        message: '格式不正确,请使用下面格式:020-88888888'
+    },
+    mobile: {// 验证手机号码
+        validator: function (value) {
+            return /^(13|15|18)\d{9}$/i.test(value);
+        },
+        message: '手机号码格式不正确'
+    },
+    intOrFloat: {// 验证整数或小数
+        validator: function (value) {
+            return /^\d+(\.\d+)?$/i.test(value);
+        },
+        message: '请输入数字，并确保格式正确'
+    },
+    currency: {// 验证货币
+        validator: function (value) {
+            return /^\d+(\.\d+)?$/i.test(value);
+        },
+        message: '货币格式不正确'
+    },
+    qq: {// 验证QQ,从10000开始
+        validator: function (value) {
+            return /^[1-9]\d{4,9}$/i.test(value);
+        },
+        message: 'QQ号码格式不正确'
+    },
+    integer: {// 验证整数 可正负数
+        validator: function (value) {
+            //return /^[+]?[1-9]+\d*$/i.test(value);
+
+            return /^([+]?[0-9])|([-]?[0-9])+\d*$/i.test(value);
+        },
+        message: '请输入整数'
+    },
+    age: {// 验证年龄
+        validator: function (value) {
+            return /^(?:[1-9][0-9]?|1[01][0-9]|120)$/i.test(value);
+        },
+        message: '年龄必须是0到120之间的整数'
+    },
+
+    chinese: {// 验证中文
+        validator: function (value) {
+            return /^[\Α-\￥]+$/i.test(value);
+        },
+        message: '请输入中文'
+    },
+    english: {// 验证英语
+        validator: function (value) {
+            return /^[A-Za-z]+$/i.test(value);
+        },
+        message: '请输入英文'
+    },
+    unnormal: {// 验证是否包含空格和非法字符
+        validator: function (value) {
+            return /.+/i.test(value);
+        },
+        message: '输入值不能为空和包含其他非法字符'
+    },
+    username: {// 验证用户名
+        validator: function (value) {
+            return /^[a-zA-Z][a-zA-Z0-9_]{5,15}$/i.test(value);
+        },
+        message: '用户名不合法（字母开头，允许6-16字节，允许字母数字下划线）'
+    },
+    faxno: {// 验证传真
+        validator: function (value) {
+            //            return /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/i.test(value);
+            return /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/i.test(value);
+        },
+        message: '传真号码不正确'
+    },
+    zip: {// 验证邮政编码
+        validator: function (value) {
+            return /^[1-9]\d{5}$/i.test(value);
+        },
+        message: '邮政编码格式不正确'
+    },
+    ip: {// 验证IP地址
+        validator: function (value) {
+            return /d+.d+.d+.d+/i.test(value);
+        },
+        message: 'IP地址格式不正确'
+    },
+    name: {// 验证姓名，可以是中文或英文
+        validator: function (value) {
+            return /^[\Α-\￥]+$/i.test(value) | /^\w+[\w\s]+\w+$/i.test(value);
+        },
+        message: '请输入姓名'
+    },
+    date: {// 验证姓名，可以是中文或英文
+        validator: function (value) {
+            //格式yyyy-MM-dd或yyyy-M-d
+            return /^(?:(?!0000)[0-9]{4}([-]?)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-]?)0?2\2(?:29))$/i.test(value);
+        },
+        message: '清输入合适的日期格式'
+    },
+    msn: {
+        validator: function (value) {
+            return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
+        },
+        message: '请输入有效的msn账号(例：abc@hotnail(msn/live).com)'
+    },
+    same: {
+        validator: function (value, param) {
+            if ($("#" + param[0]).val() != "" && value != "") {
+                return $("#" + param[0]).val() == value;
+            } else {
+                return true;
+            }
+        },
+        message: '两次输入的密码不一致！'
+    }
+});
+
 function addTabExt(subtitle, url, icon) {
     //console.info(self);
     var $parent = self.parent.$;
@@ -258,157 +395,5 @@ function GetHighChart(title, renderTo, yAxisName, isLegend) {
 }
 
 
-//将时间年月日时转换成UTC格式，
-//符合2000-01-01 06:30:00格式
-function getDateUTC(time) {
-    return Date.UTC(parseInt(time.substring(0, 4), 10), parseInt(time.substring(5, 7), 10) - 1, parseInt(time.substring(8, 10), 10), parseInt(time.substring(11, 13), 10), parseInt(time.substring(14, 16), 10), parseInt(time.substring(17, 19), 10), 0);
-}
-
-//利用正则将时间年月日时转换成UTC格式，
-//符合2000-01-01 06:30:00或者2000-01-01格式
-function getDateUTC1(time) {
-    var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})$/g;
-    var matches = pattern.exec(time);
-    if (matches) {
-        return Date.UTC(matches[1], matches[2] - 1, matches[3], matches[4], matches[5], matches[6], 0);
-    } else {
-        pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/g;
-        matches = pattern.exec(time);
-        return Date.UTC(matches[1], matches[2] - 1, matches[3], 0, 0, 0, 0);
-    }
-}
-
-function toDate(time) {
-    var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})\s([0-9]{2}):([0-9]{2}):([0-9]{2})$/g;
-    var matches = pattern.exec(time);
-    return new Date(matches[1], matches[2], matches[3], matches[4], matches[5], matches[6]);
-}
-
-//time满足20132-08-01格式条件
-function addDates(time, day) {
-    var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/g;
-    var matches = pattern.exec(time);
-
-    var date = new Date(matches[1], parseInt(matches[2], 10) - 1, parseInt(matches[3], 10) + parseInt(day), 0, 0, 0);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? "0" + m : m;
-    var d = date.getDate();
-    d = d < 10 ? "0" + d : d;
-
-    //update by zhougz  2014-5-7,加判断不能大于当前时间。
-    var dateTime = new Date();
-    //var dd = new Date(y + "-" + m + "-" + d);
-    if (date <= dateTime) {
-        return y + "-" + m + "-" + d;
-    }
-    else {
-        var y1 = dateTime.getFullYear();
-        var m1 = dateTime.getMonth() + 1;
-        m1 = m1 < 10 ? "0" + m1 : m1;
-        var d1 = dateTime.getDate();
-        d1 = d1 < 10 ? "0" + d1 : d1;
-       // alert("不能大于当前时间!")
-        $.messager.alert("提示", "不能大于当前时间!", "info");
-        return y1 + '-' + m1 + '-' + d1;
-    }
-}
-
-//time满足20132-08-01格式条件
-function addMonths(time, month) {
-    var pattern = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/g;
-    var matches = pattern.exec(time);
-
-    var date = new Date(matches[1], parseInt(matches[2], 10) - 1 + parseInt(month), parseInt(matches[3], 10), 0, 0, 0);
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    m = m < 10 ? "0" + m : m;
-    var d = date.getDate();
-    d = d < 10 ? "0" + d : d;
-    return y + "-" + m + "-" + d;
-}
-
-
-
-Date.prototype.Format = function (fmt) { //author: meizz 
-    var o = {
-        "M+": this.getMonth() + 1, //月份 
-        "d+": this.getDate(), //日 
-        "h+": this.getHours(), //小时 
-        "m+": this.getMinutes(), //分 
-        "s+": this.getSeconds(), //秒 
-        "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
-        "S": this.getMilliseconds() //毫秒 
-    };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-    for (var k in o)
-        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-    return fmt;
-}
-
-
-function GetDateDiff(startTime, endTime, diffType) {
-    //将xxxx-xx-xx的时间格式，转换为 xxxx/xx/xx的格式  
-    startTime = startTime.replace(/-/g, "/");
-    endTime = endTime.replace(/-/g, "/");
-    //将计算间隔类性字符转换为小写  
-    diffType = diffType.toLowerCase();
-    var sTime = new Date(startTime); //开始时间  
-    var eTime = new Date(endTime); //结束时间  
-    //作为除数的数字  
-    var divNum = 1;
-    switch (diffType) {
-        case "second":
-            divNum = 1000;
-            break;
-        case "minute":
-            divNum = 1000 * 60;
-            break;
-        case "hour":
-            divNum = 1000 * 3600;
-            break;
-        case "day":
-            divNum = 1000 * 3600 * 24;
-            break;
-        default:
-            break;
-    }
-    return parseInt((eTime.getTime() - sTime.getTime()) / parseInt(divNum)); //17jquery.com  
-}
-
-function setCookie(c_name, value, expiredays) {
-    var exdate = new Date()
-    exdate.setDate(exdate.getDate() + expiredays)
-    document.cookie = c_name + "=" + escape(value) +
-((expiredays == null) ? "" : ";expires=" + exdate.toGMTString())
-}
-
-
-function getCookie(c_name) {
-    if (document.cookie.length > 0) {
-        c_start = document.cookie.indexOf(c_name + "=")
-        if (c_start != -1) {
-            c_start = c_start + c_name.length + 1
-            c_end = document.cookie.indexOf(";", c_start)
-            if (c_end == -1) c_end = document.cookie.length
-            return unescape(document.cookie.substring(c_start, c_end))
-        }
-    }
-    return ""
-}
-
-//验证手机号码
-function isDigit(s) {
-    var patrn = /^[0-9]{1,20}$/;
-    if (!patrn.exec(s)) return false
-    return true
-}
-
-//验证邮箱
-function CheckMail(mail) {
-    var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-    if (filter.test(mail)) return true;
-    return false;
-}
 
 

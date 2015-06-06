@@ -30,9 +30,10 @@
 									{"menuid":"23","menuname":"角色管理","icon":"icon-nav","url":"Roles.action"}
 								]
 						},{"menuid":"56","icon":"icon-sys","menuname":"分销管理",
-							"menus":[{"menuid":"31","menuname":"分销商管理","icon":"icon-nav","url":"ScmDistor.action"},
-									{"menuid":"32","menuname":"销售分成","icon":"icon-nav","url":"ScmSales.action"},
-									{"menuid":"33","menuname":"分成设计","icon":"icon-nav","url":"demo2.html"}
+							"menus":[
+									{"menuid":"31","menuname":"提成比例设置","icon":"icon-nav","url":"Btype.action"},
+									{"menuid":"32","menuname":"分销商管理","icon":"icon-nav","url":"ScmDistor.action"},
+									{"menuid":"33","menuname":"销售及分成","icon":"icon-nav","url":"ScmSales.action"}
 								]
 						},{"menuid":"28","icon":"icon-sys","menuname":"财务管理",
 							"menus":[{"menuid":"41","menuname":"收支分类","icon":"icon-nav","url":"demo.html"},

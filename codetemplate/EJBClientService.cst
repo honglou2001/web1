@@ -126,6 +126,20 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
 	  return SUCCESS;   			
 	}
   
+	private HashMap<String, String> GetQueryMap()
+	{				
+        HashMap<String, String> map = new HashMap<String, String>();
+		if(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>!=null){
+        <% foreach (ColumnSchema column in this.SourceTable.Columns)  { %>
+        if(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>.<%= getFunctionMemberVariableName(column.Name) %>()!=null && !this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>.<%= getFunctionMemberVariableName(column.Name) %>().equals("")){
+			map.put("<%= GetMemberVariableName(column.Name) %>", this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>.<%= getFunctionMemberVariableName(column.Name) %>().toString());
+         }
+        <% } %>       
+        }
+		
+		return map;		
+	}
+    
 	public String Query<%= ModelName(SourceTable.Name)%>() {
 		dataMap = new HashMap<String, Object>();		
 		int offset = this.getPage();		
@@ -135,13 +149,25 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
 		if (offset>0){
 			offset = (offset-1) * pagesize;
 		}
+        
+        HashMap<String, String> map = this.GetQueryMap();
+        
+        try {
+		List<<%= ModelName(SourceTable.Name)%>>  list<%= ModelName(SourceTable.Name)%>= this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao.GetAll(offset, pagesize,map);
 		
-		List<<%= ModelName(SourceTable.Name)%>>  list<%= ModelName(SourceTable.Name)%>= this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao.GetAll(offset, pagesize);
-		
-		int size = this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao.GetCount();
+		int size = this.<%= GetMemberVariableName(ParameterName(SourceTable.Name)) %>Dao.GetCount(map);
 				
 		dataMap.put("rows", list<%= ModelName(SourceTable.Name)%>);
 		dataMap.put("total", size);
+        
+ 	    } catch (RuntimeException ex) {
+			this.message = ex.getMessage();
+			this.errcode = ex.hashCode();
+		}  
+        
+        dataMap.put("errcode", this.errcode);
+		dataMap.put("message", this.message);
+        
 		return SUCCESS;
 	} 
     
@@ -162,14 +188,20 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
         
         
     public String Delete<%= ModelName(SourceTable.Name)%>() {
+        try {
 		this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>Dao
 				.Delete(this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= getFunctionMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>());
 
 		this.message = "成功删除";
-
+        } catch (RuntimeException ex) {
+			this.message = ex.getMessage();
+			this.errcode = ex.hashCode();
+		}	
+        
 		dataMap = new HashMap<String, Object>();
 		dataMap.put("id", this.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= getFunctionMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>());
-		dataMap.put("success", true);
+		dataMap.put("errcode", this.errcode);
+        dataMap.put("success", true);
 		dataMap.put("message", this.message);
 
 		return SUCCESS;

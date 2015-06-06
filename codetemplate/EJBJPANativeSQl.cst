@@ -177,7 +177,7 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
 		// TODO 自动生成方法存根
         StringBuffer  sql = new StringBuffer();
         sql.append(" SELECT <%=GetEtParam(SourceTable)%> ");
-        sql.append(" FROM <%= SourceTable.Name.ToUpper()%> ");
+        sql.append(" FROM <%= SourceTable.Name.ToUpper()%> a");
 		sql.append(" WHERE 1 = 1 ");
 		<% foreach (ColumnSchema column in this.SourceTable.Columns) 
 		{ 
@@ -261,13 +261,12 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
 		
         sql.append(" UPDATE <%= SourceTable.Name.ToUpper()%> SET ");
 		// TODO:注意,需要删除最后的 更新语句的逗号
-		<% foreach (ColumnSchema column in this.SourceTable.Columns) 
-		{ 
-			int i = 0;
-			if ( column.IsPrimaryKeyMember == false )
+         <% for (int i = 1; i < SourceTable.Columns.Count; i++) {
+			
+			if ( SourceTable.Columns[i].IsPrimaryKeyMember == false )
 			{
 		%>
-		sql.append(" <%=column.Name.ToUpper() %> = :<%=column.Name.ToUpper() %> ,");
+		sql.append(" <%=SourceTable.Columns[i].Name.ToUpper() %> = :<%=SourceTable.Columns[i].Name.ToUpper() %><% if (i <  SourceTable.Columns.Count-1) {%>,<% } %>");       
 		<% 
 			}
 		} 
@@ -283,7 +282,7 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
 			}
 		} 
 		%>
-		
+		Query query = manager.createNativeQuery(sql.toString());
 		/// 需要更新的字段：
 		<% foreach (ColumnSchema column in this.SourceTable.Columns) 
 		{ 
@@ -294,8 +293,7 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
 		<% 
 			}
 		} 
-		%>
-		
+		%>		
         /// 输入条件：主键
 		// TODO:栓查自动产生的脚本是否多主键，多主键不参采用这个方式
 		<% foreach (ColumnSchema column in this.SourceTable.Columns) 
@@ -303,12 +301,13 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
 			if ( column.IsPrimaryKeyMember == true )
 			{
 		%>
-		        query.setParameter("<%=column.Name.ToUpper() %>", <%= ParameterName(SourceTable.Name)%>Info.<%=getFunctionMemberVariableName(column.Name)%>());
+		query.setParameter("<%=column.Name.ToUpper() %>", <%= ParameterName(SourceTable.Name)%>Info.<%=getFunctionMemberVariableName(column.Name)%>());
 		<% 
 			}
 		} 
 		%>
         
+        query.executeUpdate();
         ///   调用 save 组件
         try{
           baseDAO.save(con,sql.toString(),parms);
@@ -323,11 +322,11 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
 	}
 
 	@Override
-	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length) {
+	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length,HashMap<String, String> map) {
 
 	    StringBuffer  sql = new StringBuffer();
         sql.append(" SELECT <%=GetEtParam(SourceTable)%> ");
-        sql.append(" FROM <%= SourceTable.Name.ToUpper()%> ");
+        sql.append(" FROM <%= SourceTable.Name.ToUpper()%> a ");
 		sql.append(" WHERE 1 = 1 ");
 
 		Query query = manager.createNativeQuery(sql.toString());

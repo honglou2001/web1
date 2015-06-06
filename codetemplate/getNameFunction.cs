@@ -1,4 +1,4 @@
-
+﻿
 
 /*
 RootOutputPath:	输出主目录
@@ -263,11 +263,11 @@ public string GetEtParam(TableSchema dt )
 		if ( count == 0 )
 		{
 
-			param = column.Name ;
+			param = "a."+column.Name ;
 		}
 		else
 		{
-			param = param + "," + column.Name;
+			param = param + ",a." + column.Name;
 		}
 		count = count + 1;
 	}

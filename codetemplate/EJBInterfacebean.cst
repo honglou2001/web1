@@ -22,7 +22,6 @@
 <%-- 启用 MAP方式 System-CSharpAlias  --%>
 package <%=RootTableSpaceName%>;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -76,10 +75,28 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info = manager.find(<%= ModelName(SourceTable.Name)%>.class, id);
 		return <%= ParameterName(SourceTable.Name)%>Info;
 	}
+    
+	private String GetWhere(HashMap<String, String> map) {
+		String where = "";
+		
+		if(map!=null && map.size()>0)
+		{
+        <% foreach (ColumnSchema column in this.SourceTable.Columns) { %> 
+			if(map.containsKey("<%= column.Name %>") && map.get("<%= column.Name %>")!=null && !map.get("<%= column.Name %>").toString().equals(""))
+			{
+				where += " and a.<%= column.Name %> like '%"+map.get("<%= column.Name %>")+"%' ";
+			}	
+            <%} %>
+			
+		}
+		return where;
+	}    
 	
 	@Override
-	public int GetCount(){
+	public int GetCount(HashMap<String, String> map){
 		
+        String where = GetWhere(map);
+        
 		String hql = "select count(*) from <%= ModelName(SourceTable.Name)%>";	    
 		Query query =manager.createQuery(hql);   
 		int total = (new Integer(query.getSingleResult().toString()));	    
@@ -87,8 +104,11 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 	}	
 	
 	@Override 
-	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length) {					
-		String hql = "from <%= ModelName(SourceTable.Name)%>";      
+	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length,HashMap<String, String> map) {					
+		
+        String where = GetWhere(map);
+        
+        String hql = "from <%= ModelName(SourceTable.Name)%>";      
 		Query query =manager.createQuery(hql);   
 		query.setFirstResult(offset);
 		query.setMaxResults(length);

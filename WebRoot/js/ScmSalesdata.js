@@ -65,40 +65,57 @@ function initTable(queryData) {
         },
         columns: [[
             { field: "ck", checkbox: true },
+//            {
+//                field: 'fsaledataid', title: '销售编号', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
             {
-                field: 'fsaledataid', title: '销售编号', width: 60, align: 'center', formatter: function (value) {
+                field: 'fdistributor', title: '分销商名称', width: 60, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
             ,
+//            {
+//                field: 'fdistributor', title: '分销商名称', width: 60,  align: 'left',formatter: function (value, row, index) {
+//                    var e = '<a href="#" mce_href="#" onclick="QueryCommissions(\'' + row.fdistributorid + '\',\'' + value + '\',\'' +row.fdistributorid + '\')"><font color="blue">' + value + '</font></a>';
+//                    return e;
+//                }
+//            },
             {
-                field: 'fdistributor', title: '分销商名称', width: 60, align: 'center', formatter: function (value) {
+                field: 'fintroducer', title: '介绍人名称', width: 60, align: 'left', formatter: function (value) {
                     return value;
                 }
-            }
+            },
+//            {
+//                field: 'fintroducer', title: '介绍人名称', width: 60,  align: 'left',formatter: function (value, row, index) {
+//                    var e = '<a href="#" mce_href="#" onclick="QueryCommissions(\'' + row.fparentid + '\',\'' + value + '\',\'' +row.fparentid + '\')"><font color="blue">' + value + '</font></a>';
+//                    return e;
+//                }
+//            },
 
-            ,
             {
-                field: 'fprice', title: '价格', width: 60, align: 'left', formatter: function (value) {
+                field: 'fprice', title: '价格', width: 45, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'famount', title: '数量', width: 60, align: 'left', formatter: function (value) {
+                field: 'famount', title: '数量', width: 45, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'ftotal', title: '总额', width: 60, align: 'left', formatter: function (value) {
+                field: 'ftotal', title: '总额', width: 45, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
             
             ,
             {
-                field: 'fdate', title: '销售日期', width: 60, align: 'center', formatter: function (value) {
+                field: 'fdate', title: '销售日期', width: 45, align: 'center', formatter: function (value) {
                     if (value!=null){
                     	return value.substr(0, 10);
                     }
@@ -109,7 +126,7 @@ function initTable(queryData) {
             }
             ,
             {
-                field: 'fsplit', title: '分成比例', width: 60, align: 'left', formatter: function (value) {                                      
+                field: 'fsplit', title: '分成比例', width: 35, align: 'left', formatter: function (value) {                                      
                     if (value!=null){
                     	return  (parseFloat(value)* 1.00).toFixed(2)  + "%";
                     }
@@ -121,7 +138,7 @@ function initTable(queryData) {
             }
             ,
             {
-                field: 'fsplittoal', title: '分成总额', width: 60, align: 'left', formatter: function (value) {
+                field: 'fsplittoal', title: '分成总额', width: 45, align: 'left', formatter: function (value) {
                     return  (parseFloat(value)* 1.00).toFixed(2);
                 }
             }
@@ -142,6 +159,115 @@ function initTable(queryData) {
     });
 }
 
+
+function QueryCommissions(distributorid,fname, parentid) {	;
+	$('#div_commissions').panel({title: fname+"—销售提成"});
+	$("#div_commissions").show().dialog("open");
+	var queryData = {
+	  	"scmsalesdata.fparentid": distributorid
+	  };
+	
+	CommissionsDetail(queryData);
+}
+
+function CommissionsDetail(queryData) {
+$('#dgcommissions').datagrid({
+    loadMsg: "数据加载中,请稍候……",
+    url: '/web1/SaleQueryScmSalesdata.action',
+    width: "auto",
+    height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+    iconCls: 'icon-save',
+    pageSize: 10,
+    nowrap: true,
+    fitColumns: true,
+    singleSelect:true,
+    striped: true,
+    collapsible: true,
+    pagination: true,
+    rownumbers: true, //行号
+    idField: 'fdistributorid',
+    sortName: 'fupdatetime',
+    sortOrder: 'desc',
+    queryParams: queryData,  //异步查询的参数
+    onLoadSuccess: function (data) {
+       
+    },
+    columns: [[
+        { field: "ck", checkbox: true },
+        {
+            field: 'fdistributor', title: '下级分销商', width: 60, align: 'left', formatter: function (value) {
+                return value;
+            }
+        }
+//        ,
+//        {
+//            field: 'fintroducer', title: '介绍人名称', width: 60, align: 'center', formatter: function (value) {
+//                return value;
+//            }
+//        }
+        ,
+        {
+            field: 'fprice', title: '价格', width: 60, align: 'left', formatter: function (value) {
+                return value;
+            }
+        }
+        ,
+        {
+            field: 'famount', title: '数量', width: 60, align: 'left', formatter: function (value) {
+                return value;
+            }
+        }
+        ,
+        {
+            field: 'ftotal', title: '总额', width: 60, align: 'left', formatter: function (value) {
+                return value;
+            }
+        }
+        
+        ,
+        {
+            field: 'fdate', title: '销售日期', width: 60, align: 'center', formatter: function (value) {
+                if (value!=null){
+                	return value.substr(0, 10);
+                }
+                else{
+                	return value;
+                }
+            }
+        }
+        ,
+        {
+            field: 'fsplit', title: '分成比例', width: 60, align: 'left', formatter: function (value) {                                      
+                if (value!=null){
+                	return  (parseFloat(value)* 1.00).toFixed(2)  + "%";
+                }
+                else
+                	{
+                	return "";
+                	}
+            }
+        }
+        ,
+        {
+            field: 'fsplittoal', title: '分成总额', width: 60, align: 'left', formatter: function (value) {
+                return  (parseFloat(value)* 1.00).toFixed(2);
+            }
+        }
+        ,
+        {
+            field: 'fupdatetime', title: '更新时间', width: 60, align: 'center', formatter: function (value) {
+                if (value!=null){
+                	return value.replace("T"," ");
+                }
+                else{
+                	return value;
+                }
+            }
+        }
+        
+  ]]
+});
+}
 function searchFun() {
     var queryData = {
     	 "scmsalesdata.fdistributorid": $("#sftimebegin").datebox('getValue'),
@@ -177,9 +303,12 @@ function BindShowUpdateInfo() {
     	//debugger;
         $("#fsaledataid").val(cbData.scmsalesdata.fsaledataid);         
         $('#fdistributorid').combobox('setValue',cbData.scmsalesdata.fdistributorid);                           
-        $("#fincreaseid").val(cbData.scmsalesdata.fincreaseid); 
-        $("#fprice").val(cbData.scmsalesdata.fprice); 
-        $("#famount").val(cbData.scmsalesdata.famount); 
+        $("#fincreaseid").val(cbData.scmsalesdata.fincreaseid);
+        
+        $('#fprice').numberbox('setValue',cbData.scmsalesdata.fprice);
+        $('#famount').numberbox('setValue',cbData.scmsalesdata.famount); 
+        //$("#fprice").val(cbData.scmsalesdata.fprice); 
+        //$("#famount").val(cbData.scmsalesdata.famount); 
        
         $('#ftype').combobox('setValue',cbData.scmsalesdata.ftype);
         if (cbData.scmsalesdata.fdate!=null){
@@ -275,7 +404,7 @@ function DeleteScmSalesdata() {
         };
 
         //然后确认发送异步请求的信息到后台删除数据
-        $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + names + "的销售记录</font>吗？", function (DeleteUser) {
+        $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + names + "</font>的销售记录吗？", function (DeleteUser) {
             if (DeleteUser) {
                 $.post("/web1/SaleDeleteScmSalesdata.action", postData, function (data) {
                 	debugger;

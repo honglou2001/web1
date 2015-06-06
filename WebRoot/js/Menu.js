@@ -21,7 +21,7 @@ function initTable() {
 		animate:true,
 		collapsible:true,
 		fitColumns:true,
-		url:'http://lenovo-pcyang:8090/web1/MenuList.action',
+		url:'/web1/MenuList.action',
 		idField:'fid',
 		treeField:'fmenuName',
 		showFooter:false,

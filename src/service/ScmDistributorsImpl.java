@@ -77,7 +77,7 @@ public class ScmDistributorsImpl extends ActionSupport {
 	}
 
 	public String AddScmDistributors() {
-		
+
 		try {
 			if (this.scmdistributors.getFdistributorid() == null
 					|| this.scmdistributors.getFdistributorid().length() <= 0) {
@@ -105,6 +105,28 @@ public class ScmDistributorsImpl extends ActionSupport {
 		return SUCCESS;
 	}
 
+	private HashMap<String, String> GetQueryMap() {
+		HashMap<String, String> map = new HashMap<String, String>();
+
+		if (this.scmdistributors != null) {
+			if(this.scmdistributors.getFname()!=null && !this.scmdistributors.getFname().equals("")){
+				map.put("fname", this.scmdistributors.getFname());
+			}
+			if(this.scmdistributors.getFintroducer()!=null && !this.scmdistributors.getFintroducer().equals("")){
+				map.put("fintroducer", this.scmdistributors.getFintroducer());
+			}
+			if(this.scmdistributors.getFaddress()!=null && !this.scmdistributors.getFaddress().equals("")){
+				map.put("faddress", this.scmdistributors.getFaddress());
+			}
+			if(this.scmdistributors.getFmobile()!=null && !this.scmdistributors.getFmobile().equals("")){
+				map.put("fmobile", this.scmdistributors.getFmobile());
+			}
+
+		}
+
+		return map;
+	}
+
 	public String QueryScmDistributors() {
 		dataMap = new HashMap<String, Object>();
 		int offset = this.getPage();
@@ -115,23 +137,25 @@ public class ScmDistributorsImpl extends ActionSupport {
 			offset = (offset - 1) * pagesize;
 		}
 
-		HashMap<String, String> map = new HashMap<String, String>();
-		
-		if(this.scmdistributors!=null){
-			map.put("fname", scmdistributors.getFname());						
-			map.put("fintroducer", scmdistributors.getFintroducer());
-			map.put("faddress", scmdistributors.getFaddress());
-			map.put("fmobile", scmdistributors.getFmobile());
-		
+		HashMap<String, String> map = this.GetQueryMap();
+
+		try {
+			List<ScmDistributors> listScmDistributors = this.scmdistributorsDao
+					.GetAll(offset, pagesize, map);
+
+			int size = this.scmdistributorsDao.GetCount(map);
+
+			dataMap.put("rows", listScmDistributors);
+			dataMap.put("total", size);
+
+		} catch (RuntimeException ex) {
+			this.message = ex.getMessage();
+			this.errcode = ex.hashCode();
 		}
-		
-		List<ScmDistributors> listScmDistributors = this.scmdistributorsDao
-				.GetAll(offset, pagesize,map);
 
-		int size = this.scmdistributorsDao.GetCount(map);
+		dataMap.put("errcode", this.errcode);
+		dataMap.put("message", this.message);
 
-		dataMap.put("rows", listScmDistributors);
-		dataMap.put("total", size);
 		return SUCCESS;
 	}
 
@@ -156,13 +180,19 @@ public class ScmDistributorsImpl extends ActionSupport {
 	}
 
 	public String DeleteScmDistributors() {
+		try {
 		this.scmdistributorsDao
 				.Delete(this.scmdistributors.getFdistributorid());
-
 		this.message = "成功删除";
-
+		
+		} catch (RuntimeException ex) {
+			this.message = "删除失败，请先删除此分销商的销售记录。";//ex.getMessage();
+			this.errcode = ex.hashCode();
+		}		
 		dataMap = new HashMap<String, Object>();
+		
 		dataMap.put("id", this.scmdistributors.getFdistributorid());
+		dataMap.put("errcode", this.errcode);
 		dataMap.put("success", true);
 		dataMap.put("message", this.message);
 
@@ -172,6 +202,5 @@ public class ScmDistributorsImpl extends ActionSupport {
 	public String List() {
 		return SUCCESS;
 	}
-	
 
 }

@@ -105,7 +105,14 @@
  	 	
 	<bean name="refSaleDao" class="dao.ScmSalesdataDaoIml">
 	</bean>			
-	
+
+	<bean id="SPBtypeAction" class="service.BaseTypecodeImpl"  scope="prototype">
+		 <property name="basetypecodeDao" ref="refBtypeDao"></property>
+	</bean>
+	 	
+	<bean name="refBtypeDao" class="dao.BaseTypecodeDaoIml">
+	</bean>	
+					
  	
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"

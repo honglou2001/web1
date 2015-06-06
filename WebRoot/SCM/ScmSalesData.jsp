@@ -1,3 +1,5 @@
+<%@ page language="java" import="java.util.*,bean.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,10 +37,12 @@
 						<a href="#" id="txbAdd" class="easyui-linkbutton"
 						iconcls="icon-search" plain="true" onclick="searchFun();">查询</a> <a
 						href="#" id="txbUpdate" class="easyui-linkbutton"
-						iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a> <a
-						href="#" id="explort" class="easyui-linkbutton"
-						iconcls="icon-page_white_excel" plain="true"
-						onclick="exportExcel()">导出</a></td>
+						iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a> 
+<!-- 						<a -->
+<!-- 						href="#" id="explort" class="easyui-linkbutton" -->
+<!-- 						iconcls="icon-page_white_excel" plain="true" -->
+<!-- 						onclick="exportExcel()">导出</a> -->
+						</td>
 				</tr>
 			</table>
 			<input type="hidden" id="txtExcel" value="1" />
@@ -102,7 +106,10 @@
 			</div>
 		</form>
 	</div>
-
+    <div id="div_commissions" title="销售提成" style="width: 900px; height: 440px; left: 50px; top: 120px;" resizable="true" class="easyui-dialog" closed="true">
+        <table id="dgcommissions">
+        </table>
+    </div>
 	<div id="div_Toolbar">
 		<a href="javascript:void(0)" class="easyui-linkbutton"
 			iconcls="icon-save" plain="true" onclick="AddScmSalesdata();">保存</a>

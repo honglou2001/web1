@@ -90,9 +90,17 @@
  			<result type="json">
  				<param name="root">dataMap</param>
  			</result>	
-		</action>	        
-        								 	
-		                    	             
+		</action>
+		
+		<action name="Btype" class="SPBtypeAction" method="List">
+		    <result>/SCM/BaseType.jsp</result>
+		</action> 
+		 
+		<action name="Btype*" class="SPBtypeAction" method="{1}">
+			<result type="json">
+				<param name="root">dataMap</param>
+			</result>	
+		</action>				               								 		                    	             
 <!-- 		<action name="HelloWorld" class="action.HelloWorld"> -->
 <!-- 			<result>/HelloWorld.jsp</result> -->
 <!-- 		</action> -->

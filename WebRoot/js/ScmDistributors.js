@@ -9,150 +9,12 @@ $(function () {
 });
 
 
-function timeFormatter(date){
-    return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
-}
-function timeParser(date){
-    return new Date(Date.parse(date.replace(/-/g,"/")));
-}
-
-$.extend($.fn.validatebox.defaults.rules, {
-    idcard: {// 验证身份证
-        validator: function (value) {
-            return /^\d{15}(\d{2}[A-Za-z0-9])?$/i.test(value);
-        },
-        message: '身份证号码格式不正确'
-    },
-    minLength: {
-        validator: function (value, param) {
-            return value.length >= param[0];
-        },
-        message: '请输入至少（2）个字符.'
-    },
-    length: { validator: function (value, param) {
-        var len = $.trim(value).length;
-        return len >= param[0] && len <= param[1];
-    },
-        message: "输入内容长度必须介于{0}和{1}之间."
-    },
-    phone: {// 验证电话号码
-        validator: function (value) {
-            return /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/i.test(value);
-        },
-        message: '格式不正确,请使用下面格式:020-88888888'
-    },
-    mobile: {// 验证手机号码
-        validator: function (value) {
-            return /^(13|15|18)\d{9}$/i.test(value);
-        },
-        message: '手机号码格式不正确'
-    },
-    intOrFloat: {// 验证整数或小数
-        validator: function (value) {
-            return /^\d+(\.\d+)?$/i.test(value);
-        },
-        message: '请输入数字，并确保格式正确'
-    },
-    currency: {// 验证货币
-        validator: function (value) {
-            return /^\d+(\.\d+)?$/i.test(value);
-        },
-        message: '货币格式不正确'
-    },
-    qq: {// 验证QQ,从10000开始
-        validator: function (value) {
-            return /^[1-9]\d{4,9}$/i.test(value);
-        },
-        message: 'QQ号码格式不正确'
-    },
-    integer: {// 验证整数 可正负数
-        validator: function (value) {
-            //return /^[+]?[1-9]+\d*$/i.test(value);
-
-            return /^([+]?[0-9])|([-]?[0-9])+\d*$/i.test(value);
-        },
-        message: '请输入整数'
-    },
-    age: {// 验证年龄
-        validator: function (value) {
-            return /^(?:[1-9][0-9]?|1[01][0-9]|120)$/i.test(value);
-        },
-        message: '年龄必须是0到120之间的整数'
-    },
-
-    chinese: {// 验证中文
-        validator: function (value) {
-            return /^[\Α-\￥]+$/i.test(value);
-        },
-        message: '请输入中文'
-    },
-    english: {// 验证英语
-        validator: function (value) {
-            return /^[A-Za-z]+$/i.test(value);
-        },
-        message: '请输入英文'
-    },
-    unnormal: {// 验证是否包含空格和非法字符
-        validator: function (value) {
-            return /.+/i.test(value);
-        },
-        message: '输入值不能为空和包含其他非法字符'
-    },
-    username: {// 验证用户名
-        validator: function (value) {
-            return /^[a-zA-Z][a-zA-Z0-9_]{5,15}$/i.test(value);
-        },
-        message: '用户名不合法（字母开头，允许6-16字节，允许字母数字下划线）'
-    },
-    faxno: {// 验证传真
-        validator: function (value) {
-            //            return /^[+]{0,1}(\d){1,3}[ ]?([-]?((\d)|[ ]){1,12})+$/i.test(value);
-            return /^((\(\d{2,3}\))|(\d{3}\-))?(\(0\d{2,3}\)|0\d{2,3}-)?[1-9]\d{6,7}(\-\d{1,4})?$/i.test(value);
-        },
-        message: '传真号码不正确'
-    },
-    zip: {// 验证邮政编码
-        validator: function (value) {
-            return /^[1-9]\d{5}$/i.test(value);
-        },
-        message: '邮政编码格式不正确'
-    },
-    ip: {// 验证IP地址
-        validator: function (value) {
-            return /d+.d+.d+.d+/i.test(value);
-        },
-        message: 'IP地址格式不正确'
-    },
-    name: {// 验证姓名，可以是中文或英文
-        validator: function (value) {
-            return /^[\Α-\￥]+$/i.test(value) | /^\w+[\w\s]+\w+$/i.test(value);
-        },
-        message: '请输入姓名'
-    },
-    date: {// 验证姓名，可以是中文或英文
-        validator: function (value) {
-            //格式yyyy-MM-dd或yyyy-M-d
-            return /^(?:(?!0000)[0-9]{4}([-]?)(?:(?:0?[1-9]|1[0-2])\1(?:0?[1-9]|1[0-9]|2[0-8])|(?:0?[13-9]|1[0-2])\1(?:29|30)|(?:0?[13578]|1[02])\1(?:31))|(?:[0-9]{2}(?:0[48]|[2468][048]|[13579][26])|(?:0[48]|[2468][048]|[13579][26])00)([-]?)0?2\2(?:29))$/i.test(value);
-        },
-        message: '清输入合适的日期格式'
-    },
-    msn: {
-        validator: function (value) {
-            return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(value);
-        },
-        message: '请输入有效的msn账号(例：abc@hotnail(msn/live).com)'
-    },
-    same: {
-        validator: function (value, param) {
-            if ($("#" + param[0]).val() != "" && value != "") {
-                return $("#" + param[0]).val() == value;
-            } else {
-                return true;
-            }
-        },
-        message: '两次输入的密码不一致！'
-    }
-});
+//function timeFormatter(date){
+//    return date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+//}
+//function timeParser(date){
+//    return new Date(Date.parse(date.replace(/-/g,"/")));
+//}
 
 function initTable(queryData) {
     $('#dgScmDistributors').datagrid({
@@ -178,53 +40,57 @@ function initTable(queryData) {
         },
         columns: [[
             { field: "ck", checkbox: true },
-
+//
+//            {
+//                field: 'fname', title: '分销商名称', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            , 
             {
-                field: 'fname', title: '分销商名称', width: 60, align: 'center', formatter: function (value) {
-                    return value;
+                field: 'fname', title: '分销商名称', width: 60,  align: 'left',formatter: function (value, row, index) {
+                    var e = '<a href="#" mce_href="#" onclick="QueryCommissions(\'' + row.fdistributorid + '\',\'' + value + '\',\'' +row.fparentid + '\')"><font color="blue">' + value + '</font></a>';
+                    return e;
                 }
-            }
-            ,           
+            },
             {
-                field: 'fintroducer', title: '介绍人名称', width: 60, align: 'center', formatter: function (value) {
-                    return value;
+                field: 'fintroducer', title: '介绍人名称', width: 60,  align: 'left',formatter: function (value, row, index) {
+                    var e1 = '<a href="#" mce_href="#" onclick="QueryCommissions(\'' + row.fparentid + '\',\'' + value + '\',\'' +row.fparentid + '\')"><font color="blue">' + value + '</font></a>';
+                    return e1;
                 }
-            }
-            ,
-
-
+            },
+//            {
+//                field: 'fintroducer', title: '介绍人名称', width: 60, align: 'left', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+//            ,
             {
-                field: 'fphone', title: '座机', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fmobile', title: '手机', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'faddress', title: '地址', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fzipcode', title: '邮编', width: 60, align: 'center', formatter: function (value) {
+                field: 'fphone', title: '座机', width: 45, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
             ,
             {
-                field: 'fsex', title: '性别', width: 60, align: 'center', formatter: function (value) {
+                field: 'fmobile', title: '手机', width: 45, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+            ,
+            {
+                field: 'faddress', title: '地址', width: 60, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+            ,
+            {
+                field: 'fsex', title: '性别', width: 20, align: 'center', formatter: function (value) {
                 	 return value == '1' ? '男' : value == '2' ? '女' : '';
                 }
             }
             ,
             {
-                field: 'fbirthday', title: '生日', width: 60, align: 'center', formatter: function (value) {
+                field: 'fbirthday', title: '生日', width: 45, align: 'center', formatter: function (value) {
                     if (value!=null){
                     	return value.substr(0, 10);
                     }
@@ -236,7 +102,7 @@ function initTable(queryData) {
             ,
 
             {
-                field: 'fremark', title: '备注', width: 60, align: 'center', formatter: function (value) {
+                field: 'fremark', title: '备注', width: 60, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
@@ -258,6 +124,120 @@ function initTable(queryData) {
     });
 }
 
+function QueryCommissions(distributorid,fname, parentid) {	;
+	$('#div_commissions').panel({title: fname+"—销售提成"});
+
+    $("#div_commissions").show().dialog("open");
+    //$('#div_commissions').attr("title",fname);
+    var queryData = {
+      	"scmsalesdata.fparentid": distributorid
+        //"scmsalesdata.fdistributor": distributorid
+      };
+    
+    CommissionsDetail(queryData);
+}
+
+
+function CommissionsDetail(queryData) {
+    $('#dgcommissions').datagrid({
+        loadMsg: "数据加载中,请稍候……",
+        url: '/web1/SaleQueryScmSalesdata.action',
+        width: "auto",
+        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+        iconCls: 'icon-save',
+        pageSize: 10,
+        nowrap: true,
+        fitColumns: true,
+        singleSelect:true,
+        striped: true,
+        collapsible: true,
+        pagination: true,
+        rownumbers: true, //行号
+        idField: 'fdistributorid',
+        sortName: 'fupdatetime',
+        sortOrder: 'desc',
+        queryParams: queryData,  //异步查询的参数
+        onLoadSuccess: function (data) {
+           
+        },
+        columns: [[
+            { field: "ck", checkbox: true },
+            {
+                field: 'fdistributor', title: '下级分销商', width: 60, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+//            ,
+//            {
+//                field: 'fintroducer', title: '介绍人名称', width: 60, align: 'center', formatter: function (value) {
+//                    return value;
+//                }
+//            }
+            ,
+            {
+                field: 'fprice', title: '价格', width: 60, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+            ,
+            {
+                field: 'famount', title: '数量', width: 60, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+            ,
+            {
+                field: 'ftotal', title: '总额', width: 60, align: 'left', formatter: function (value) {
+                    return value;
+                }
+            }
+            
+            ,
+            {
+                field: 'fdate', title: '销售日期', width: 60, align: 'center', formatter: function (value) {
+                    if (value!=null){
+                    	return value.substr(0, 10);
+                    }
+                    else{
+                    	return value;
+                    }
+                }
+            }
+            ,
+            {
+                field: 'fsplit', title: '分成比例', width: 60, align: 'left', formatter: function (value) {                                      
+                    if (value!=null){
+                    	return  (parseFloat(value)* 1.00).toFixed(2)  + "%";
+                    }
+                    else
+                    	{
+                    	return "";
+                    	}
+                }
+            }
+            ,
+            {
+                field: 'fsplittoal', title: '分成总额', width: 60, align: 'left', formatter: function (value) {
+                    return  (parseFloat(value)* 1.00).toFixed(2);
+                }
+            }
+            ,
+            {
+                field: 'fupdatetime', title: '更新时间', width: 60, align: 'center', formatter: function (value) {
+                    if (value!=null){
+                    	return value.replace("T"," ");
+                    }
+                    else{
+                    	return value;
+                    }
+                }
+            }
+            
+      ]]
+    });
+}
+
+
 function searchFun() {
     var queryData = {
        	 "scmdistributors.fintroducer": $("#sinstroducer").val(),	
@@ -267,6 +247,7 @@ function searchFun() {
        };
     initTable(queryData);
 }
+
 
 //修改分组的信息
 function UpdateInfo() {
@@ -286,6 +267,8 @@ function UpdateInfo() {
 
 //绑定修改显示详细信息的方法
 function BindShowUpdateInfo() {
+	ShowDistorCom();
+	
     //首先用户发送一个异步请求去后台实现方法
     var ID = $("#dgScmDistributors").datagrid("getSelections")[0].fdistributorid;  //获取到了用用户选择的ID  
     $.post("/web1/ScmFindScmDistributors.action", { "scmdistributors.fdistributorid": ID }, function (cbData) {
@@ -293,7 +276,8 @@ function BindShowUpdateInfo() {
         $("#fdistributorid").val(cbData.scmdistributors.fdistributorid); 
 //        $("#fparentid").val(cbData.scmdistributors.fparentid); 
 //        $("#fincreaseid").val(cbData.scmdistributors.fincreaseid); 
-        $("#fintroducer").val(cbData.scmdistributors.fintroducer); 
+        //$("#fintroducer").val(cbData.scmdistributors.fintroducer); 
+        $('#fparentid').combobox('setValue',cbData.scmdistributors.fparentid);   
 //        $("#fintroertype").val(cbData.scmdistributors.fintroertype); 
         $("#fname").val(cbData.scmdistributors.fname); 
         $("#fphone").val(cbData.scmdistributors.fphone); 
@@ -330,7 +314,22 @@ function clearbox() {
     searchFun();
 }
 
+function ShowDistorCom()
+{
+    var url = "/web1/ScmQueryScmDistributors.action";
+    $.getJSON(url, function(json) {
+	    $('#fparentid').combobox({
+	    data : json.rows,
+	    valueField:'fdistributorid',
+	    textField:'fname',
+	    editable:true//禁止编辑  
+	    });
+    });	
+}
+
 function add(id) {
+	ShowDistorCom();
+	
 	$("#frmScmDistributors input,textarea").val('');
     $('#div_AddScmDistributors').dialog('open');
 }
@@ -393,7 +392,7 @@ function DeleteScmDistributors() {
             if (DeleteUser) {
                 $.post("/web1/ScmDeleteScmDistributors.action", postData, function (data) {
                 	debugger;
-                	if (data.success == true) {
+                	if (data.success == true && data.errcode ==0) {
                         //添加成功  1.关闭弹出层，2.刷新DataGird
                     	$.messager.alert('提示', data.message, 'info');
                         refresh();

@@ -1,0 +1,84 @@
+﻿htt
+
+root Wearme123
+
+查看CPU信息cat /proc/cpuinfo
+显示当前硬件信息
+sudo lshw
+
+
+显示当前内存大小
+free -m |grep "Mem" | awk '{print $2}'
+
+操作系统：Ubuntu 14.04.2 LTS
+
+jdk-8u5-linux-x64.tar.gz
+apache-tomcat-7.0.54.tar.gz
+mysql-5.6.10-linux-glibc2.5-x86_64.tar.gz
+jboss-4.2.3.GAcha
+
+————————————————————————————
+
+安装jdk
+
+解压：sudo tar xfvz jdk.tar.gz
+
+目录改名：mv jdk1.8.0_05 jdk18005
+
+使用nano编辑器配置环境变量：sudo nano /etc/profile  （ctrl+O 保留，ctrl+x退出）
+
+文件尾部：
+export JAVA_HOME=/usr/jdk18005 
+export JRE_HOME=${JAVA_HOME}/jre 
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib 
+export PATH=${JAVA_HOME}/bin:$PATH 
+
+使文件生效：source /etc/profile
+
+
+查看java版本：java -version 
+
+
+————————————————————————————
+安装tomcat：
+解压：sudo tar xfvz tomcat.tar.gz
+
+目录改名：mv apache-tomcat-7.0.54 tomcat7054
+
+cd /usr/tomcat7054/bin
+配置环境变量：sudo nano startup.sh
+文件末尾添加：
+JAVA_HOME=/usr/jdk18005
+PATH=$JAVA_HOME/bin:$PATH
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+TOMCAT_HOME=/usr/tomcat7054
+
+
+sudo nano /usr/tomcat7054/bin/catalina.sh (根据你自己的jdk路径进行修改) 在文件的正文开头，即正式代码前，大概在99行添加如下代码
+
+export JAVA_HOME=/usr/jdk18005 
+export JRE_HOME=//usr/jdk18005/jre
+
+cd /usr/tomcat7054/bin/
+
+启动：sudo ./startup.sh
+
+浏览网址：http://120.24.176.185:8080  看效果
+
+关闭：sudo ./shutdown.sh
+
+————————————————————————————
+
+安装Mysql：
+
+解压：sudo tar xfvz mysql.tar.gz
+
+目录改名：mv mysql-5.6.10-linux-glibc2.5-x86_64 mysql
+
+移动目录：sudo mv mysql /usr/local
+
+cd /usr/local/mysql
+
+建立linux组群：sudo groupadd mysql
+
+————————————————————————————

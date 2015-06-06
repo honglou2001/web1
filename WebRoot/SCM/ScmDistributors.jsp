@@ -1,3 +1,6 @@
+<%@ page language="java" import="java.util.*,bean.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,10 +45,12 @@
 						<a href="#" id="txbAdd" class="easyui-linkbutton"
 						iconcls="icon-search" plain="true" onclick="searchFun();">查询</a> <a
 						href="#" id="txbUpdate" class="easyui-linkbutton"
-						iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a> <a
-						href="#" id="explort" class="easyui-linkbutton"
-						iconcls="icon-page_white_excel" plain="true"
-						onclick="exportExcel()">导出</a></td>
+						iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a>
+<!-- 						 <a -->
+<!-- 						href="#" id="explort" class="easyui-linkbutton" -->
+<!-- 						iconcls="icon-page_white_excel" plain="true" -->
+<!-- 						onclick="exportExcel()">导出</a> -->
+						</td>
 				</tr>
 			</table>
             <input type="hidden" id="txtExcel" value="1" />
@@ -59,7 +64,7 @@
     <!--------------------------信息的弹出层---------------------------->
     <div id="div_AddScmDistributors" title="分组信息" toolbar="#div_Toolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
         <form id="frmScmDistributors" method="post">   
-            <div style="height: 180px">                    
+            <div style="height: 220px">                    
                     <input type="hidden" id="fdistributorid" name="scmdistributors.fdistributorid"/>
 <!--                 <div class="a_left"> -->
 <!--                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FParentID:</span> -->
@@ -75,7 +80,9 @@
                 </div>   
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">介绍人:</span>
-                    <input type="text" id="fintroducer" name="scmdistributors.fintroducer"  style="width: 180px"  value="" />
+                    <input class="easyui-combobox" id="fparentid"
+						name="scmdistributors.fparentid" style="width:180px">
+<!--                     <input type="text" id="fintroducer" name="scmdistributors.fintroducer"  style="width: 180px"  value="" /> -->
                 </div>
              
 <!--                 <div class="a_left"> -->
@@ -150,6 +157,11 @@
                
             </div>
         </form>
+    </div>
+
+    <div id="div_commissions" title="销售提成" style="width: 900px; height: 440px; left: 50px; top: 120px;" resizable="true" class="easyui-dialog" closed="true">
+        <table id="dgcommissions">
+        </table>
     </div>
 
     <div id="div_Toolbar">

@@ -296,5 +296,13 @@ source /usr/local/mysql/dbtest.sql
 查看表描述
 desc tabl_name;
 
+___
+
+关闭 mysqladmin -u root -p shutdown
+
+
+--linux 上mysql 区分大小写
+my.cnf [mysqld]下增加
+lower_case_table_names=1
 
 
