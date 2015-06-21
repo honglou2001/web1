@@ -306,3 +306,27 @@ my.cnf [mysqld]下增加
 lower_case_table_names=1
 
 
+
+——mysql 新增用户
+--insert into mysql.user(Host,User,Password) values("localhost","dbusr",password("watch123"));
+--update user set Password values PASSWORD("watch123") where user='dbusr';
+
+使用以下：
+GRANT USAGE ON *.* TO 'dbusr'@'localhost' IDENTIFIED BY 'watch123' WITH GRANT OPTION;
+
+
+flush privileges;//刷新系统权限表
+
+授权，给dbusr用户授dbtest数据库的所有权限：
+grant all privileges on dbtest.* to dbusr@localhost identified by 'watch123';
+
+flush privileges;//刷新系统权限表
+
+授权用户可以远程访问：
+update db set host = '%' where user = 'dbusr'; 
+update user set host = '%' where user = 'dbusr'; 
+
+
+flush privileges;//刷新系统权限表
+
+

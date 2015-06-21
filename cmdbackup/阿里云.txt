@@ -169,7 +169,7 @@ LANGUAGE="zh_CN:"
 
 mysql中文
 
-sudo /usr/local/mysql/my.inf
+sudo nano /usr/local/mysql/my.cnf
 
 [client]
 default-character-set=utf8

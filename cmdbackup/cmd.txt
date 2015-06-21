@@ -1,4 +1,7 @@
-﻿关机：$sudo shutdown -h now
+﻿
+github：honglou2001@qq.com /52***0
+本地ubuntu：yqx/1
+关机：$sudo shutdown -h now
 重启：$sudo reboot -h now
 ——————————————
 查看是否安装了java：java -version
