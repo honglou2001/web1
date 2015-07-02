@@ -208,39 +208,59 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
      * @throws Exception
      * @author  电话：
      */
-    public BaseObject insert(Connection con, UserInfo userInfo, BaseObject object) throws
-    Exception{
+     public Void add<%= ParameterName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info)  throws Exception {
+        try {
 		// TODO 自动生成方法存根
         StringBuffer  sql = new StringBuffer();
 
-        sql.append(" INSERT INTO <%= SourceTable.Name.ToUpper()%>( <%=GetEtParam(SourceTable)%> ) ");
-        sql.append(" values(<%=GetEtParamAsk(SourceTable)%>)  ");
+        sql.append(" INSERT INTO <%= SourceTable.Name.ToUpper()%>( <%=GetEtParam1(SourceTable)%> ) ");
+        sql.append(" values(<%=GetEtParamAsk(SourceTable)%>)");
         
-        List parms=new ArrayList();
-    	<%= ModelName(SourceTable.Name)%> obj = (<%= ModelName(SourceTable.Name)%>) object;
-    	
+        Connection con=DBUtil.getConnection();
+		PreparedStatement ps=con.prepareStatement(sql.toString());  	
     	/// insert 的入参处理
-		// TODO:检查自动产生的脚本是否需要指定的 序列产生
-		<% foreach (ColumnSchema column in this.SourceTable.Columns) 
+		<%  for (int i = 0; i < SourceTable.Columns.Count; i++)
 		{ 
 		%>
-		parms.add(obj.<%=getFunctionMemberVariableName(column.Name)%> ());
+        ps.setObject(<%=i+1%>, <%= ParameterName(SourceTable.Name)%>Info.<%=getFunctionMemberVariableName(SourceTable.Columns[i].Name)%> ());
 		<% 
 		} 
 		%>
+        ps.executeUpdate();
         
-        ///   调用 save 组件
-        try{
-          this.baseDAO.save(con,sql.toString(),parms);
-        }catch(Exception e){
-          log.error(e);
-          log.error(sql.toString());
-          for ( int i = 0 ;i<parms.size() ;i++){
-        	  log.error( (String)parms.get(i));
-          }
-          throw e;
-        }
-        return object;
+ 		} catch (Exception e) {
+			throw  e; 
+		} finally{
+			DBUtil.close();
+		} 
+	}
+    
+    
+       public Void add<%= ParameterName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info){
+        try {
+		// TODO 自动生成方法存根
+        StringBuffer  sql = new StringBuffer();
+
+        sql.append(" INSERT INTO <%= SourceTable.Name.ToUpper()%>( <%=GetEtParam1(SourceTable)%> ) ");
+        sql.append(" values(<%=GetEtParamAsk(SourceTable)%>");
+        
+        Connection con=DBUtil.getConnection();
+		PreparedStatement ps=con.prepareStatement(sql.toString());  	
+    	/// insert 的入参处理
+		<%  for (int i = 0; i < SourceTable.Columns.Count; i++)
+		{ 
+		%>
+        ps.setObject(<%=i+1%>, <%= ParameterName(SourceTable.Name)%>Info.<%=getFunctionMemberVariableName(SourceTable.Columns[i].Name)%> ());
+		<% 
+		} 
+		%>
+        ps.executeUpdate();
+        
+ 		} catch (Exception e) {
+			
+		} finally{
+			DBUtil.close();
+		} 
 	}
     
     /**
@@ -341,6 +361,33 @@ public class <%=DaoName(SourceTable.Name)%> implements DAO {
             
             <% for (int i = 0; i < SourceTable.Columns.Count; i++) {%>           
             item.<%= setFunctionMemberVariableName(SourceTable.Columns[i].Name)%>((<%= JavaAlias[SourceTable.Columns[i].SystemType.FullName]%>)cells[<%=i%>]);            
+            <% } %>
+          			
+			<%= ModelName(SourceTable.Name)%>s.add(item);			
+		}
+		return <%= ModelName(SourceTable.Name)%>s;
+	}
+    
+    @Override
+	public NoEJBList<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length,HashMap<String, String> map) {
+
+	    StringBuffer  sql = new StringBuffer();
+        sql.append(" SELECT <%=GetEtParam(SourceTable)%> ");
+        sql.append(" FROM <%= SourceTable.Name.ToUpper()%> a ");
+		sql.append(" WHERE 1 = 1 ");
+
+		Query query = manager.createNativeQuery(sql.toString());
+
+		List rows = query.getResultList();
+		List<<%= ModelName(SourceTable.Name)%>> <%= ModelName(SourceTable.Name)%>s = new ArrayList<<%= ModelName(SourceTable.Name)%>>();
+		
+		for (Object row : rows) {
+			Object[] cells = (Object[]) row;
+			
+			<%= ModelName(SourceTable.Name)%> item = new <%= ModelName(SourceTable.Name)%>();	
+            
+            <% for (int i = 0; i < SourceTable.Columns.Count; i++) {%>           
+            item.<%= setFunctionMemberVariableName(SourceTable.Columns[i].Name)%>((<%= JavaAlias[SourceTable.Columns[i].SystemType.FullName]%>)rs.getObject(<%=i%>));            
             <% } %>
           			
 			<%= ModelName(SourceTable.Name)%>s.add(item);			

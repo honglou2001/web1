@@ -23,7 +23,7 @@
     </item>
     <item>
       <key>System.Double</key>
-      <value>Long</value>
+      <value>Double</value>
     </item>
     <item>
       <key>System.Single</key>

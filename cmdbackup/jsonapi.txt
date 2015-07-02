@@ -1,0 +1,93 @@
+﻿注册接口：
+
+http://120.24.176.185:8087/sw/user/userRegister?serialNumber=80680000100079&userName=yyuu&password=123&phone=13713689012
+
+返回示例：{"state":1,"info":"2"}
+
+state为1时，表示成功 ：
+
+state为1时表示成功，不为1都把info弹出来
+
+1—序列号没有激活:
+2—该序列号已经被注册了；
+3—用户名已经被注册了；
+success —成功注册
+
+state 为-1 表示异常，info为空
+
+————————————————————————
+登录接口，手机号码登录：
+http://120.24.176.185:8087/sw/user/userLogin?phone=13602654141&password=123456
+
+返回示例：{"state":1,"info":"80680000100079"}
+
+state为1：info返回序列号表示成功，info为fail表示登录失败
+state为-1：表示出现异常，提示弹出info信息
+
+————————————————————————
+
+查询行踪轨迹：
+
+http://120.24.176.185:8087/sw/location/searchMovement?serialNumber=80680000100079&startTime=2015-06-25 01:11:11&endTime=2015-07-02 01:11:11
+
+——————————
+
+根据手机号码查序列号的最新定位：
+http://120.24.176.185:8087/sw/location/searchLoaPhone?phone=13602654141
+
+——————————
+
+新增电子围栏，无areaNumber参数，提交的name用utf8编码：
+
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=80680000100079&name=n&locationInfo=113.945113,22.537739&scope=500&mode=0
+
+修改电子围栏，有areaNumber参数
+
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=80680000100079&areaNumber=1&name=n&locationInfo=113.945113,22.537739&scope=500&mode=0
+
+areaNumber 和 serialNumber 存在，执行修改，否则新增
+
+查询电子围栏：
+http://120.24.176.185:8087/sw/electfence/searchElectFence?serialNumber=80680000100079
+
+id为电子围栏id（这里去掉了areaNumber，id为之前的areaNumber）
+
+删除电子围栏：
+http://120.24.176.185:8087/sw/electfence/deleteElectFence?serialNumber=80680000100079&areaNumber=2
+
+—————————
+http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=80680000100079
+http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=30020000000010
+
+手机客户端定时请求此url（或以后改成长连接主动发给客户端），判断是否进出围栏，如有进出变化在客户端提示。
+接口值说明：fdatastatus，1： 从围栏外到围栏内；3：从围栏内到围栏外；0：表示没变（都在内或都在外），看fremark说明。
+freadCount 表示已经读了多少次,0表示在这之前没读取过，客户端看情况使用。
+
+
+fdatastatus 字段说明，也可看fremark备注，变化值对应fupdatetime：
+
+1：前后两次定位从围栏外进围栏内
+3：前后两次定位从围栏内到围栏外
+4：前后两次定位一直在围栏外
+5：前后两次定位一直在围栏内 
+
+
+http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=30020000000010&areaNumber=20
+多一查询条件，电子围栏编号areaNumber，与查询电子围栏接口 id 值对应
+
+—————————
+
+http://lenovo-pcyang:8087/SW/
+http://lenovo-pcyang:8087/SW/electfence/addElectFence?serialNumber=30020000000010&areaNumber=3&name=%E6%9D%A8&locationInfo=113.945113,22.537739&scope=500&mode=0
+http://lenovo-pcyang:8087/SW/electfence/addElectFence?serialNumber=30020000000010&areaNumber=3&name=%E6%9D%A8&locationInfo=113.945113,22.537739&scope=500&mode=0
+http://lenovo-pcyang:8087/SW/electfence/searchElectFence?serialNumber=30020000000010
+http://120.24.176.185:8087/sw/electfence/searchElectFence?serialNumber=80680000100079
+
+
+http://lenovo-pcyang:8087/SW/electfence/deleteElectFence?serialNumber=30020000000010&areaNumber=12
+
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=30020000000010&name=n111&locationInfo=113.945113,22.537739&scope=500&mode=0
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=30020000000010&areaNumber=22&name=n&locationInfo=113.945113,22.537739&scope=500&mode=0
+http://120.24.176.185:8087/sw/electfence/searchElectFence?serialNumber=30020000000010
+http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=30020000000010&areaNumber=22
+

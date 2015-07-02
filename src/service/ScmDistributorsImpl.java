@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
 
-import com.common.ejb.EjbException;
 import com.opensymphony.xwork2.ActionSupport;
 
 /**
@@ -198,7 +197,7 @@ public class ScmDistributorsImpl extends ActionSupport {
 
 		return SUCCESS;
 	}
-
+	
 	public String List() {
 		return SUCCESS;
 	}

@@ -13,7 +13,7 @@
 
 	<!-- 启用spring注解支持 -->
 	<context:annotation-config />
-	
+		
 	<!-- 配置Hibernate支持 -->
 <!--      <bean id="dataSource" -->
 <!--          class="org.apache.commons.dbcp.BasicDataSource"> -->
@@ -113,7 +113,12 @@
 	<bean name="refBtypeDao" class="dao.BaseTypecodeDaoIml">
 	</bean>	
 					
- 	
+	<bean id="SPLocEltAction" class="service.LocElectfenceImpl"  scope="prototype">
+		 <property name="locelectfenceDao" ref="refLocEltDao"></property>
+	</bean>
+	 	
+	<bean name="refLocEltDao" class="dao.LocElectfenceDaoIml">
+	</bean>		
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">

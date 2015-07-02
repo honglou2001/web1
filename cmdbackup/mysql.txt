@@ -292,6 +292,10 @@ export PATH=$PATH:/usr/local/mysql/bin
 source /usr/local/mysql/dbtest.sql
 
 
+mysql -u root -p --default-character-set=utf8 
+use dbtest 
+source e:\1.sql
+
 ---
 查看表描述
 desc tabl_name;

@@ -41,9 +41,12 @@
 									{"menuid":"43","menuname":"添加支出","icon":"icon-nav","url":"demo2.html"}
 								]
 						},{"menuid":"39","icon":"icon-sys","menuname":"商城管理",
-							"menus":[{"menuid":"51","menuname":"商品分类","icon":"icon-nav","url":"demo.html"},
+							"menus":[{"menuid":"51","menuname":"商品分类","icon":"icon-nav","url":"LocElt1.action"},
 									{"menuid":"52","menuname":"商品列表","icon":"icon-nav","url":"demo1.html"},
 									{"menuid":"53","menuname":"商品订单","icon":"icon-nav","url":"demo2.html"}
+								]
+						},{"menuid":"51","icon":"icon-sys","menuname":"定位信息",
+							"menus":[{"menuid":"60","menuname":"定位查询","icon":"icon-nav","url":"LocElt.action"}
 								]
 						}
 				]};

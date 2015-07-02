@@ -6,7 +6,7 @@
 <!-- 	更改struts2请求Action的后缀名，默认为action。若想去掉后缀，设为","即可 -->
 <!-- 	<constant name="struts.action.extension" value=","></constant> -->
     
-	<package name="action" namespace="/user1" extends="struts-default,json-default">
+	<package name="action" namespace="/" extends="struts-default,json-default">
 <!-- 		<action name="login" class="action.LoginAction"> -->
 <!-- 			<result name="loginSuccess">/success.jsp</result> -->
 <!-- 		</action> -->
@@ -95,12 +95,26 @@
 		<action name="Btype" class="SPBtypeAction" method="List">
 		    <result>/SCM/BaseType.jsp</result>
 		</action> 
+
 		 
 		<action name="Btype*" class="SPBtypeAction" method="{1}">
 			<result type="json">
 				<param name="root">dataMap</param>
 			</result>	
-		</action>				               								 		                    	             
+		</action>
+		
+		<action name="TransferUrl" class="service.UrlTransfer" method="TransferUrl"></action> 	
+
+		<action name="LocElt" class="SPLocEltAction" method="List">
+		    <result>/Watch/LocElectFecnce.jsp</result>
+		</action> 
+		 
+		<action name="LocElt*" class="SPLocEltAction" method="{1}">
+			<result type="json">
+				<param name="root">dataMap</param>
+			</result>	
+		</action>	
+				               								 		                    	             
 <!-- 		<action name="HelloWorld" class="action.HelloWorld"> -->
 <!-- 			<result>/HelloWorld.jsp</result> -->
 <!-- 		</action> -->

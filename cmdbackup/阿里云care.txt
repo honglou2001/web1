@@ -359,5 +359,25 @@ sudo chmod +x jdk-6u27-linux-x64.bin
 ./jdk-6u27-linux-x64.bin，会解压出一个jdk的路径，比如在/opt目录下
 
 
+———————————————————————————部署中转网址 begin———————————————————————————————————————
+
+通过快捷键Ctrl+Alt+T可以打开shell，F11可以全屏显示(Alt+F9最小化窗口，Alt+F10最大化/恢复窗口)，再辅予xdg-open命令
+
+查看网页
+w3m http://minigps.net/as?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+q 命令退出
+
+把网址请求部署到服务器：
+http://lenovo-pcyang:8080/SW/location/searchStationGps?http://222.76.219.175:99/api/geo/getlbs?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+
+http://lenovo-pcyang:8090/web1/TransferUrl.action?http://minigps.net/as?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+
+http://120.24.176.185:8082/web1/TransferUrl.action?http://minigps.net/as?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+
+
+———————————————————————————部署中转网址 end———————————————————————————————————————
+
+
+
 
  

@@ -1,0 +1,18 @@
+﻿
+告警-
+
+经度纬度 进出表
+一个手机多个序列号
+维护信息表
+
+极光推送
+
+信鸽推送
+
+
+泰然科技园210栋坐标：
+114.032879,22.539483
+
+
+
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=30020000000010&areaNumber=1&name=n&locationInfo=113.84992,22.738597&scope=500&mode=0

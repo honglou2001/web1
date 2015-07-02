@@ -275,7 +275,29 @@ public string GetEtParam(TableSchema dt )
 	return param;
 }
 
+public string GetEtParam1(TableSchema dt )
+{
+	string param = string.Empty;
+	
+	int count = 0;
+	/// {0} 变量 
+	string Format = "{0}";
+	foreach (ColumnSchema column in dt.Columns) 
+	{ 
+		if ( count == 0 )
+		{
 
+			param = column.Name ;
+		}
+		else
+		{
+			param = param + "," + column.Name;
+		}
+		count = count + 1;
+	}
+	
+	return param;
+}
 
 ///
 ///
