@@ -52,7 +52,8 @@
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">所属类别:</span>                   
                     <select class="easyui-combobox" id="fcategory" name="basetypecode.fcategory" style="width:180px;" data-options="editable:false" required="true" missingMessage="所属类别必须选择">   
- 						<option value="1" selected>分销商</option>					
+ 						<option value="1" >分销商</option>
+ 						<option value="2" >留言分类</option>					
  					</select>   					
                 </div>                
                 <div class="a_left">

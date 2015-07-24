@@ -169,7 +169,7 @@ LANGUAGE="zh_CN:"
 
 mysql中文
 
-sudo /usr/local/mysql/my.inf
+sudo nano /usr/local/mysql/my.inf
 
 [client]
 default-character-set=utf8
@@ -231,6 +231,14 @@ jboss
 启动：sudo ./run.sh &
 启动：sudo ./run.sh -b 0.0.0.0 &
 启动：nohup ./run.sh -b 0.0.0.0 &
+
+提示：
+
+　　[~]$ appending output to nohup.out
+
+　　嗯，证明运行成功，同时把程序运行的输出信息放到当前目录的 nohup.out 文件中去。
+
+
 停止： sh shutdown.sh -S
 
 

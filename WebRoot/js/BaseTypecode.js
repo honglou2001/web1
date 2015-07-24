@@ -105,6 +105,8 @@ function initTable(queryData) {
 						if (value != null) {
 							if (value == 1)
 								return "分销商";
+							else if (value == 2)
+								return "留言分类";
 							else
 								return "-";
 						}
@@ -136,10 +138,7 @@ function initTable(queryData) {
 
 function searchFun() {
 	var queryData = {
-		"user.id" : $("#txtFname").val(),
-		"user.name" : $("#txtFname").val(),
-		"user.Mobile" : $("#txtFMobile").val(),
-		"user.Adress" : $("#txtFAddress").val()
+		"basetypecode.fcategory11" : 1
 	};
 	initTable(queryData);
 }

@@ -1,0 +1,214 @@
+﻿
+告警-
+
+经度纬度 进出表
+一个手机多个序列号
+维护信息表
+
+极光推送
+
+信鸽推送
+
+
+泰然科技园210栋坐标：
+114.032879,22.539483
+
+
+
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=30020000000010&areaNumber=1&name=n&locationInfo=113.84992,22.738597&scope=500&mode=0
+
+
+update user set phone='13602654141' where phone='15710757989'
+update rtposition set query=1 where serialnumber='80680000100062' and id=2
+
+1、换高德地图接口；
+2、用户与序列号分开；
+3、测试实际闹钟；
+4、新增序列号增加接口，一手机号增加序列号；
+5、历史定位，围栏信息，默认一次20条，记录次数
+6、手机号，app用户信息
+7、轨迹，最新定位 地址
+
+http://apilocate.amap.com/position?accesstype=0&imei=352315052834187&smac=E0:DB:55:E4:C7:49&cdma=0&bts=460,01,40977,2205409,-65&nearbts=460,01,40977,2205409,-65|460,01,40977,2205409,-65|460,01,40977,2205409,-65&output=xml&key=1d34e0f045c122603c742b63084af4dc
+
+
+|10|100|1cc,0,2625,f2a,7e,2625,e6c,83,2625,f34,81,2625,f8d,7e,2625,e6b,7d,2625,f70,79,2625,1128,78|0000|00|050|042
+
+http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000010&userName=yyu222u&password=123&phone=13113689015
+
+delete from user where id >16;
+update serialnumber set isreg = 0 where id >10 
+
+http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000014&userName=yy1111233uu&password=123&phone=13713689132
+
+
+---------------
+
+25、
+http://120.24.176.185:8087/sw/user/userRegister?serialNumber=30020000000013&userName=yyuu&password=123&phone=13713689112
+
+http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000013&userName=yyuu&password=123&phone=13713689112
+
+注册信息，传参数和以前一样，返回信息与以前接口有区别，返回例子：{"state":"1","info":"成功注册","usrid":"16ae2fe8-6173-4251-98ac-3dc0a5de8093"}
+返回usrid为后台标识用户的ID，后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
+
+26、http://120.24.176.185:8087/sw/user/userLogin?phone=13713689132&password=123456
+http://lenovo-pcyang:8087/SW/user/userLogin?phone=13713689132&password=123456
+
+返回：
+{"state":1,"info":"30020000000014","data":{"createTime":"2015-07-09 20:17:51","fmobile":"13713689132","funiqueid":"a59b66a6-17a5-4bb4-8b24-62f7f01a5d78","password":"123","serialNumber":"30020000000014","sex":"","status":"","userName":"yy1111233uu"}}
+登录接口，传参数和以前一样，返回信息与以前接口有区别，返回信息与27接口类似，data为用户user对象信息
+state为1：info返回序列号表示成功，info为fail表示登录失败
+state为-1：表示出现异常，提示弹出info信息
+data节点的usrid为后台标识用户的ID，后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
+
+27、
+http://120.24.176.185:8087/sw/user/getUser?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+http://lenovo-pcyang:8087/SW/user/getUser?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+根据注册或登录得到的用户id查询用户，根据界面需要选择显示，返回：
+nickname-昵称；birthday-生日；faddress-地址；femail：邮箱；fmobile：电话，对应传参的phone；fremark-备注；height：身高；weight-体重；
+sex：1-为男，2为女；username 用户名；furl：网址或个人主页；
+funiqueid：对应注册成功返回的usrid，为后台标识用户的ID，后面更新，删除根据此值；
+
+28、
+http://120.24.176.185:8087/sw/user/updatePassword?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&oldPwd=123&newPwd=11234
+http://lenovo-pcyang:8087/SW/user/updatePassword?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&oldPwd=123&newPwd=11234
+修改密码，传参usrid(为注册、获取用户信息返回的id)，旧新密码
+
+29、
+http://120.24.176.185:8087/sw/user/retrievePassword?phone=13113689015&familyno=13113689015
+http://lenovo-pcyang:8087/SW/user/retrievePassword?phone=13113689015&familyno=13113689015
+找回密码，传参为注册手机号及绑定的其中一个亲情号码
+成功的返回：{"state":1,"info":"输入的亲情号码正确，可以重置密码","usrid":"4028cf814e5deb25014e5dec28bd0001"}
+根据usrid，接着调用以下的设置新密码接口
+
+30、
+http://120.24.176.185:8087/sw/user/updatePassword?usrid=4028cf814e5deb25014e5dec28bd0001&retrievePwd=2015key&newPwd=1234
+http://lenovo-pcyang:8087/SW/user/updatePassword?usrid=4028cf814e5deb25014e5dec28bd0001&retrievePwd=2015key&newPwd=1234
+忘记密码后重置密码，此接口对应上一接口，根据返回的userid，直接设置新的密码，不用传旧密码，其中 retrievePwd=2015key 固定
+
+31、
+http://120.24.176.185:8087/sw/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&femail=hong@163.com
+http://lenovo-pcyang:8087/SW/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&femail=hong@163.com
+修改用户信息，usrid 为 查询得到的用户id，其他值在界面赋。
+
+————————————用户注册信息2 end————————————
+11、http://120.24.176.185:8087/sw/alarm/setAlarm?serialNumber=30020000000010&alarm=06:06.1,09:00.1,16:23.1
+
+4040 0020 30020000000010 2001 07 
+30 36 30 36 3b 30 39 30 30 3b 31 36 32 33   //0606;0900;1623  -- 01010606;01020900;00011623
+
+最高位[7] 为1表示有效，为0表示无效
+其他7位，从低位到高位分别表示星期一到星期天共7天，如果哪天有效，哪个位置的值为1，其他六位为0；
+如：0606
+
+0032 0d0a
+                                
+                                
+0 0 0
+1 0 0
+0 1 0
+0 0 1
+
+21 - 32
+
+18 - 64
+4040
+0017
+030200000000102001 
+401017 
+401017
+
+02040D0A
+
+
+[64, 64, 0, 26, 3, 2, 0, 0, 0, 0, 16, 32, 1, 64, 16, 23, 64, 16, 23, 64, 16, 23, 2, 4, 13, 10]
+
+4040
+001A
+03020000000010
+
+30020000000021
+
+[48, 2, 0, 0, 0, 0, 33]
+
+2001
+401017 401017 401017
+
+02040D0A
+
+4040
+0026
+30020000000021
+2001
+401017
+401017
+401017
+401017
+401017
+401017
+401017
+
+    4040 001A 30020000000021
+    2001
+    401017
+    401017
+    401017
+    001F
+    0D0A
+
+f6410d0a40400026300200000000212001401017401017401017401017401017401017401017
+
+40400014300200000000212001401017ffde0d0a
+4040
+0017
+30020000000021
+2001
+401017
+401017 833c 0d0a
+
+
+
+  /** 
+     * 将16位的short转换成byte数组 
+     *  
+     * @param s 
+     *            short 
+     * @return byte[] 长度为2 
+     * */  
+
+
+
+1、crc统一
+2、推送进出围栏，围栏序列号多对多关系
+3、修改读取字段，客户端
+4、通讯录号码新增，协议；
+5、轨迹时间范围
+6、留言，意见反馈
+7、远程查找，关机
+5、事务
+
+
+http://item.jd.com/1603679003.html#product-detail
+http://www.vmall.com/product/1600.html#2904
+
+
+http://120.24.176.185:8087/sw/user/userRegister?serialNumber=30020000000030&userName=twoserialnum&password=123&phone=13711112222
+
+G:\Java\android\Android Code\新建文件夹\RNQuality\bin\dexedLibs
+
+Android：
+adb所在目录
+G:\Java\android\Android\android-sdk-windows\platform-tools
+
+
+android 调试卡在：Waiting for Debugger - Application XXX is waiting for the debugger to Attach" 解决方法
+
+
+解决方法：重启adb。
+
+步骤：cmd进入命令行，进入adb所在目录先后执行adb kill-server，adb start-server。
+
+
+
+

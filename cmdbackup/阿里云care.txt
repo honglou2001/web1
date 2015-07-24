@@ -377,6 +377,10 @@ http://120.24.176.185:8082/web1/TransferUrl.action?http://minigps.net/as?x=1cc-0
 
 ———————————————————————————部署中转网址 end———————————————————————————————————————
 
+http://120.24.176.185:8087/sw/serialnum/serialNumAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialNumber=30020000000017&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
+注册手环，用户新增手环，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；
+返回信息：{"state":1,"info":"新增序列号成功","serialnumid":"fbb8515c-d4bd-43ee-971c-92bb43d597ce"}，serialnumid 作为后面查找，更新序列号的id
+
 
 
 
