@@ -45,52 +45,37 @@ http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000014&userN
 ---------------
 
 25、
-http://120.24.176.185:8087/sw/user/userRegister?serialNumber=30020000000013&userName=yyuu&password=123&phone=13713689112
+45、
+http://lenovo-pcyang:8087/sw/friend/searchUser?phone=13713688112
+http://120.24.176.185:8087/sw/friend/searchUser?phone=13713688112
+查找要加为好友的用户，输入参数手机号码及注册的用户名；
+返回用户funiqueid，后面根据此id加好友，对应加好友的friendusrid参数
 
-http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000013&userName=yyuu&password=123&phone=13713689112
+46、
+http://lenovo-pcyang:8087/sw/friend/postFriendReq?friendusrid=81f5e012-21ef-4b00-8c3a-1743b51eb0b0&usid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&attachText=contentinfo
+http://120.24.176.185:8087/sw/friend/postFriendReq?friendusrid=81f5e012-21ef-4b00-8c3a-1743b51eb0b0&usid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&attachText=contentinfo
+请求加好友，输入参数好友id，自己本身的id，及附加信息
 
-注册信息，传参数和以前一样，返回信息与以前接口有区别，返回例子：{"state":"1","info":"成功注册","usrid":"16ae2fe8-6173-4251-98ac-3dc0a5de8093"}
-返回usrid为后台标识用户的ID，后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
 
-26、http://120.24.176.185:8087/sw/user/userLogin?phone=13713689132&password=123456
-http://lenovo-pcyang:8087/SW/user/userLogin?phone=13713689132&password=123456
+47、
+http://lenovo-pcyang:8087/sw/friend/queryFriendList?qtype=1&usid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+http://lenovo-pcyang:8087/sw/friend/queryFriendList?qtype=2&usid=81f5e012-21ef-4b00-8c3a-1743b51eb0b0
 
-返回：
-{"state":1,"info":"30020000000014","data":{"createTime":"2015-07-09 20:17:51","fmobile":"13713689132","funiqueid":"a59b66a6-17a5-4bb4-8b24-62f7f01a5d78","password":"123","serialNumber":"30020000000014","sex":"","status":"","userName":"yy1111233uu"}}
-登录接口，传参数和以前一样，返回信息与以前接口有区别，返回信息与27接口类似，data为用户user对象信息
-state为1：info返回序列号表示成功，info为fail表示登录失败
-state为-1：表示出现异常，提示弹出info信息
-data节点的usrid为后台标识用户的ID，后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=1&usid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=2&usid=81f5e012-21ef-4b00-8c3a-1743b51eb0b0
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=3&usid=81f5e012-21ef-4b00-8c3a-1743b51eb0b0
 
-27、
-http://120.24.176.185:8087/sw/user/getUser?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
-http://lenovo-pcyang:8087/SW/user/getUser?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
-根据注册或登录得到的用户id查询用户，根据界面需要选择显示，返回：
-nickname-昵称；birthday-生日；faddress-地址；femail：邮箱；fmobile：电话，对应传参的phone；fremark-备注；height：身高；weight-体重；
-sex：1-为男，2为女；username 用户名；furl：网址或个人主页；
-funiqueid：对应注册成功返回的usrid，为后台标识用户的ID，后面更新，删除根据此值；
+查询好友列表，qtype为 1：查询我请求要加的好友，2、查询谁请求加我为好友；3：我请求加的及别人加我的；usid：输入参数当前用户id；
+结果类似如下：
+查询得到的 frelationid 为审核通过或不通过的 id值，根据此id来更新信息，fstatus ：1为通过；2为拒绝，其他为无任何操作；fstatustime 为fstatus对应操作的时间，faddtime 为新增的时间
+friendname：好友用户名，fmobile：好友手机号；Fdatastatus 为1表示是我发起要加的朋友，其他值表示别人加我的
+fusername：发起请求的用户；fusermobile：发起请求用户的手机号码
+frompic：发起人的头像；topic：接受请求的头像
 
-28、
-http://120.24.176.185:8087/sw/user/updatePassword?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&oldPwd=123&newPwd=11234
-http://lenovo-pcyang:8087/SW/user/updatePassword?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&oldPwd=123&newPwd=11234
-修改密码，传参usrid(为注册、获取用户信息返回的id)，旧新密码
-
-29、
-http://120.24.176.185:8087/sw/user/retrievePassword?phone=13113689015&familyno=13113689015
-http://lenovo-pcyang:8087/SW/user/retrievePassword?phone=13113689015&familyno=13113689015
-找回密码，传参为注册手机号及绑定的其中一个亲情号码
-成功的返回：{"state":1,"info":"输入的亲情号码正确，可以重置密码","usrid":"4028cf814e5deb25014e5dec28bd0001"}
-根据usrid，接着调用以下的设置新密码接口
-
-30、
-http://120.24.176.185:8087/sw/user/updatePassword?usrid=4028cf814e5deb25014e5dec28bd0001&retrievePwd=2015key&newPwd=1234
-http://lenovo-pcyang:8087/SW/user/updatePassword?usrid=4028cf814e5deb25014e5dec28bd0001&retrievePwd=2015key&newPwd=1234
-忘记密码后重置密码，此接口对应上一接口，根据返回的userid，直接设置新的密码，不用传旧密码，其中 retrievePwd=2015key 固定
-
-31、
-http://120.24.176.185:8087/sw/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&femail=hong@163.com
-http://lenovo-pcyang:8087/SW/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&femail=hong@163.com
-修改用户信息，usrid 为 查询得到的用户id，其他值在界面赋。
+48、
+http://lenovo-pcyang:8087/sw/friend/passFriendReq?frelationid=39845405-fe3e-49ff-ad3c-764c744cc887&passaction=1
+http://120.24.176.185:8087/sw/friend/passFriendReq?frelationid=39845405-fe3e-49ff-ad3c-764c744cc887&passaction=1
+审核好友是否通过，frelationid：为前接口查询得到的id值，passaction：1为通过；2为拒绝；
 
 ————————————用户注册信息2 end————————————
 11、http://120.24.176.185:8087/sw/alarm/setAlarm?serialNumber=30020000000010&alarm=06:06.1,09:00.1,16:23.1
@@ -104,70 +89,7 @@ http://lenovo-pcyang:8087/SW/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f
 
 0032 0d0a
                                 
-                                
-0 0 0
-1 0 0
-0 1 0
-0 0 1
-
-21 - 32
-
-18 - 64
-4040
-0017
-030200000000102001 
-401017 
-401017
-
-02040D0A
-
-
-[64, 64, 0, 26, 3, 2, 0, 0, 0, 0, 16, 32, 1, 64, 16, 23, 64, 16, 23, 64, 16, 23, 2, 4, 13, 10]
-
-4040
-001A
-03020000000010
-
-30020000000021
-
-[48, 2, 0, 0, 0, 0, 33]
-
-2001
-401017 401017 401017
-
-02040D0A
-
-4040
-0026
-30020000000021
-2001
-401017
-401017
-401017
-401017
-401017
-401017
-401017
-
-    4040 001A 30020000000021
-    2001
-    401017
-    401017
-    401017
-    001F
-    0D0A
-
-f6410d0a40400026300200000000212001401017401017401017401017401017401017401017
-
-40400014300200000000212001401017ffde0d0a
-4040
-0017
-30020000000021
-2001
-401017
-401017 833c 0d0a
-
-
+                              
 
   /** 
      * 将16位的short转换成byte数组 
@@ -186,7 +108,27 @@ f6410d0a40400026300200000000212001401017401017401017401017401017401017401017
 5、轨迹时间范围
 6、留言，意见反馈
 7、远程查找，关机
-5、事务
+5、事务；
+
+
+加好友，发手表号码给指定手表
+7103
+查询加好友，返回头像url
+
+
+1、通讯录合成
+2、查找手机，远程关机，设置震动（类似闹钟，上课模式，开关及时间段） -- app接口
+3、加手表为好友；
+4、云之迅回调；
+5、奖励
+
+重发加好友
+
+通讯录（id（位置索引）+号码+名称（或点阵）+voip或传统模式+号码分类（sos、masterno，listenno））：通讯协议；
+
+查找手机，远程关机，设置震动（类似闹钟，上课模式）；
+
+设置模式，闹钟，有应答；隔两分半，重启；
 
 
 http://item.jd.com/1603679003.html#product-detail
@@ -215,6 +157,106 @@ adb start-server
 adb devices
 
 
+安仕达农贸
+上海升徽电子有限公司
+http://www.xiangshanscale.com/cpzx/wangluosuyuancheng/2013/0412/31.html
+http://www.hamktech.com/list.asp?id=285
+http://detail.1688.com/offer/45928432556.html?spm=a261b.2187593.1998088710.227.hMsiNV
+http://detail.1688.com/offer/45928432556.html?spm=a261b.2187593.1998088710.227.hMsiNV
+窦振丽 女士 
+电      话：86 021 61124518移动电话：13818310769 传      真：86 021 60853102
+
+http://detail.1688.com/offer/1260841656.html?spm=a261b.2187593.1998088710.174.hMsiNV
+
+具体的一条交易数据是否可以立刻上传
+二维码可以即时打印
+
+
+http://lenovo-pcyang:8087/sw/alarm/newAlarm?serialnumid=3&alarmName=name&alarmVal=160:9:05
+
+http://120.24.176.185:8087/sw/alarm/updateAlarm?alarmid=aaefac0a-b65a-4e47-9e00-017d8b5733cd&alarmName=name&alarmVal=160:14:10
+
+http://lenovo-pcyang:8087/sw/alarm/newAlarm?serialnumid=40713f7a-a95a-4113-a62c-7ac063a543a0&alarmName=name&alarmVal=255:11:05
+
+
+http://lenovo-pcyang:8087/sw/alarm/updateAlarm?alarmid=aaefac0a-b65a-4e47-9e00-017d8b5733cd&alarmName=name1122&alarmVal=160:15:22
+
+
+http://120.24.176.185:8087/sw/alarm/deleteAlarm?alarmid=bc360faa-f002-4cfd-91b2-4a3a934df75a
+
+[64, 64, 0, 20, -128, 104, 0, 0, 16, 1, 52, 32, 1, -1, 10, 10, 19, -121, 13, 10]
+4040 0017 80680000100134 2001 FF0A0A FF 0A 0A  CDA5 0D0A
+40400017300200000000122001FF0C05FF0B05E8E70D0A
+40400014300200000000102001FF0C05FAD20D0A
+
+13713689132
+[49, 51, 55, 49, 51, 54, 56, 57, 49, 51, 50]
+
+[64, 64, 0, 28, 48, 2, 0, 0, 0, 0, 20, 113, 3, 49, 51, 55, 49, 51, 54, 56, 57, 49, 51, 50, -95, 42, 13, 10]
+
+4040 001C 30020000000014 7103 3133373133363839313332 A12A 0D0A
+4040 001C 30020000000020 710331333731333638383131327B850D0A
+
+fbb8515c-d4bd-43ee-971c-92bb43d597ce
+096828bd-6735-4522-b9d0-8d8ef7a0ceb8
+a9f070db-85ca-46d2-91fd-e5b4828f48ec
 
 
 
+http://lenovo-pcyang:8087/sw/serialnum/numUsrRelation?serialnumid=3&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+
+
+
+4040 001C 30020000000001 7103 3133373133363839313332 7125 0D0A
+
+
+15158044195
+ 
+13234366886
+
+7103
+
+gps打开模式：10s，300s，600s；
+
+基站:180s
+
+
+40 40 00 12 30 02 00 00 00 00 01 72 00 00 01 00 32 0d 0a
+
+40 40 00 13 80 68 00 00 10 00 62 41 02 00 B4 00 32 0d 0a
+
+
+http://lenovo-pcyang:8087/sw/gps/setLbs?serialNumber=80680000100062&lbs=1&gps=10
+发送超时，客户端编号：01014C4C,发送次数：4，updatetime：2015-08-03 17:39:40.791，createtime：2015-08-03 17:39:22.291，CMD：0004，ACK：2f80
+
+http://item.jd.com/1580142285.html#product-detail
+http://detail.1688.com/offer/40922333355.html?spm=a261b.2187593.1998088710.242.OP2RYI
+
+
+
+08-04 16:16:35.992: I/System.out(12293): Client Send:
+5a4c001e01014c4c00040101317c327c33010002050a0c0d7380eaff0d0a
+
+5a4c001e01014c4c00010101317c327c33010002050a0c0d018079480d0a
+
+b6000
+
+min usb-otg转hdmi
+
+http://docs.ucpaas.com/doku.php?id=rest_api
+http://docs.ucpaas.com/doku.php?id=client%E7%AE%A1%E7%90%86api
+sales@wearme.cc 
+wear123456
+
+润农科技
+rntech
+hi-tech5188
+http://www.51job.com/
+
+654321
+
+http://lenovo-pcyang:8087/sw/family/callResultNotify?fromNum=18058149508&toNum=13713975317
+
+
+食槽秤、称重秤、下料电机、
+三色灯、温湿度、

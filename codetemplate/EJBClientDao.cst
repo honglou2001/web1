@@ -31,8 +31,8 @@ Description:
 <%-- 启用 MAP方式 System-CSharpAlias  --%>
 package dao;
 
-import com.users.ejb.<%= ModelName(SourceTable.Name)%>;
-import com.users.ejb.<%= ModelName(SourceTable.Name)%>Service;
+import com.watch.ejb.<%= ModelName(SourceTable.Name)%>;
+import com.watch.ejb.<%= ModelName(SourceTable.Name)%>Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,26 +50,26 @@ import javax.naming.NamingException;
 
 public class <%= ModelName(SourceTable.Name)%>DaoIml {	
 
-  	public void Add(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>) {
+  	public void Add<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>) {
 		Context weblogicContext = ejbproxy.getInitialConnection();
 		<%= ModelName(SourceTable.Name)%>Service serviceClient;
 		try {
 			serviceClient = (<%= ModelName(SourceTable.Name)%>Service) weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
-			serviceClient.Add(<%= ParameterName(SourceTable.Name)%>);
+			serviceClient.Add<%= ModelName(SourceTable.Name)%>(<%= ParameterName(SourceTable.Name)%>);
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	
-	public int GetCount(HashMap<String, String> map)
+	public int Get<%= ModelName(SourceTable.Name)%>Count(HashMap<String, String> map)
 	{
 		int total = 0 ;			
 		Context weblogicContext = ejbproxy.getInitialConnection();
 		<%= ModelName(SourceTable.Name)%>Service serviceClient;
 		try {
 			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
-			total = serviceClient.GetCount(map);	
+			total = serviceClient.Get<%= ModelName(SourceTable.Name)%>Count(map);	
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -78,7 +78,7 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 	}
 	
 
-	public List<<%= ModelName(SourceTable.Name)%>> GetAll(int offset, int length,HashMap<String, String> map)
+	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length,HashMap<String, String> map)
 	{		
 		List<<%= ModelName(SourceTable.Name)%>> list<%= ModelName(SourceTable.Name)%> =  new ArrayList<<%= ModelName(SourceTable.Name)%>>();				
 		try{
@@ -95,13 +95,13 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 		return list<%= ModelName(SourceTable.Name)%>;		
 	}
     
-    public <%= ModelName(SourceTable.Name)%> Find(String fid)
+    public <%= ModelName(SourceTable.Name)%> find<%= ModelName(SourceTable.Name)%>(String fid)
 	{		
 		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%> = new <%= ModelName(SourceTable.Name)%>();				
 		try{
 			Context weblogicContext = ejbproxy.getInitialConnection();			
 			<%= ModelName(SourceTable.Name)%>Service serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
-			<%= ParameterName(SourceTable.Name)%> = serviceClient.find(fid);	
+			<%= ParameterName(SourceTable.Name)%> = serviceClient.find<%= ModelName(SourceTable.Name)%>(fid);	
 
 		  } catch (NamingException ne) {
 			   // TODO: handle exception
@@ -112,12 +112,12 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 		return <%= ParameterName(SourceTable.Name)%>;		
 	}
     
-  	public void Update(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>) {		
+  	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>) {		
 		Context weblogicContext = ejbproxy.getInitialConnection();
 		<%= ModelName(SourceTable.Name)%>Service serviceClient;
 		try {
 			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
-			serviceClient.Update(<%= ParameterName(SourceTable.Name)%>);	
+			serviceClient.Update<%= ModelName(SourceTable.Name)%>(<%= ParameterName(SourceTable.Name)%>);	
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -125,13 +125,13 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 		
 	}        
    
-	public void Delete(String id) {
+	public void Delete<%= ModelName(SourceTable.Name)%>(String id) {
 		Context weblogicContext = ejbproxy.getInitialConnection();
 		<%= ModelName(SourceTable.Name)%>Service serviceClient;
 		try {
 			serviceClient = (<%= ModelName(SourceTable.Name)%>Service) weblogicContext
 					.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
-			serviceClient.Delete(id);
+			serviceClient.Delete<%= ModelName(SourceTable.Name)%>(id);
 		} catch (NamingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

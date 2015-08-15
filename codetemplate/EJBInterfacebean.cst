@@ -42,7 +42,7 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
     private EntityManager manager;
 
 	@Override
-	public void Add(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) {  
+	public void Add<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) {  
 <% foreach (ColumnSchema column in this.SourceTable.Columns) 
 { 
 %> 	     
@@ -56,13 +56,13 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 	}
 	
 	@Override
-	public void Update(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) 
+	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) 
 	{
 		manager.merge(<%= ParameterName(SourceTable.Name)%>Info);		
 	}
 	
 	@Override
-	public void Delete(String id) 
+	public void Delete<%= ModelName(SourceTable.Name)%>(String id) 
 	{
 		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info = manager.find(<%= ModelName(SourceTable.Name)%>.class, id);
 		
@@ -70,7 +70,7 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 	}
 	
 	@Override
-	public <%= ModelName(SourceTable.Name)%> find(String id) 
+	public <%= ModelName(SourceTable.Name)%> find<%= ModelName(SourceTable.Name)%>(String id) 
 	{
 		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info = manager.find(<%= ModelName(SourceTable.Name)%>.class, id);
 		return <%= ParameterName(SourceTable.Name)%>Info;
@@ -93,7 +93,7 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 	}    
 	
 	@Override
-	public int GetCount(HashMap<String, String> map){
+	public int Get<%= ModelName(SourceTable.Name)%>Count(HashMap<String, String> map){
 		
         String where = GetWhere(map);
         

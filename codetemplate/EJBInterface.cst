@@ -35,15 +35,15 @@ import javax.ejb.Remote;
 @Remote
 public interface <%= ModelName(SourceTable.Name)%>Service{
 
-    public void Add(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) ;
+    public void Add<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) ;
 	
-	public void Update(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) ;
+	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) ;
 	
-	public void Delete(String id) ;
+	public void Delete<%= ModelName(SourceTable.Name)%>(String id) ;
 	
-	public <%= ModelName(SourceTable.Name)%> find(String id) ;
+	public <%= ModelName(SourceTable.Name)%> find<%= ModelName(SourceTable.Name)%>(String id) ;
 	
-	public int GetCount(HashMap<String, String> map);
+	public int Get<%= ModelName(SourceTable.Name)%>Count(HashMap<String, String> map);
 	
 	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length,HashMap<String, String> map);
 }

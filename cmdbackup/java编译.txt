@@ -189,7 +189,9 @@ cp - r /usr/tomcat7054/webapps2/web1 /usr/tomcat7054/webapps2   //将/usr/tomcat
 
 -备份图片文件
 cp -r /usr/tomcat7054/webapps2/sw/upsnimg  /usr/tomcat7054/
-cp -r /usr/tomcat7054/webapps2/sw/upusrimg  /usr/tomcat7054/  
+cp -r /usr/tomcat7054/webapps2/sw/upusrimg  /usr/tomcat7054/
+cp -r /usr/tomcat7054/webapps2/sw/uprewardimg  /usr/tomcat7054/  
+  
 
 sudo netstat -anp | grep 8087
 kill -9 1111
@@ -204,10 +206,13 @@ sudo rm -rf /usr/tomcat7054/webapps/web1
 sudo mv /usr/tomcat7054/web1.war  /usr/tomcat7054/webapps/web1.war
 
 sudo service tomcat7054 start
+查看是否查看成功
+sudo netstat -anp | grep 8087
 
 --还原图片
 sudo mv /usr/tomcat7054/upusrimg  /usr/tomcat7054/webapps2/sw/
 sudo mv /usr/tomcat7054/upsnimg  /usr/tomcat7054/webapps2/sw/
+sudo mv /usr/tomcat7054/uprewardimg  /usr/tomcat7054/webapps2/sw/
 
 --------------------
 ChildServer.jar上传到/usr/local/
@@ -223,6 +228,7 @@ sudo mv /usr/local/ChildServer.jar /usr/local/socketserver/ChildServer.jar
 jboss:
 
 ejbpro1dep.jar 上传到 /usr/local/jboss423ga/
+
 cd /usr/local/jboss423ga/bin
 sudo netstat -anp | grep 8080
 sh shutdown.sh -S
