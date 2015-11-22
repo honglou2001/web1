@@ -118,6 +118,10 @@
 		<action name="snnumber" class="SPsnnumberAction" method="List">
 		    <result>/Watch/Serialnumber.jsp</result>
 		</action> 
+		
+		<action name="payfee" class="SPsnnumberAction" method="List">
+		    <result>/Watch/SerialnumberFee.jsp</result>
+		</action>
 		 
 		<action name="snnumber*" class="SPsnnumberAction" method="{1}">
 			<result type="json">

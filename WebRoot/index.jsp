@@ -140,26 +140,25 @@
             正在加载中,请稍候...
         </div>
     </div>
-	<div data-options="region:'north',border:false" class="logo" style="background: white; overflow: hidden; height: 45px; line-height: 20px;">
-        <span style="float: right; padding-top: 15px; padding-right: 15px;">
-        <input  class="easyui-combobox" id="FUnitID" name="FUnitID" style="width: 180px;border:none"/>
-        <span style="margin: 0 40px 0 0;">欢迎您，<span style="font-weight: 300;">
-        
-       
-         yantang           
-       
-!</span></span>
-                <span style="margin: 0 20px 0 0; font-weight: 300;">软件版本:v1.0</span>
-                <a href="#" id="editpass"  plain="true"  class="easyui-linkbutton">修改密码</a><a href="javascript:void(0);" id="loginOut"
-                    plain="true" class="easyui-linkbutton" iconcls="icon-back">退出</a>
-           
-        </span>
-        <span style="float:left; width:397px; margin-left:10px; margin-top:-2px">
-            
-            <img src="images/logo.png" runat="server" id="imgrn" alt="" style="height:100%; width:397px" />   
-        </span>
+<!-- 	<div data-options="region:'north',border:false" class="logo" style="background: white; overflow: hidden; height: 45px; line-height: 20px;"> -->
+<!--         <span style="float: right; padding-top: 10px; padding-right: 15px;">       -->
+<!--         <span style="margin: 0 40px 0 0;">欢迎您，<span style="font-weight: 300;">admin!</span></span> -->
+<!--                 <span style="margin: 0 20px 0 0; font-weight: 300;">软件版本:v1.0</span> -->
+<!--                 <a href="#" id="editpass"  plain="true"  class="easyui-linkbutton">修改密码</a><a href="javascript:void(0);" id="loginOut" -->
+<!--                     plain="true" class="easyui-linkbutton" iconcls="icon-back">退出</a> -->          
+<!--         </span> -->
+<!--         <span style="float:left; width:397px; margin-left:10px; margin-top:-2px"> -->            
+<!--             <img src="images/logo.png" runat="server" id="imgrn" alt="" style="height:100%; width:397px" />    -->
+<!--         </span> -->
+<!-- 	</div> -->
 
-	</div>
+    <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
+        background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
+        line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
+        <span style="float:right; padding-right:20px;" class="head">欢迎! admin  <a href="#" id="editpass" >修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
+        <span style="padding-left:10px; font-size: 16px; "><img src="images/blocks.gif" width="20" height="20" align="absmiddle" /> 后台管理</span>
+    </div>
+    
 	<div data-options="region:'west',split:true,title:'导航菜单'" style="width:180px;">
               <div id="menuPanel" class="easyui-accordion" fit="true" border="false">
             <!--  导航内容 -->
@@ -215,52 +214,7 @@
         <div id="mm-tabcloseleft">当前页左侧全部关闭</div>
         <div class="menu-sep"></div>
         <div id="mm-exit">退出</div>
-    </div>
-    <script type="text/javascript" language="javascript">
-             
-        function refreshTab(title)
-        {   
-            if ($('#tabs').tabs('exists', title)) { //注意：此方法至适用刷新主页
-                var currTab = $('#tabs').tabs('getTab', title),
-                content = '<iframe class="iframe-self" scrolling="auto" frameborder="0"  src="/Home/Main" style="padding: 0px 5px 5px 5px;width:100%;height:100%;"></iframe>';
-                $('#tabs').tabs('update', { tab: currTab, options: { content: content, closable: false } });
-            }
-        }
-        //关闭当前tab
-        function closeTab(title)
-        {
-            if ($('#tabs').tabs('exists', title)) {
-                $('#tabs').tabs('close', title);
-            }
-        }
-
-//         $('#mm-tabupdate').click(function () {
-//             var currTab = $('#tabs').tabs('getSelected');
-//             var url = $(currTab.panel('options').content).attr('src');
-//             $('#tabs').tabs('update', {
-//                 tab: currTab,
-//                 options: {
-//                     content: createFrame(url)
-//                 }
-//             })
-//         })
-
-        //除当前之外关闭所有
-        function closeother(title) {
-            //console.info(title);
-            $(".tabs li").each(function (i, n) {
-                var otherTitle = $(n).text();
-                if (otherTitle != title) {
-                    $('#tabs').tabs('close', otherTitle);
-                }
-            });
-        };
-        function createFrame(url) {
-            var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
-            return s;
-        }
-    </script>
-    
+    </div>    
 </body>
 </html>
    

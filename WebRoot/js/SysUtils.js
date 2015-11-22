@@ -275,6 +275,75 @@ function CheckEndDate(startCtrlName, endCtrlId) {
     });
 }
 
+//	function showTabs(text,url){  
+//	   if($("#tb").tabs('exists',text)){
+//	          $('#tb').tabs('select', text);
+//	      }
+//	   	else {
+//	             //打开之前关闭所有已经打开的tabs 
+//	    	var tabs = $("#tb").tabs("tabs");
+//	    	var length = tabs.length;
+//	    	for(var i = 0; i < length; i++) {
+//		        var _tab = tabs[0];
+//		        var title = _tab.panel('options').tab.text();
+//	            $("#tb").tabs("close", title);
+//	    	}   
+//	     
+//	             $("#tb").tabs("add",{
+//	                 title:text,
+//	                 content:'<iframe name="indextab" scrolling="auto" frameborder="0" style="width:100%;height:400px;"></iframe>',
+//	                 closable:true,  
+//	                 fit:true,  
+//	                 selected:true 
+//	                 });
+//	             window.open(url+"?id="+tabId+"&qiymc="+qymc+"&gszch="+gszhuch,"indextab");  
+//	    }
+//	} 
+// 
+//          
+//     function refreshTab(title)
+//     {   
+//         if ($('#tabs').tabs('exists', title)) { //注意：此方法至适用刷新主页
+//             var currTab = $('#tabs').tabs('getTab', title),
+//             content = '<iframe class="iframe-self" scrolling="auto" frameborder="0"  src="/Home/Main" style="padding: 0px 5px 5px 5px;width:100%;height:100%;"></iframe>';
+//             $('#tabs').tabs('update', { tab: currTab, options: { content: content, closable: false } });
+//         }
+//     }
+//     //关闭当前tab
+//     function closeTab(title)
+//     {
+//         if ($('#tabs').tabs('exists', title)) {
+//             $('#tabs').tabs('close', title);
+//         }
+//     }
+
+//      $('#mm-tabupdate').click(function () {
+//          var currTab = $('#tabs').tabs('getSelected');
+//          var url = $(currTab.panel('options').content).attr('src');
+//          $('#tabs').tabs('update', {
+//              tab: currTab,
+//              options: {
+//                  content: createFrame(url)
+//              }
+//          })
+//      })
+
+//     //除当前之外关闭所有
+//     function closeother(title) {
+//         //console.info(title);
+//         $(".tabs li").each(function (i, n) {
+//             var otherTitle = $(n).text();
+//             if (otherTitle != title) {
+//                 $('#tabs').tabs('close', otherTitle);
+//             }
+//         });
+//     };
+     
+//     function createFrame(url) {
+//         var s = '<iframe scrolling="auto" frameborder="0"  src="' + url + '" style="width:100%;height:100%;"></iframe>';
+//         return s;
+//     }
+     
 function addTabExt(subtitle, url, icon) {
     //console.info(self);
     var $parent = self.parent.$;
@@ -301,98 +370,14 @@ function createFrameExt(url) {
     return s;
 }
 
-function GetHighChart(title, renderTo, yAxisName, isLegend) {
-    var highChart = new Highcharts.Chart({
-        chart: {
-            renderTo: renderTo,
-            shadow: false,
-            //            defaultSeriesType: systel,
-            //            width: width,
-            //            height: height,
-            //            marginTop: 50,
-            //            marginLeft: 60,
-            marginRight: 10,
-            //            marginBottom: 50,
-            plotBackgroundColor: null,
-            //plotBorderColor: '#69ABC8',
-            plotBorderWidth: 0
-        },
-        title: {
-            text: title,
-            style: { color: '#000', fontSize: '14px', fontWeight: '600' }
-        },
-        subtitle: {
-            //            text: CurentTime(),
-            text: "",
-            style: { color: '#000', fontSize: '11px' }
-        },
-        labels: {
-            items: [
-            //            {
-            //                //标签代码（html代码）
-            //                html: '<div style="font-size:12px; color:#000;">耳号：123</div><br/>',
-            //                style: { //设置标签位置
-            //                    left: '510px',
-            //                    top: '40px'
-            //                }
-            //            }
-            ],
-            style: {    //设置标签颜色
-                color: 'rgb(0,0,255)'
-            }
-        },
-        credits: {
-            href: 'http://www.rntech.com.cn ',
-            text: '润农科技'
-        },
-        xAxis: {
-            title: { text: '时间', style: { fontSize: '10px', padding: '20px' } },
-            categories: [],
-            labels: { rotation: -45, style: { fontSize: '12px' } }
-        },
-        yAxis: {
-            min: 0,
-            title: { text: yAxisName, style: { fontSize: '12px', padding: '20px' } }
-        },
-        legend: {
-            enabled: isLegend,
-            layout: 'vertical',
-            floating: true,
-            backgroundColor: '#FFFFFF',
-            align: 'right',
-            verticalAlign: 'middle',
-            x: 0
-        },
-        tooltip: {
-            formatter: function () {
-                //return '' + this.x + ': ' + this.y;
-                return '' + this.y;
-            }
-        },
-        plotOptions: {
-            line: {
-                dataLabels: {
-                    enabled: true
-                },
-                shadow: false,
-                enableMouseTracking: false
-            },
-            enabled: true,
-            column: {
-                dataLabels: {
-                    enabled: true
-                },
-                enableMouseTracking: false,
-                pointPadding: 0.2,
-                borderWidth: 0,
-                pointWidth: 10,
-                shadow: false
-            }
-        },
-        series: []
-    });
-    return highChart;
+function GetQueryString(name) { 
+	var reg = new RegExp( "(^|&)" + name + "=([^&]*)(&|$)" ); 
+	var r = window.location.search.substr(1).match(reg); 
+	if (r!= null ) return unescape(r[2]); return null ; 
 }
+// 调用方法 
+//alert(GetQueryString( "参数名1" )); 
+//alert(GetQueryString( "参数名2" ));
 
 
 

@@ -6,125 +6,14 @@ $(function () {
         cache: false
     });
    
-    searchFun();  
+    //alert(GetQueryString( "serialnumid" )); 
+    var serialnumid = GetQueryString("serialnumid");
+    var snnumber = GetQueryString("snnumber");
+    
+    QueryChargRecord(serialnumid,snnumber);
 });
 
 
-function initTable(queryData) {
-    $('#dgSerialnumber').datagrid({
-        loadMsg: "数据加载中,请稍候……",
-        url: '/web1/snnumberQuerySerialnumber.action',
-        width: "auto",
-        height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 87,
-        iconCls: 'icon-save',
-        pageSize: 12,
-        nowrap: true,
-        fitColumns: true,
-        singleSelect:true,
-        striped: true,
-        collapsible: true,
-        pagination: true,
-        rownumbers: true, //行号
-        idField: 'funiqueid',
-        sortName: 'id',
-        sortOrder: 'desc',
-        queryParams: queryData,  //异步查询的参数
-        onLoadSuccess: function (data) {
-           
-        },
-        columns: [[
-            { field: "ck", checkbox: true },
-  
-            {
-                field: 'serialnumber', title: '序列号', width: 50, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'nickname', title: '昵称', width: 50, align: 'left', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-
-            {
-                field: 'isreg', title: '是否注册', width: 25, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-
-            {
-                field: 'online', title: '是否在线', width: 25, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,        
-            {
-                field: 'fupdatetime', title: '更新时间', width: 60, align: 'center', formatter: function (value) {
-                    if (value!=null){
-                    	return value.replace("T"," ");
-                    }
-                    else{
-                    	return value;
-                    }
-                }
-            }
-            ,
-            {
-                field: 'fphonenum', title: '手表电话号码', width: 50, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fphonetime', title: '录入时间', width: 60, align: 'center', formatter: function (value) {
-                    if (value!=null){
-                    	return value.replace("T"," ");
-                    }
-                    else{
-                    	return value;
-                    }
-                }
-            }
-            ,
-            {
-                field: 'fclientnumber', title: '云之迅号码', width: 60, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            }
-            ,
-            {
-                field: 'fusrphone', title: 'APP用户电话号码', width: 50, align: 'center', formatter: function (value) {
-                    return value;
-                }
-            } 
-      ]],              
-        toolbar: "#div_Menu"
-    });
-}
-
-function searchFun() {
-	
-	  var getIsReg = $("input[name='getIsReg']:checked").map(function () {
-          return $(this).val();
-      }).get().join(',');
-	  
-	  var getIsOnline = $("input[name='getIsOnline']:checked").map(function () {
-          return $(this).val();
-      }).get().join(',');
-	  
-    var queryData = {
-    	 "serialnumber.serialnumber": $("#txtSNnumber").val(),	
-         "serialnumber.fphonenum": $("#txtFMobile").val(), 
-         "getIsReg":getIsReg,
-         "getIsOnline": getIsOnline        
-    };
-    //$('#dgSerialnumber').datagrid('options').pageNumber=1;//搜索
-    initTable(queryData);
-    //$("#dgSerialnumber").datagrid('reload');
-}
 
 //修改分组的信息
 function UpdateInfo() {
@@ -209,29 +98,30 @@ function BindShowUpdateInfo1() {
     });
 }
 
-function QueryChargRecord() {	
+function QueryChargRecord(serialnumid,snnumber) {	
+	
 
-    var rows = $("#dgSerialnumber").datagrid("getSelections");
-    //首先取出来值判断用户只能选择一个
-    if (rows.length != 1) {
-        $.messager.alert("提示", "每次只能查询一个手表的费用记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
-        return;
-    }
+//    var rows = $("#dgSerialnumber").datagrid("getSelections");
+//    //首先取出来值判断用户只能选择一个
+//    if (rows.length != 1) {
+//        $.messager.alert("提示", "每次只能查询一个手表的费用记录，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
+//        return;
+//    }
 //    
 //	$('#div_chargerecord').panel({title: "查看手表充值及消费记录"});	
 //	$("#div_chargerecord").show().dialog("open");
-	
-	var serialnumid = $("#dgSerialnumber").datagrid("getSelections")[0].funiqueid;  //获取到了用用户选择的ID
-	var serialnum = $("#dgSerialnumber").datagrid("getSelections")[0].serialnumber;
-	var tabtitle ="手表费用查询";
-	
-	addTabExt(tabtitle,"payfee.action?serialnumid="+serialnumid+"&snnumber="+serialnum,"icon-nav");
-	
-//	var queryData = {
-//	  	"serialnumber.funiqueid": ID
-//	  };
 //	
-//	ListRecordDetail(queryData);
+//	var ID = $("#dgSerialnumber").datagrid("getSelections")[0].funiqueid;  //获取到了用用户选择的ID		
+	var queryData = {
+	  	"serialnumber.funiqueid": serialnumid
+	  };
+	
+	var divtitle = "手表—"+snnumber+"费用记录";
+	
+	$("#div_query").panel({title:divtitle});
+	$("#div_chargerecord").panel({title:"数据列表"});
+	   
+	ListRecordDetail(queryData);
 }
 
 
@@ -299,6 +189,8 @@ function ListRecordDetail(queryData) {
             }
             
       ]]
+        ,              
+        toolbar: "#div_Menu"
     });
 }
 
@@ -306,7 +198,7 @@ function ListRecordDetail(queryData) {
 
 function clearbox() {
     $('#searchForm input').val('');   
-    searchFun();
+    //searchFun();
 }
 
 function add(id) {
