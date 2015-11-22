@@ -359,6 +359,98 @@ sudo chmod +x jdk-6u27-linux-x64.bin
 ./jdk-6u27-linux-x64.bin，会解压出一个jdk的路径，比如在/opt目录下
 
 
+******************安装 active mq begin******************
+apache-activemq-5.6.0-bin.tar.gz
+
+1、上传apache-activemq-5.6.0-bin.tar.gz到服务器 /opt目录，解压
+
+cd /opt
+tar -zxvf apache-activemq-5.6.0-bin.tar.gz
+目录改名：mv apache-activemq-5.6.0 activemq
+
+sudo nano /opt/activemq/bin/activemq
+修改
+ #JAVA_HOME="" 为 JAVA_HOME="/usr/jdk18005"
+指定java
+
+2、启动ActiveMQ
+
+cd /opt/activemq/bin
+运行： sudo ./activemq start
+停止： sudo ./activemq stop
+
+ps -ef|grep activemq //查看activemq进程
+netstat -anp | grep 61616
+
+3、测试是否成功安装
+
+http://120.24.176.185:8161/admin/，默认的用户名和密码都是admin
+
+4、服务随机启动：
+
+授权给服务文件：
+chmod 755 /opt/activemq/bin/activemq
+
+cd /etc/init.d/
+
+sudo nano /etc/init.d/activemq560
+
+》》》》》》》》》》》》》》
+#! /bin/sh
+
+export JAVA_HOME=/usr/jdk18005
+
+case $1 in
+start)
+				echo "Starting activemq5.6.0.."
+        sh /opt/activemq/bin/activemq start
+        ;; 
+stop)   
+				echo "Stopping activemq5.6.0.."
+        sh /opt/activemq/bin/activemq stop
+        ;; 
+restart)
+        echo "Restarting activemq5.6.0.."
+        sh /opt/activemq/bin/activemq stop
+        sh /opt/activemq/bin/activemq start
+        ;; 
+esac    
+exit 0
+》》》》》》》》》》》》》》
+
+--对shell追加权限
+sudo chmod 755 /etc/init.d/activemq560
+
+添加shell为启动脚本
+cd /etc/init.d
+sudo update-rc.d activemq560 defaults
+
+启动
+sudo service activemq560 start
+sudo service activemq560 stop
+
+5、修改http://120.24.176.185:8161/admin/默认密码：
+1)sudo nano /opt/activemq/conf/jetty.xml
+
+<bean id="securityConstraint" class="org.eclipse.jetty.http.security.Constraint">
+         <property name="name" value="BASIC" />
+         <property name="roles" value="admin" />
+         <property name="authenticate" value="false" />
+ </bean>
+
+将property name为authenticate的属性value="false" 改为"true"，
+
+2)sudo nano /opt/activemq/conf/jetty-realm.properties
+
+# username: password [,rolename ...]
+ admin: admin, admin  (用户名 : 密码 ,角色名)
+ 修改为：admin  Wearme123 admin
+ 
+ 
+
+
+******************安装 active mq end******************
+
 ———————————————————————————部署中转网址 begin———————————————————————————————————————
 
 通过快捷键Ctrl+Alt+T可以打开shell，F11可以全屏显示(Alt+F9最小化窗口，Alt+F10最大化/恢复窗口)，再辅予xdg-open命令
@@ -376,6 +468,31 @@ http://120.24.176.185:8082/web1/TransferUrl.action?http://minigps.net/as?x=1cc-0
 
 
 ———————————————————————————部署中转网址 end———————————————————————————————————————
+
+http://120.24.176.185:8087/sw/serialnum/serialNumAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialNumber=30020000000017&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
+注册手环，用户新增手环，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；
+返回信息：{"state":1,"info":"新增序列号成功","serialnumid":"fbb8515c-d4bd-43ee-971c-92bb43d597ce"}，serialnumid 作为后面查找，更新序列号的id
+
+
+81、APP不调用此接口，由后台管理用
+http://lenovo-pcyang:8087/sw/push/setInfo?action=1&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&alias=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&tag=1001
+极光推送，设置客户端别名，usrid为用户id，alias为别名，tag为要设置的推送标签；
+此设置发送给服务器的与APP本地调用极光接口的要一致；
+
+超级指令：
+
+302C00B4 - 0,180
+302C0168 - 0,360
+312C003c - 1,60
+
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=302C0168&cusIsHex=1
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=302C0168&cusIsHex=1
+
+http://lenovo-pcyang:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=302C0168
+
+40 40 00 15 30 02 00 00 00 00 01 41 02 30 2C 00 B4 95 ab 0d 0a
+
+[64, 64, 0, 21, 48, 2, 0, 0, 0, 0, 1, 65, 2, 48, 44, 0, -76, -107, -85, 13, 10]
 
 
 

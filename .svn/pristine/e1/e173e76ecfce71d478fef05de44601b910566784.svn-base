@@ -1,0 +1,479 @@
+﻿120.24.176.185
+
+root Wearme123
+
+查看CPU信息cat /proc/cpuinfo
+显示当前硬件信息
+sudo lshw
+
+
+显示当前内存大小
+free -m |grep "Mem" | awk '{print $2}'
+
+操作系统：Ubuntu 14.04.2 LTS
+————————安装以下文件：
+
+jdk-8u5-linux-x64.tar.gz
+apache-tomcat-7.0.54.tar.gz
+mysql-5.6.10-linux-glibc2.5-x86_64.tar.gz
+jboss-4.2.3.GAcha
+
+部署mysql，ejb，web客户端，使用SSH Secure File Shell/Transfer
+————————————————————————————
+
+安装jdk
+
+解压：sudo tar xfvz jdk.tar.gz
+
+目录改名：mv jdk1.8.0_05 jdk18005
+
+使用nano编辑器配置环境变量：sudo nano /etc/profile  （ctrl+O 保留，ctrl+x退出）
+
+文件尾部：
+export JAVA_HOME=/usr/jdk18005 
+export JRE_HOME=${JAVA_HOME}/jre 
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib 
+export PATH=${JAVA_HOME}/bin:$PATH 
+
+使文件生效：source /etc/profile
+
+
+查看java版本：java -version 
+
+
+————————————————————————————
+安装tomcat：
+解压：sudo tar xfvz tomcat.tar.gz
+
+目录改名：mv apache-tomcat-7.0.54 tomcat7054
+
+cd /usr/tomcat7054/bin
+配置环境变量：sudo nano startup.sh
+文件末尾添加：
+JAVA_HOME=/usr/jdk18005
+PATH=$JAVA_HOME/bin:$PATH
+CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+TOMCAT_HOME=/usr/tomcat7054
+
+
+sudo nano /usr/tomcat7054/bin/catalina.sh (根据你自己的jdk路径进行修改) 在文件的正文开头，即正式代码前，大概在99行添加如下代码
+
+export JAVA_HOME=/usr/jdk18005 
+export JRE_HOME=//usr/jdk18005/jre
+
+cd /usr/tomcat7054/bin/
+
+启动：sudo ./startup.sh
+
+浏览网址：http://120.24.176.185:8080  看效果
+
+关闭：sudo ./shutdown.sh
+
+-----
+希望在服务器电源打开后，希望没有登录的情况下也可以自动启动Tomcat
+编写启动文件/etc/init.d/tomcat7054 tomcat7054文件内容如下:
+sudo nano /etc/init.d/tomcat7054，内容如下：
+
+#!/bin/sh   
+# Tomcat auto-start
+#
+# description: Auto-starts tomcat
+# processname: tomcat
+# pidfile: /var/run/tomcat.pid
+
+export JAVA_HOME=/usr/jdk18005
+
+case $1 in
+start)
+        sh /usr/tomcat7054/bin/startup.sh
+        ;;
+stop) 
+        sh /usr/tomcat7054/bin/shutdown.sh
+        ;;
+restart)
+        sh /usr/tomcat7054/bin/shutdown.sh
+        sh /usr/tomcat7054/bin/startup.sh
+        ;;
+esac  
+exit 0
+
+
+把/etc/init.d/tomcat7054设置成可执行,chmod +x 追加权限
+sudo chmod +x /etc/init.d/tomcat7054
+
+将tomcat7054加入服务，update-rc.d添加这服务并让tomcat开机自动执行
+cd  /etc/init.d
+sudo update-rc.d tomcat7054 defaults
+
+tomcat 多端口启用
+复制文件并改名：cp -i server.xml /usr/tomcat7054/conf/server_backup.xml 
+nano复制文本：ctrl+6 ,alt+6,ctrl+k
+Service name, Engine name，host appBase都需要修改。这样就可以一个tomcat完成俩个实例工作了
+
+
+————————————————————————————
+
+安装Mysql：
+
+解压：sudo tar xfvz mysql.tar.gz
+
+目录改名：mv mysql-5.6.10-linux-glibc2.5-x86_64 mysql
+
+移动目录：sudo mv mysql /usr/local
+
+cd /usr/local/mysql
+
+建立linux群组账号：sudo groupadd mysql
+
+建立新增群组下的用户：sudo useradd -r -g mysql mysql
+
+将mysql文件夹own及grp变更为mysql，chown将指定文件的拥有者改为指定的用户或组：
+sudo chown mysql:mysql /usr/local/mysql
+
+改变文件或目录的所属群组：
+sudo chgrp mysql /usr/local/mysql
+
+执行mysql安装脚本：
+sudo scripts/mysql_install_db --user=mysql
+
+
+将目录权限变更回来，仅保留data目录为mysql用户：
+sudo chown -R root /usr/local/mysql
+sudo chown -R mysql /usr/local/mysql/data
+
+将mysql配置文件拷贝到etc目录(全局配置)
+注意：5.6版本的默认配置文件名称由原先的my-medium变更为了my-default。
+cd /usr/local/mysql
+sudo cp support-files/my-default.cnf /etc/my.cn
+
+启动mysql， & - 以后台进程运行
+sudo bin/mysqld_safe --user=mysql &
+
+初始化mysql root用户密码
+sudo bin/mysqladmin -u root password '123456'
+
+复制mysql.server脚本到/etc/init.d(初始化服务，有些人喜欢改成mysqld，在这里改就可以)
+sudo cp support-files/mysql.server /etc/init.d/mysql.server
+
+查看mysql运行状态
+sudo service mysql.server status
+如果运行正常，会显示 MySQL running。
+
+如果显示 not running，应该是前面没有启动服务，可直接用service mysql.server start启动
+sudo service mysql.server [status|start|stop]  
+
+让mysql开机启动[defaults]，取消开机启动[remove]
+sudo update-rc.d -f mysql.server defaults  [remove]
+
+将mysql/bin/mysql命令加入到用户命令中，或将mysql/bin目录加入path
+加入用户命令：
+sudo ln -s /usr/local/mysql/bin/mysql /usr/local/bin/mysql
+
+加入环境变量：
+export PATH=$PATH:/usr/local/mysql/bin
+
+————————————————————————————
+安装JBoss：
+
+解压zip文件：
+sudo apt-get install unzip
+unzip jboss-4.2.3.GA.zip
+
+目录改名：mv jboss-4.2.3.GA jboss423ga
+
+移动目录：sudo mv jboss423ga /usr/local
+
+
+配置环境变量：
+sudo nano /etc/profile
+
+export JAVA_HOME=/usr/jdk18005 
+export JRE_HOME=${JAVA_HOME}/jre 
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib 
+export PATH=${JAVA_HOME}/bin:$PATH
+export JBOSS_HOME=/usr/local/jboss423ga
+
+source /etc/profile -使文件生效
+
+配置java路径：
+sudo nano /usr/local/jboss423ga/bin/run.sh
+在 # Setup the JVM ，
+else 
+Java="java"
+修改为：
+#Java="java"
+JAVA=/usr/jdk18005/bin/java
+
+
+启动：
+cd /usr/local/jboss423ga/bin
+nohup ./run.sh -b 0.0.0.0 &
+提示：
+　　[~]$ appending output to nohup.out
+　　出现以上信息，证明运行成功，同时把程序运行的输出信息放到当前目录的 nohup.out 文件中去。
+
+停止：
+sh shutdown.sh -S
+
+****Jboss自动启动*****
+
+增加jboss系统用户：
+sudo adduser --system jboss
+
+给jboss目录授权
+sudo chown jboss /usr/local/jboss423ga -R
+
+编辑启动shell文件
+sudo nano /etc/init.d/jboss423ga
+内容如下：
+
+#! /bin/sh
+
+JBOSS_HOME=/usr/local/jboss423ga
+ 
+start(){
+ echo "Starting jboss.."
+ 
+ sudo -u jboss ${JBOSS_HOME}/bin/run.sh -b 0.0.0.0 > /dev/null &
+}
+ 
+stop(){
+ echo "Stopping jboss.."
+ 
+ sudo -u jboss ${JBOSS_HOME}/bin/shutdown.sh -S > /dev/null &
+ #give time to shutdown jboss services.
+ sleep 60
+ #kill all java services started by user jboss
+ su -l jboss -c 'killall java'
+}
+ 
+restart(){
+ stop
+ start
+}
+ 
+case "$1" in
+ start)
+ start
+ ;;
+ stop)
+ stop
+ ;;
+ restart)
+ restart
+ ;;
+ *)
+ echo "Usage: jboss {start|stop|restart}"
+ exit 1
+esac
+ 
+exit 0
+
+--对shell追加权限
+sudo chmod +x /etc/init.d/jboss423ga
+
+添加shell为启动脚本
+cd /etc/init.d
+sudo update-rc.d jboss423ga defaults
+
+启动
+sudo service jboss423ga start （stop status）
+
+————————————————————————————
+中文支持：
+locale -a
+如果没有“zh-CN.UTF-8”，则表示系统内没有安装中文locale
+
+
+--安装中文包
+sudo apt-get install language-pack-zh-hans
+sudo apt-get install language-pack-zh-hant language-pack-zh-hans
+
+
+mysql中文：
+sudo nano /usr/local/mysql/my.cnf
+增加以下配置：
+
+[client]
+default-character-set=utf8
+
+[mysqld]
+default-storage-engine=INNODB
+character-set-server=utf8
+collation-server=utf8_general_ci
+lower_case_table_names=1
+
+以上的 lower_case_table_names 表示mysql表名忽略大小写
+
+————————————————————————————
+部署系统（mysql脚本，EJB，Web客户端）：
+
+******************mysql******************
+本地导出mysql脚本：
+运行cmd，直接运行以下命令，提示输入密码
+mysqldump -u root -p dbtest>G:\Java\workspace\web8\web1\dbtest.sql
+mysqldump -u root -p --default-character-set=utf8 dbtest>G:\Java\workspace\web8\web1\dbtest.sql
+或使用HeidiSQL工具导出
+
+上传到 /usr/local/mysql/dbtest.sql
+
+运行导入脚本：
+mysql -u root -p
+创建数据库：create database dbtest character set utf8; 
+use dbtest;
+执行导入脚本：source /usr/local/mysql/dbtest.sql;  （windows ：source c:\dbtest.sql）
+
+
+******************ejb******************
+myeclipse 导出 ejbpro1dep.jar
+mysql-connector-java-5.1.7-bin.jar  上传到 /usr/local/jboss423ga/server/default/lib
+ejbpro1dep.jar、mysql-ds.xml         位置：/usr/local/jboss423ga/server/default/deploy
+
+******************tomcat******************
+导出的web1.war上传到  /usr/tomcat7054/WebApps
+修改配置文件，复制文件并改名：：
+cp -i /usr/tomcat7054/conf/server.xml /usr/tomcat7054/conf/server_backup.xml 
+
+修改8080端口为其他，避免与jboss冲突
+sudo nano /usr/tomcat7054/conf/server.xml 
+把8080改为8082
+
+浏览网页：http://120.24.176.185:8082/ 
+
+******************其他******************
+查看端口占用的程序
+netstat -anp
+netstat -anp | grep 8080
+
+关机：$sudo shutdown -h now
+重启：$sudo reboot -h now
+
+
+———安装jdk 1.6 bin —-
+在下载得到的二进制文件上执行 chmod +x 命令：
+
+cd /usr
+
+sudo chmod +x jdk-6u27-linux-x64.bin  
+
+./jdk-6u27-linux-x64.bin，会解压出一个jdk的路径，比如在/opt目录下
+
+
+******************安装 active mq begin******************
+apache-activemq-5.6.0-bin.tar.gz
+
+1、上传apache-activemq-5.6.0-bin.tar.gz到服务器 /opt目录，解压
+
+cd /opt
+tar -zxvf apache-activemq-5.6.0-bin.tar.gz
+目录改名：mv apache-activemq-5.6.0 activemq
+
+sudo nano /opt/activemq/bin/activemq
+修改
+ #JAVA_HOME="" 为 JAVA_HOME="/usr/jdk18005"
+指定java
+
+2、启动ActiveMQ
+
+cd /opt/activemq/bin
+运行： sudo ./activemq start
+停止： sudo ./activemq stop
+
+ps -ef|grep activemq //查看activemq进程
+netstat -anp | grep 61616
+
+3、测试是否成功安装
+
+http://120.24.176.185:8161/admin/，默认的用户名和密码都是admin
+
+4、服务随机启动：
+
+授权给服务文件：
+chmod 755 /opt/activemq/bin/activemq
+
+cd /etc/init.d/
+
+sudo nano /etc/init.d/activemq560
+
+》》》》》》》》》》》》》》
+#! /bin/sh
+
+export JAVA_HOME=/usr/jdk18005
+
+case $1 in
+start)
+				echo "Starting activemq5.6.0.."
+        sh /opt/activemq/bin/activemq start
+        ;; 
+stop)   
+				echo "Stopping activemq5.6.0.."
+        sh /opt/activemq/bin/activemq stop
+        ;; 
+restart)
+        echo "Restarting activemq5.6.0.."
+        sh /opt/activemq/bin/activemq stop
+        sh /opt/activemq/bin/activemq start
+        ;; 
+esac    
+exit 0
+》》》》》》》》》》》》》》
+
+--对shell追加权限
+sudo chmod 755 /etc/init.d/activemq560
+
+添加shell为启动脚本
+cd /etc/init.d
+sudo update-rc.d activemq560 defaults
+
+启动
+sudo service activemq560 start
+sudo service activemq560 stop
+
+5、修改http://120.24.176.185:8161/admin/默认密码：
+1)sudo nano /opt/activemq/conf/jetty.xml
+
+<bean id="securityConstraint" class="org.eclipse.jetty.http.security.Constraint">
+         <property name="name" value="BASIC" />
+         <property name="roles" value="admin" />
+         <property name="authenticate" value="false" />
+ </bean>
+
+将property name为authenticate的属性value="false" 改为"true"，
+
+2)sudo nano /opt/activemq/conf/jetty-realm.properties
+
+# username: password [,rolename ...]
+ admin: admin, admin  (用户名 : 密码 ,角色名)
+ 修改为：admin  Wearme123 admin
+ 
+ 
+
+
+******************安装 active mq end******************
+
+———————————————————————————部署中转网址 begin———————————————————————————————————————
+
+通过快捷键Ctrl+Alt+T可以打开shell，F11可以全屏显示(Alt+F9最小化窗口，Alt+F10最大化/恢复窗口)，再辅予xdg-open命令
+
+查看网页
+w3m http://minigps.net/as?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+q 命令退出
+
+把网址请求部署到服务器：
+http://lenovo-pcyang:8080/SW/location/searchStationGps?http://222.76.219.175:99/api/geo/getlbs?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+
+http://lenovo-pcyang:8090/web1/TransferUrl.action?http://minigps.net/as?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+
+http://120.24.176.185:8082/web1/TransferUrl.action?http://minigps.net/as?x=1cc-0-2625-f2a-7e-2625-e6c-83-2625-f34-81-2625-f8d-7e-2625-e6b-7d-2625-f70-79-2625-1128-78&p=1&mt=0&ta=1
+
+
+———————————————————————————部署中转网址 end———————————————————————————————————————
+
+http://120.24.176.185:8087/sw/serialnum/serialNumAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialNumber=30020000000017&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
+注册手环，用户新增手环，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；
+返回信息：{"state":1,"info":"新增序列号成功","serialnumid":"fbb8515c-d4bd-43ee-971c-92bb43d597ce"}，serialnumid 作为后面查找，更新序列号的id
+
+
+
+
+ 

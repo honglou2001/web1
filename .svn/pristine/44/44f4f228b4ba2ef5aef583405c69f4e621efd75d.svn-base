@@ -1,0 +1,104 @@
+﻿<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" ResponseEncoding="UTF-8" Src="" Inherits="" Debug="True" Description="Template description here." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+
+<%-- 注册 定义的成员变量 --%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="DB" Description="请选择名的数据来源" %>
+<%@ Property Name="RootTableSpaceName" Type="System.String" Default="com.scitel.{modelname模块名称}." Optional="False" Category="Context" Description="源码输出的模块名称" %>
+
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
+<%@ Map Name="JavaAlias" Src="System-JavaAlias.csmap" Description="Oracle to Java Type Map" %>
+
+<script runat="template">
+<!-- #include file=getNamefunction.cs -->
+
+//Debugger.Break();
+
+
+</script>
+
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+
+package <%=RootTableSpaceName%>.model;
+
+import com.scitel.model.*;
+
+/**
+ * <p>Title: 广东联通收入保障系统</p>
+ *
+ * <p>Description: <%=SourceTable.Name%> MODEL 处理类</p>
+ *
+ * <p>Copyright: Copyright (c) 2007</p>
+ *
+ * <p>Company: 深圳科讯数码有限公司</p>
+ *
+ * @author Tisson 电话：
+ * @version 1.0 时间 2007-
+ */
+public class <%= ModelName(SourceTable.Name)%> extends BaseObject {
+
+	/**
+	 *
+	 */
+	<%--private static final long serialVersionUID = -3307895529384707655L; --%>
+	
+
+	<%-- 成员变量 --%>
+    <% foreach (ColumnSchema column in this.SourceTable.Columns) 
+    { 
+    %>
+	/** identifier field */
+
+	private <%= JavaAlias[column.SystemType.FullName]%> <%= GetMemberVariableName(column.Name) %>;
+    
+    <% 
+    } // end foreach (ColumnSchema column in this.SourceTable.Columns) 
+    %>
+
+	<% foreach (ColumnSchema column in this.SourceTable.Columns) 
+    { 
+    %>
+	/**
+	 * @return 返回 <%= GetMemberVariableName(column.Name)%>。
+	 */
+	public <%= JavaAlias[column.SystemType.FullName]%> <%= getFunctionMemberVariableName(column.Name)%>() {
+		return <%= GetMemberVariableName(column.Name)%>;
+	}
+
+	/**
+	 * @param <%= GetMemberVariableName(column.Name)%> 要设置的 <%= GetMemberVariableName(column.Name)%>。
+	 */
+	public void <%= setFunctionMemberVariableName(column.Name)%>(<%= JavaAlias[column.SystemType.FullName]%> <%= GetMemberVariableName(column.Name)%>) {
+		this.<%= GetMemberVariableName(column.Name)%> = <%= GetMemberVariableName(column.Name)%>;
+	}
+    <% 
+    } 
+    %>
+	
+	public String toString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public boolean equals(Object o) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	public int hashCode() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+}

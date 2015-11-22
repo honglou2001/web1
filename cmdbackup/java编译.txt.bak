@@ -228,6 +228,7 @@ sudo mv /usr/local/ChildServer.jar /usr/local/socketserver/ChildServer.jar
 jboss:
 
 ejbpro1dep.jar 上传到 /usr/local/jboss423ga/
+
 cd /usr/local/jboss423ga/bin
 sudo netstat -anp | grep 8080
 sh shutdown.sh -S
@@ -272,6 +273,16 @@ sudo rm -rf /usr/local/socketserver/ChildServer.jar
 sudo mv /usr/local/ChildServer.jar  /usr/local/socketserver/ChildServer.jar
 sudo service watchsocket start
 
+
+查看日志，检查手表给服务器的数据；（与tomcat虚拟目录配合）：
+
+1、http://120.24.176.185:8087/serverlog/logs
+2、http://120.24.176.185:8087/serverlog/logs_2015-09-12-08.log
+
+1查询得是当前小时的通讯日志；如当前时间是 2015.09.12上午10点；
+2查询的是当前小时之前的日志，最后的08表示的是2015.09.12上午8点，使用此地址，自己修改日期和小时值。
+
+查找： Child received:2424 的记录，是手表发给服务器的数据，可用来查看手表有没给服务器应答。
 
 —————————————部署—————————————————
 

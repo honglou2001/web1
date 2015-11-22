@@ -118,6 +118,13 @@
 	</bean>
 	 	
 	<bean name="refLocEltDao" class="dao.LocElectfenceDaoIml">
+	</bean>	
+	
+	<bean id="SPsnnumberAction" class="service.SerialnumberImpl"  scope="prototype">
+	 <property name="serialnumberDao" ref="refsnnumberDao"></property>
+	</bean>
+	 	
+	<bean name="refsnnumberDao" class="dao.SerialnumberDaoIml">
 	</bean>		
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"

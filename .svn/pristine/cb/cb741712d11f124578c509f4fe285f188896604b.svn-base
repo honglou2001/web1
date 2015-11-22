@@ -1,0 +1,140 @@
+﻿<%-- 
+Name:
+Author: 
+Description: 
+--%>
+<%@ CodeTemplate Language="C#" TargetLanguage="Text" ResponseEncoding="UTF-8" Src="" Inherits="" Debug="True" Description="Template description here." %>
+<%@ Assembly Name="SchemaExplorer" %>
+<%@ Import Namespace="SchemaExplorer" %>
+<%@ Assembly Name="System.Data" %>
+<%@ Import Namespace="System.Data" %>
+
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+<%@ Import Namespace="System.IO" %>
+<%@ Import Namespace="System.Text.RegularExpressions" %>
+
+<%-- 注册 定义的成员变量 --%>
+<%@ Property Name="SourceTable" Type="SchemaExplorer.TableSchema" Category="DB" Description="请选择名的数据来源" %>
+<%@ Property Name="RootTableSpaceName" Type="System.String" Default="com.scm.{modelname模块名称}." Optional="False" Category="Context" Description="源码输出的模块名称" %>
+
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+<%@ Map Name="CSharpAlias" Src="System-CSharpAlias" Description="System to C# Type Map" %>
+<%@ Map Name="JavaAlias" Src="System-JavaAlias.csmap" Description="Oracle to Java Type Map" %>
+
+<script runat="template">
+<!-- #include file=getNamefunction.cs -->
+
+//Debugger.Break();
+
+
+</script>
+<%-- 启用 MAP方式 System-CSharpAlias  --%>
+package dao;
+
+import com.watch.ejb.<%= ModelName(SourceTable.Name)%>;
+import com.watch.ejb.<%= ModelName(SourceTable.Name)%>Service;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import javax.naming.Context;
+import javax.naming.NamingException;
+
+
+/**
+ * <p>Title: ejb title </p>
+ * <p>Description: <%=SourceTable.Name%> Client Dao 处理类</p>
+ * @author yangqinxu 电话：137****5317
+ * @version 1.0 时间  <%= DateTime.Now.ToString()%>
+ */
+
+public class <%= ModelName(SourceTable.Name)%>DaoIml {	
+
+  	public void Add<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>) {
+		Context weblogicContext = ejbproxy.getInitialConnection();
+		<%= ModelName(SourceTable.Name)%>Service serviceClient;
+		try {
+			serviceClient = (<%= ModelName(SourceTable.Name)%>Service) weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			serviceClient.Add<%= ModelName(SourceTable.Name)%>(<%= ParameterName(SourceTable.Name)%>);
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	public int Get<%= ModelName(SourceTable.Name)%>Count(HashMap<String, String> map)
+	{
+		int total = 0 ;			
+		Context weblogicContext = ejbproxy.getInitialConnection();
+		<%= ModelName(SourceTable.Name)%>Service serviceClient;
+		try {
+			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			total = serviceClient.Get<%= ModelName(SourceTable.Name)%>Count(map);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
+		return total;
+	}
+	
+
+	public List<<%= ModelName(SourceTable.Name)%>> List<%= ModelName(SourceTable.Name)%>(int offset, int length,HashMap<String, String> map)
+	{		
+		List<<%= ModelName(SourceTable.Name)%>> list<%= ModelName(SourceTable.Name)%> =  new ArrayList<<%= ModelName(SourceTable.Name)%>>();				
+		try{
+			Context weblogicContext = ejbproxy.getInitialConnection();			
+			<%= ModelName(SourceTable.Name)%>Service serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			list<%= ModelName(SourceTable.Name)%> = serviceClient.List<%= ModelName(SourceTable.Name)%>(offset, length,map);	
+
+		  } catch (NamingException ne) {
+			   // TODO: handle exception
+			   System.err.println("不能连接NamingException在："+ne.toString());
+			   ne.printStackTrace();
+			  }
+		
+		return list<%= ModelName(SourceTable.Name)%>;		
+	}
+    
+    public <%= ModelName(SourceTable.Name)%> find<%= ModelName(SourceTable.Name)%>(String fid)
+	{		
+		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%> = new <%= ModelName(SourceTable.Name)%>();				
+		try{
+			Context weblogicContext = ejbproxy.getInitialConnection();			
+			<%= ModelName(SourceTable.Name)%>Service serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			<%= ParameterName(SourceTable.Name)%> = serviceClient.find<%= ModelName(SourceTable.Name)%>(fid);	
+
+		  } catch (NamingException ne) {
+			   // TODO: handle exception
+			   System.err.println("不能连接NamingException在："+ne.toString());
+			   ne.printStackTrace();
+			  }
+		
+		return <%= ParameterName(SourceTable.Name)%>;		
+	}
+    
+  	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>) {		
+		Context weblogicContext = ejbproxy.getInitialConnection();
+		<%= ModelName(SourceTable.Name)%>Service serviceClient;
+		try {
+			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			serviceClient.Update<%= ModelName(SourceTable.Name)%>(<%= ParameterName(SourceTable.Name)%>);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}        
+   
+	public void Delete<%= ModelName(SourceTable.Name)%>(String id) {
+		Context weblogicContext = ejbproxy.getInitialConnection();
+		<%= ModelName(SourceTable.Name)%>Service serviceClient;
+		try {
+			serviceClient = (<%= ModelName(SourceTable.Name)%>Service) weblogicContext
+					.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			serviceClient.Delete<%= ModelName(SourceTable.Name)%>(id);
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}    
+}

@@ -1,0 +1,544 @@
+﻿注册接口：
+
+1、http://120.24.176.185:8087/sw/user/userRegister?serialNumber=80680000100079&userName=yyuu&password=123&phone=13713689012
+返回示例：{"state":1,"info":"2"}
+
+接口返回结果统一说明：
+所有服务器接口都会返回state及info，具体接口在这基础上返回其他信息；
+
+state为1时表示为预期结果，表示成功 ：
+state大于1表示其他操作结果（不是预期的执行结果），info可以弹出来提示；
+state为-1表示出现未知异常，info为服务器返回的错误信息，可不显示给用户看，客户端可统一提示为服务器繁忙这些信息；
+
+1—序列号没有激活:
+2—该序列号已经被注册了；
+3—用户名已经被注册了；
+success —成功注册
+
+
+————————————————————————
+登录接口，手机号码登录：
+2、http://120.24.176.185:8087/sw/user/userLogin?phone=13602654141&password=123456
+
+返回示例：{"state":1,"info":"80680000100079"}
+
+state为1：info返回序列号表示成功，info为fail表示登录失败
+state为-1：表示出现异常
+
+————————————————————————
+
+查询行踪轨迹：
+
+3、http://120.24.176.185:8087/sw/location/searchMovement?serialNumber=80680000100098&startTime=2015-07-01 01:11:11&endTime=2015-07-05 01:11:11
+
+——————————
+
+根据手机号码查序列号的最新定位：
+4、http://120.24.176.185:8087/sw/location/searchLoaPhone?phone=13602654141
+返回信息：{"state":1,"info":"查询得到最新的定位","data":[{"snnumber":"80680000100098","longitude":"113.92845","latitude":"22.728795","address":"临时地址，以后使用具体真实地址"}]}
+
+——————————
+
+新增电子围栏，无areaNumber参数，提交的name用utf8编码：
+
+5、http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=80680000100079&name=n&locationInfo=113.945113,22.537739&scope=500&mode=0
+
+修改电子围栏，有areaNumber参数
+6、http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=80680000100079&areaNumber=1&name=n&locationInfo=113.945113,22.537739&scope=500&mode=0
+
+areaNumber 和 serialNumber 存在，执行修改，否则新增
+
+查询电子围栏：
+7、http://120.24.176.185:8087/sw/electfence/searchElectFence?serialNumber=80680000100079
+返回手表的详细信息及其关联的电子围栏信息；
+
+id为电子围栏id（这里去掉了areaNumber，id为之前的areaNumber）
+
+删除电子围栏：
+8、http://120.24.176.185:8087/sw/electfence/deleteElectFence?serialNumber=80680000100079&areaNumber=2
+
+—————————
+9、http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=80680000100098
+9、http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=30020000000010
+
+手机客户端定时请求此url（或以后改成长连接主动发给客户端），判断是否进出围栏，如有进出变化在客户端提示。
+接口值说明：fdatastatus，1： 从围栏外到围栏内；3：从围栏内到围栏外；0：表示没变（都在内或都在外），看fremark说明。
+freadCount 表示已经读了多少次,0表示在这之前没读取过，客户端看情况使用。
+
+
+fdatastatus 字段说明，也可看fremark备注，变化值对应fupdatetime：
+
+1：前后两次定位从围栏外进围栏内
+3：前后两次定位从围栏内到围栏外
+4：前后两次定位一直在围栏外
+5：前后两次定位一直在围栏内 
+
+
+10、http://120.24.176.185:8087/sw/location/queryLocEleChange?serialNumber=30020000000010&areaNumber=20
+多一查询条件，电子围栏编号areaNumber，与查询电子围栏接口 id 值对应
+
+————————————闹钟 begin————————————
+
+11、http://120.24.176.185:8087/sw/alarm/setAlarm?serialNumber=80680000100098&alarm=06:06.1,09:00.1,16:23.1
+—闹钟设置，没存在新增，存在就修改
+
+12、http://120.24.176.185:8087/sw/alarm/searchAlarm?serialNumber=30020000000010
+—查询闹钟设置
+
+
+————————————闹钟 end————————————
+
+
+————————————亲情号模块  begin————————————
+
+13、http://120.24.176.185:8087/sw/family/addFamilyNo?serialNumber=80680000100098&masterNo=18058149508&listenNo=18058149508&sos=sos_num2=18058149508,sos_num3=,sos_num4=18058149508
+—更新亲情号码，流程-手表开机，上传binding信息，然后app更新
+参数说明：serialNumber产品序列号 masterNo 主控号码 listenNo 监听号码 sos
+求救号码(sos_num2=13590496891,sos_num3=,sos_num4=18688758913 一次性传入，设置了电话号码在相应的地方添加 表示设置了2个求救号码)
+-- 控制：masterNo 不能是自己手表号码
+
+14、http://120.24.176.185:8087/sw/family/searchFamilyNo?serialNumber=80680000100098
+—查询亲情号码设置
+
+
+————————————亲情号模块 end————————————
+
+————————————计步模块  begin————————————
+
+15、http://120.24.176.185:8087/sw/pedoMeter/searchPedoMeter?serialNumber=80680000100098&time=2015-07-04
+参数说明：serialNumber产品序列号 time 查询的日期（7天之内）
+返回值：{"pedo":"6","meter":"1"} pedo 表示步数 meter 表示米数
+
+
+————————————计步模块  end————————————
+
+
+————————————实时定位  begin————————————
+16、http://120.24.176.185:8087/sw/rtp/searchRtp?serialNumber=80680000100062
+16、http://120.24.176.185:8087/sw/rtp/searchRtp?serialNumber=80680000000009
+查询手动定位接口
+返回值：
+（1) {"state":1,"lng":113.99523,"lat":22.597022} state=1 表示定位成功 lng 经度 lat 纬度
+（2）{"state":0} 表示没有定到位
+（3）{"state":-1} 表示服务器繁忙，返回错误信息
+
+17、http://120.24.176.185:8087/sw/rtp/updateRtp?serialNumber=80680000000009
+发送手动定位接口，gps只开一次，手表开gps上传到服务器后马上关闭
+
+————————————实时定位  end————————————
+
+————————————GPS模块 begin————————————
+18、http://120.24.176.185:8087/sw/gps/searchLbs?serialNumber=30020000000013
+查询gps接口，返回值：(1) {"state":1,"lbs":"1","gps":"600"} lbs 为1表示开启gps， 0 表示关闭gps， gps 表示设置定位的频率
+
+19、http://120.24.176.185:8087/sw/gps/setLbs?serialNumber=30020000000013&lbs=1&gps=60 
+定位模式，设置gps接口，参数说明：
+serialNumber产品序列号 ；
+lbs 基站或gps定位(1表示使用gps，0为基站，定位不受影响 ) ；
+gps 表示设置gps定位的频率，单位为秒(lbs为1时，固定取值60 -sos模式；为0时，取值180 -安全模式,360-省电模式) 
+
+备注：平时为基站定位，遇到紧急情况setGps表示常开gps；
+在 lbs为0的情况下 ：gps - 值取：sos安全模式为 1-5分钟，省电模式为 2-10 分钟
+
+————————————GPS模块 end————————————
+
+————————————监听功能 begin————————————
+20、http://120.24.176.185:8087/sw/listen/searchListen?serialNumber=80680000100062
+查询监听接口，参数说明：serialNumber产品序列号 
+返回值：
+（1) {"state":1,"listenStatus":"2"}listenStatus 表示监听的状态(2可以发送监听)
+（2）{"state":2} 表示没有设置监听号码
+
+21、http://120.24.176.185:8087/sw/listen/sendListen?serialNumber=80680000100062
+设置监听接口
+
+————————————监听功能 end————————————
+
+————————————电池电量 begin————————————
+22、http://120.24.176.185:8087/sw/battery/searchBattery?serialNumber=80680000100062
+
+查询电量接口：
+返回值：
+（1) {"state":1,"battery":78} battery 表示电量
+（2）{"state":-1} 表示服务器繁忙
+
+————————————电池电量 end————————————
+
+————————————设备在线离线 begin————————————
+23、http://120.24.176.185:8087/sw/online/searchOnline?serialNumber=80680000100062
+--查询设备在线离线状态，isOnline为1表示在线，为0表示离线
+
+24、http://120.24.176.185:8087/sw/online/getOnlineNumber
+--在线离线的设备总数，onlineCount在线总数，offlineCount离线总数
+
+————————————设备在线离线  end————————————
+
+————————————用户注册信息2 begin————————————
+
+25、
+http://120.24.176.185:8087/sw/user/userRegister?serialNumber=30020000000013&userName=yyuu&password=123&phone=13713689112
+注册信息，传参数和以前一样，返回信息与以前接口有区别，返回例子：{"state":"1","info":"成功注册","usrid":"16ae2fe8-6173-4251-98ac-3dc0a5de8093"}
+返回usrid为后台标识用户的ID，后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
+
+26、http://120.24.176.185:8087/sw/user/userLogin?phone=13713689112&password=123
+返回：
+{"state":1,"info":"30020000000014","data":{"createTime":"2015-07-09 20:17:51","fmobile":"13713689132","funiqueid":"a59b66a6-17a5-4bb4-8b24-62f7f01a5d78","password":"123","serialNumber":"30020000000014","sex":"","status":"","userName":"yy1111233uu"}}
+登录接口，传参数和以前一样，返回信息与以前接口有区别，返回信息与27接口类似，data为用户user对象信息
+state为1：info返回序列号表示成功，info为fail表示登录失败
+state为-1：表示出现异常，提示弹出info信息
+data节点的usrid为后台标识用户的ID，后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
+SerialNumber返回的定位模式：setgps - 定位频率；lbs-是否开启gps，与接口setLbs值对应
+
+27、
+http://120.24.176.185:8087/sw/user/getUser?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+根据注册或登录得到的用户id查询用户，根据界面需要选择显示，返回：
+nickname-昵称；birthday-生日；faddress-地址；femail：邮箱；fmobile：电话，对应传参的phone；fremark-备注；height：身高；weight-体重；
+sex：1-为男，2为女；username 用户名；furl：网址或个人主页；
+funiqueid：对应注册成功返回的usrid，为后台标识用户的ID，后面更新、删除、上传图片等；
+
+28、
+http://120.24.176.185:8087/sw/user/updatePassword?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&oldPwd=123&newPwd=11234
+修改密码，传参usrid(为注册、获取用户信息返回的id)，旧新密码
+
+29、
+http://120.24.176.185:8087/sw/user/retrievePassword?phone=13113689015&familyno=13113689015
+找回密码，传参为注册手机号及绑定的其中一个亲情号码
+成功的返回：{"state":1,"info":"输入的亲情号码正确，可以重置密码","usrid":"4028cf814e5deb25014e5dec28bd0001"}
+根据usrid，接着调用以下的设置新密码接口
+
+30、
+http://120.24.176.185:8087/sw/user/updatePassword?usrid=4028cf814e5deb25014e5dec28bd0001&retrievePwd=2015key&newPwd=1234
+忘记密码后重置密码，此接口对应上一接口，根据返回的userid，直接设置新的密码，不用传旧密码，其中 retrievePwd=2015key 固定
+
+31、
+http://120.24.176.185:8087/sw/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&femail=hong@163.com
+修改用户信息，usrid 为 查询得到的用户id，其他值在界面赋。
+
+
+32、
+http://120.24.176.185:8087/sw/user/doUpload
+上传用户图片，Http POST上传，Content-Type：multipart/form-data，文件大小1M内，文件后缀："jpg", "jpeg", "gif", "png"
+post 的key ：usrimg - 为上传的文件；usrid - 为用户id，如值a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+
+————————————用户注册信息2 end————————————
+
+————————————序列号 begin————————————
+33、
+注册手表接口，暂时不放出给APP，因为按现在流程是手表注册，APP维护，如果有多个入口，可能有其他问题；
+用户新增手表，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；
+返回信息：{"state":1,"info":"新增序列号成功","serialnumid":"fbb8515c-d4bd-43ee-971c-92bb43d597ce"}，serialnumid 作为后面查找，更新序列号的id
+
+34、
+http://120.24.176.185:8087/sw/serialnum/getSerialNum?serialNumber=30020000000019
+查询序列号信息，参数为序列号
+查询得到的data.funiqueid 为序列号id，后面根据此值更新序列号信息、上传图片等;
+fphonenum为对应的手表电话号码；
+
+35、
+http://120.24.176.185:8087/sw/serialnum/serialNumUpdate?serialnumid=fbb8515c-d4bd-43ee-971c-92bb43d597ce&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
+修改手表信息， serialnumid 不能为空，为查询接口的data.funiqueid 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；
+修改成功，返回序列号信息
+
+36、
+http://120.24.176.185:8087/sw/serialnum/doUpload
+上传序列号用户对应儿童图片，Http POST上传，Content-Type：multipart/form-data，文件大小1M内，文件后缀："jpg", "jpeg", "gif", "png"
+post 的key ：usrimg - 为上传的文件；serialnumid - 为序列号id，如值 fbb8515c-d4bd-43ee-971c-92bb43d597ce
+
+————————————序列号 end————————————
+
+37、
+http://120.24.176.185:8087/sw/location/searchLoaUsrid?usrid=81474b8b-a04a-4269-a93e-df3a27f696e5
+根据用户id来查询用户名下的所有手表最新定位信息， snnumber 为手表序列号，返回的 address 可能为空；
+不使用接口4根据手机号码查序列号的最新定位，改为使用此接口
+返回类似
+{"state":1,"info":"查询得到最新的定位","data":[{"address":"深圳市宝安区田洋二路","latitude":"22.750620","longitude":"113.87340","snnumber":"30020000000013","fupdatetime":"2015-07-12 19:45:59"}]}
+为避免界面显示需要多次查询，返回了 battery：手表的当前的电池电量信息，fpicture：手表的头像URL
+
+
+38、
+http://120.24.176.185:8087/sw/alarm/newAlarm?serialnumid=3d415352-7847-43da-9075-6cd010c9021b&alarmName=name&alarmVal=64:16:23
+说明：alarmVal=64:16:23，0x40 0x10 0x17 表示星期二，16点23分的闹钟，无效，64为0x40,二进制为：0100 0000
+
+设置新闹钟，serialnumid为序列号id，alarmName 闹钟名称；alarmVal为闹钟值，如 1:06:06；为周一、6点06分；
+目前限制一个序列号最多只能三个
+1623 修改为：0xXX 0x10 0x17 ，XX 说明如下：
+
+状态 日 一 二 三 四 五 六：
+
+星期六打开 = 10000001 
+星期天打开 = 11000000
+星期一打开 = 10100000
+
+39、
+http://120.24.176.185:8087/sw/alarm/ListAlarm?serialnumid=3d415352-7847-43da-9075-6cd010c9021b
+查找序列号下的闹钟，返回类似：
+{"state":1,"info":"成功查询闹钟信息","data":[{"falarmid":"a550ed8f-03f3-438f-8df7-cedec02ce940","fdatastatus":0,"fisvalid":1,"fname":"name","ftime":"1:06:06","hour":"06","minute":"06","week":"1"}]}
+返回的week，为前一接口对应的0x40，包括了星期几及有效无效
+返回的 data的falarmid为闹钟id，根据此id更新和删除闹钟；fisvalid为是否有效，week、hour、minute 分别是星期几、小时、分钟，ftime 为客户端传入保存的值
+
+40、
+http://120.24.176.185:8087/sw/alarm/updateAlarm?alarmid=2a350864-cf58-4311-82ee-eb916175802e&alarmName=name&alarmVal=11:06:06
+更新闹钟，alarmid 为前一接口查询得到的闹钟id，根据此值来更新；其他值与新增类似
+
+41、
+http://120.24.176.185:8087/sw/alarm/deleteAlarm?alarmid=19089f3f-bc92-4d4b-9482-19bb47f368c6
+
+删除闹钟，alarmid 为查询得到的闹钟id，根据此值来删除；
+
+------
+修改接口14返回的格式：
+http://120.24.176.185:8087/sw/family/searchFamilyNo?serialNumber=80680000100009
+searchFamilyNo
+—查询亲情号码设置，修改返回的sos以数组返回，注意新增接口的参数sos参数类似：sos_num2=18058149508,sos_num3=,sos_num4=18058149508，有逗号隔开
+
+
+————————————留言 begin————————————
+42、
+http://120.24.176.185:8087/sw/feedback/getCatetory
+
+获取留言类别，FName为名称；FCode为分类id，为提交留言的category；
+
+43、
+http://120.24.176.185:8087/sw/feedback/postFeedBack?category=1&usrid=81474b8b-a04a-4269-a93e-df3a27f696e5&content=contentinfo
+提交留言，分别为类别，用户id，内容；如输入内容较多，可以用post方式提交
+
+
+44、
+http://120.24.176.185:8087/sw/feedback/getFeedBack?usrid=81474b8b-a04a-4269-a93e-df3a27f696e5
+http://120.24.176.185:8087/sw/feedback/getFeedBack?category=1&usrid=81474b8b-a04a-4269-a93e-df3a27f696e5
+根据用户id获取最新100条留言，参数usrid为用户id，可带分类category
+
+————————————留言 end————————————
+
+————————————好友模块 begin————————————
+
+加好友流程：
+1、app用户A查询app用户B下的手表电话号码N2，查询到结果；
+2、app用户A把自己名下的手表N1与N2关联，提交B加好友请求；
+2、app用户B审核（对N1加N2的好友请求审核）；
+3、审核通过，N1和N2建立关联关系，N1和N2发送到对方的手表通讯录；
+
+
+45、
+http://120.24.176.185:8087/sw/friend/searchSerialNumber?phonenum=1321512631830
+根据手机号码查找手表，参数phonenum输入流程中的N2查询，取实际的电话号码；
+查询到的funiqueid为手表id，如：e5906013-f66f-4eca-b13b-48b5382db76c
+手表的电话号码由生产流程中整理成Excel文档，统一上传到服务器；
+
+46、
+http://120.24.176.185:8087/sw/friend/postFriendReq?tosnid=e5906013-f66f-4eca-b13b-48b5382db76c&fromsnid=685802b4-d04d-4500-8460-d80169d4599b&attachText=contentinfo
+tosnid为之前接口查询到的id， e5906013-f66f-4eca-b13b-48b5382db76c；fromsnid 是app用户下的某个手表id，可在登录处获得；
+
+47、
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=1&snid=685802b4-d04d-4500-8460-d80169d4599b
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=2&snid=685802b4-d04d-4500-8460-d80169d4599b
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=3&snid=685802b4-d04d-4500-8460-d80169d4599b
+
+http://120.24.176.185:8087/sw/friend/queryFriendList?qtype=4&appusrid=07ec7e49-5649-4bd3-b07c-e6120237b940
+
+查询好友列表，
+qtype为 1：查询我请求要加的好友，2、查询谁请求加我为好友；3：我请求加的及别人加我的；snid：输入参数当前用户下的某个手表id；
+qtype为 4，appusrid 为用户id，查询此APP用户下的手表好友信息
+
+结果类似如下：
+查询得到的 frelationid 为审核通过或不通过的 id值，根据此id来更新信息，如：b4795053-c972-4069-a6c4-afd96d82ae76
+fstatus ：1为通过；2为拒绝，其他为无任何操作；fstatustime 为fstatus对应操作的时间，faddtime 为新增的时间
+friendname：好友用户名，fmobile：好友手机号；Fdatastatus 为1表示是我发起要加的朋友，其他值表示别人加我的
+fusername：发起请求的手表用户名称；fusermobile：发起请求用户的手表用户名称
+frompic：发起手表的头像；topic：接受请求手表的头像
+
+48、
+http://120.24.176.185:8087/sw/friend/passFriendReq?frelationid=b4795053-c972-4069-a6c4-afd96d82ae76&passaction=1
+http://120.24.176.185:8087/sw/friend/passFriendReq?frelationid=b4795053-c972-4069-a6c4-afd96d82ae76&passaction=1&calltype=1
+审核好友是否通过，frelationid：为前接口查询得到的frelationid值，passaction：1为通过；2为拒绝；
+calltype为1表示好友之间是回拨，0为直拨；
+
+49、
+http://120.24.176.185:8087/sw/friend/repeatFriendReq?frelationid=b4795053-c972-4069-a6c4-afd96d82ae76&action=rerequest&attachText=contentinfo
+对已经被拒绝的或对方没操作的，重新发送请求加好友请求，attachText 为附件信息，在对方查看列表会重新显示在较前位置
+
+————————————好友模块 end————————————
+
+50、
+http://120.24.176.185:8087/sw/serialnum/numUsrRelation?serialnumid=e5906013-f66f-4eca-b13b-48b5382db76c&usrid=07ec7e49-5649-4bd3-b07c-e6120237b940
+用户及序列号建立关联关系，按现有流程服务器先注册手表序列号，然后用户与序列号建立关联；
+参数为序列号serialnumid和用户id，serialnumid由前面结果更加序列号查到；
+这个接口主要是针对一个用户多个手表的情况，app用户按已有流程注册后，如要增加多个手表，使用此接口；
+
+---------------------------------------
+
+51、
+http://120.24.176.185:8087/sw/family/callBackAPI?fromNum=18058149508&toNum=13713975317
+http://120.24.176.185:8087/sw/family/callBackAPI?fromNum=13713975317&toNum=075561355202
+拨打电话，回调接口；参数为主叫号码、被叫号码-后续使用，与云之讯接口
+
+---------------------------------------
+
+
+————————————手表指令/全局参数 begin————————————
+52、
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=1
+操作指令：远程关机，serialnumid 为序列号id，action固定此值：
+
+
+53、
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=2
+操作指令：查找手机，serialnumid 为序列号id，action固定此值：
+
+54、
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=3&weekIsValid=64&begintime=09:10&endtime=17:05
+操作指令:设置静默模式（类似闹钟，上课模式，如周一到周五：9:00-17:00静音），action固定此值，weekIsValid 和设置闹钟的星期及有效取值一样；
+weekIsValid 如：
+状态 日 一 二 三 四 五 六：
+星期六打开 = 10000001 
+星期天打开 = 11000000
+星期一打开 = 10100000
+
+55、
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=4&type=1
+操作指令：发送通讯录是普通拨号还是回拨的全局参数
+serialnumid 为序列号id，action固定此值，type为0表示普通直接拨号，1表示回拨；
+
+————————————手表指令/全局参数 end————————————
+
+————————————奖励体系 begin————————————
+56、
+http://120.24.176.185:8087/sw/reward/newReWard
+
+增加新奖励，Http POST上传图片，Content-Type：multipart/form-data，文件大小1M内，文件后缀："jpg", "jpeg", "gif", "png"
+post 的key ：usrimg - 为上传的文件；上传后对应查询结果的fpicture值
+其他key如下：
+usrid ；  -- 为用户id，如值07ec7e49-5649-4bd3-b07c-e6120237b940
+serialnumid ；- 被奖励对象，手表id，如值685802b4-d04d-4500-8460-d80169d4599b
+title - 标题
+content - 内容
+score - 奖励数 1-10 ;
+product --奖励产品，如溜冰鞋等；
+category - 分类：默认为空，如填写1则认为是系统发布的奖励，此字段由系统管理员用，如为1表示此奖励信息是全局的；
+
+57、
+http://120.24.176.185:8087/sw/reward/searchReWard?usrid=07ec7e49-5649-4bd3-b07c-e6120237b940
+http://120.24.176.185:8087/sw/reward/searchReWard?usrid=07ec7e49-5649-4bd3-b07c-e6120237b940&serialnumid=685802b4-d04d-4500-8460-d80169d4599b
+查询已有奖励，根据用户id或 用户id+手表id
+查询结果的 fcategory 为1表示为系统发布的奖励列表；
+
+58、
+http://120.24.176.185:8087/sw/reward/sendFromList?frewardid=e2003e7b-c468-4a56-83e4-01a756f880c4&usrid=07ec7e49-5649-4bd3-b07c-e6120237b940&serialnumid=685802b4-d04d-4500-8460-d80169d4599b
+从前一接口列表中选择具体的一条发送给手表（可以为系统或已经个人新增好的）；
+frewardid为前一接口的frewardid，usrid为app用户id，serialnumid为要发送的目标手表id；
+
+
+————————————奖励体系 end————————————
+
+》》》》》》》》》》》》》远程操作begin《《《《《《《《《《《《
+
+下发协议—APP可不用，主要用来与设备通讯：
+
+59、小红花发送到手表：
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=5&score=1
+score为成绩，1-10；action=5 固定，serialnumid 为序列号id
+
+
+60、通讯录发送到手表：
+
+名字为：王林
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=6&contacts=0,0,_,1391301930123,0,1&fname=%E7%8E%8B%E6%9E%97&encode=utf8
+名字为：王林123
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=6&contacts=0,0,_,1391301930123,0,1&fname=%E7%8E%8B%E6%9E%97123&encode=utf8
+--杨王林:%E6%9D%A8%E7%8E%8B%E6%9E%97
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=6&contacts=0,0,_,1391301930123,0,1&fname=%E6%9D%A8%E7%8E%8B%E6%9E%97&encode=utf8
+--欧阳王林 ：%E6%AC%A7%E9%98%B3%E7%8E%8B%E6%9E%97
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=6&contacts=0,0,_,1391301930123,0,1&fname=%E6%AC%A7%E9%98%B3%E7%8E%8B%E6%9E%97&encode=utf8
+encode：名字采用的编码方式，值为：utf8、unicode或default(系统默认)
+
+61、发送B手表的电话号码到A手表：
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?&action=7&serialnumid=72069dc5-1738-4889-8cb0-49d478a5123f&tosnid=0f8df867-0ee7-4190-8b36-44e94d44a34c&scalltype=1
+action=7固定，serialnumid：发送的手表id，B手表；tosnid：接收的手表id，A手表，通讯录显示B手表对应的电话号码
+
+62、云之迅：通知类回调接口-由云之迅平台使用
+http://120.24.176.185:8087/sw/family/callResultNotify
+
+》》》》》》》》》》》》》远程操作end《《《《《《《《《《《《
+
+————————————参数设置查询 begin————————————
+
+63、
+http://120.24.176.185:8087/sw/serialnum/searchSerialParm?serialnumid=3&category=1
+查询静默时间设置，serialnumid为序列号id，category=1 固定；
+与新增接口对应返回 weekAndValid 、begintime、endtime
+
+64、
+http://120.24.176.185:8087/sw/serialnum/searchSerialParm?serialnumid=3&category=2
+查回拨模式设置，serialnumid为序列号id，category=2 固定；
+返回的calltype：0表示普通直接拨号，1表示回拨；
+
+————————————参数设置查询 end————————————
+
+
+》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+65、
+http://120.24.176.185:8087/sw/serialnum/setPhoneNumber?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&fpwd=123&phonenum=1371387519211
+
+http://lenovo-pcyang:8087/sw/serialnum/setPhoneNumber?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&fpwd=123&phonenum=1371387519211
+操作指令：设置手表的电话号码，后台管理员使用，配合生产的Excel文件录入手表对应的电话号码；
+fpwd=123固定，操作的密码；phonenum 为手表的电话号码；
+
+66、
+http://120.24.176.185:8087/sw/serialnum/rechargeAction?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&fpwd=123&fee=10.01&action=1&title=beizhu&ftype=1
+http://lenovo-pcyang:8087/sw/serialnum/rechargeAction?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&fpwd=123&fee=10.01&action=1&title=beizhu&ftype=1
+
+操作指令：设置给手表充值或扣除费用，后台管理员使用;
+fpwd=123固定，操作的密码；fee 费用值，单位为元；action为1表示增加用户账户的费用，为2表示减少用户账户的费用；
+title为此次充值的标题备注，有中文要编码；ftype为充值类型，此处固定为1；
+》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》》
+
+66、
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&action=7109&msg=%E6%AC%A7%E9%98%B3%E7%8E%8B%E6%9E%97
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&action=7109&msg=msgcontent
+
+操作指令：发送短信息，serialnumid 为序列号id（可以根据前面接口由序列号或登录信息得到），action固定此值，msg为要发送的短信，内容urlencode编码；
+
+
+67、
+消息中心，serialnumid 为序列号id；
+返回的信息：
+notifyFecnce：为电子围栏进出信息，值的含义参看接口9，fareanumber为围栏id，数据含义看接口9；
+nofityDetach：手表摘除掉落信息，faddtime 为摘落时间；
+notifyFee：费用余额查询，数据含义看接口68；
+notifyBattery：电池电量，battery为电量，可设定一个值低于多少预警；
+
+消息中心，电量数据示例：
+http://lenovo-pcyang:8087/sw/serialnum/queryMsgCenter?serialnumid=10
+消息中心，围栏数据示例：
+http://lenovo-pcyang:8087/sw/serialnum/queryMsgCenter?serialnumid=3
+消息中心，脱落数据示例：
+http://lenovo-pcyang:8087/sw/serialnum/queryMsgCenter?serialnumid=29315681-dc5c-4219-a8dc-1e9b73f789a0
+消息中心，费用数据示例：
+http://lenovo-pcyang:8087/sw/serialnum/queryMsgCenter?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48
+
+以上为相同接口，serialnumid 为序列号id，可以使用一个几种数据同时都有的序列号id查询
+
+68、
+
+http://lenovo-pcyang:8087/sw/serialnum/queryFee?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48
+http://lenovo-pcyang:8087/sw/serialnum/queryFee?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48&pagesize=10&pageindex=0
+从消息中心进，分页查询费用信息：serialnumid 为序列号id；pagesize 每次显示多少条数据；pageindex 显示第几页，0为第一页；排序为记录新增时间倒序；
+返回字段：fdeposit 为充值，账户增加的费用；fspending 为支出的值；fbalance 为对应收入支出时的余额；faddtime 为发生时间；
+
+69、
+http://lenovo-pcyang:8087/sw/serialnum/queryBalance?serialnumid=9ed69ff5-5746-4a26-bdb4-8357ae0c7c48
+查询手表账户余额，serialnumid 为序列号id，返回的 balance 为余额；
+
+70、
+http://lenovo-pcyang:8087/sw/serialnum/queryDetach?serialnumid=29315681-dc5c-4219-a8dc-1e9b73f789a0&pagesize=10&pageindex=0
+从消息中心进，分页查询手表脱落摘除信息，serialnumid 为序列号id；pagesize 每次显示多少条数据；pageindex 显示第几页，0为第一页；排序为记录新增时间倒序；
+
+
+71、
+http://lenovo-pcyang:8087/sw/location/searchAreaLog?serialnumid=3&areaNumber=37&pagesize=10&pageindex=0
+从消息中心进，分页查询手表进出围栏的信息，值的含义参看接口9；serialnumid为序列号id，areaNumber为围栏id，对应消息中心的fareanumber；
+pagesize 每次显示多少条数据；pageindex 显示第几页，0为第一页；排序为记录新增时间倒序；
+返回的数据：fareanumber为围栏id，fareaname 为围栏名称，fdatastatus 含义看接口9
+
+
+

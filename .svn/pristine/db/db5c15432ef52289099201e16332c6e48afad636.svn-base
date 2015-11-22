@@ -1,0 +1,2 @@
+装好CodeSmith4.0之后把System-JavaTableNameComments.csmap和System-JavaAlias.csmap放在
+C:\Documents and Settings\icd\My Documents\CodeSmith\Maps里，连接数据库就可以运行了。

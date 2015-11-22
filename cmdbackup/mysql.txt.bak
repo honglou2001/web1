@@ -342,6 +342,7 @@ ALTER TABLE tbname add index idx_increaseid (id);
 Alter TABLE tbname drop primary key;
 
 增加主键：
+--update serialnumber set funiqueid = id 给主键原递增列的唯一值，以方便设置主键
 ALTER TABLE tbname ADD CONSTRAINT idxprikey_uniqueid PRIMARY KEY (funiqueid) 
 
 
@@ -380,9 +381,16 @@ ALTER TABLE sj_resource_charges add index INDEX_NAME (name);
 
 9: 添加唯一限制条件索引
 
-ALTER TABLE sj_resource_charges add unique emp_name2(cardnumber);
+ALTER TABLE t_user_snrelate add unique uniqueIndex_snidstr(FSNIDStr);
 
 10: 删除索引
 
 alter table tablename drop index emp_name
 
+
+update left jon
+update  serialnumber a left join t_user_snrelate b  on a.funiqueid = b.FSNIDStr
+ left join USER c on c.funiqueid=b.FUserIDStr  
+ set a.isreg=1
+WHERE 1=1
+and b.FRelateID is not null and c.funiqueid  is not null

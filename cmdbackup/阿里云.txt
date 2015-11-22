@@ -164,6 +164,54 @@ LANGUAGE="zh_CN:"
 
 查看编码：locale
 
+》》》》》》》》》》》》》》》》》》》
+
+tomcat 配置虚拟目录：
+在路径 /usr/tomcat7054/conf/Catalina2/localhost 下
+新建 serverlog.xml,内容如下：
+
+<?xml version="1.0" encoding="UTF-8"?>
+<Context  crossContext="true"  docBase="/usr/local/socketserver"  path="/serverlog" reloadable="true"></Context>
+
+path="/xxx"  xxx 与文件名一致；docBase 为指向的虚拟目录路径
+
+浏览虚拟目录文件：
+http://ycare:8087/serverlog/dao.txt
+
+》》》》》》》》》》》》》》》》》》》
+
+tomcat 配置https：
+生成文件：
+
+cd /usr/tomcat7054
+keytool -genkey -alias tomcat -keyalg RSA -keypass tomcat -storepass tomcat -keystore /usr/tomcat7054/conf/server.keystore -validity 3600
+
+root@iZ94xsu8rviZ:/usr/tomcat7054# cd /usr/tomcat7054
+root@iZ94xsu8rviZ:/usr/tomcat7054# keytool -genkey -alias tomcat -keyalg RSA -keypass tomcat -storepass tomcat -keystore /usr/tomcat7054/conf/server.keystore -validity 3600
+What is your first and last name?
+  [Unknown]:  yang
+What is the name of your organizational unit?
+  [Unknown]:  wearme
+What is the name of your organization?
+  [Unknown]:  wearme
+What is the name of your City or Locality?
+  [Unknown]:  sz
+What is the name of your State or Province?
+  [Unknown]:  gd
+What is the two-letter country code for this unit?
+  [Unknown]:  cn
+Is CN=yang, OU=wearme, O=wearme, L=sz, ST=gd, C=cn correct?
+  [no]:  y
+
+
+复制文件并改名：cp -i /usr/tomcat7054/conf/server.xml /usr/tomcat7054/conf/server_beforessl.xml 
+然后修改tomcat配置文件server.xml
+               
+<Connector port="8443" protocol="HTTP/1.1" SSLEnabled="true"
+               maxThreads="150" scheme="https" secure="true"
+               clientAuth="false" sslProtocol="TLS" 
+               keystoreFile="/usr/tomcat7054/conf/server.keystore" keystorePass="tomcat"/>
+重启tomcat
 
 --------------
 
@@ -240,6 +288,11 @@ jboss
 
 
 停止： sh shutdown.sh -S
+————
+最新阿里云推荐码：9折优惠码（2GHQXP ），有效期至2016-3-31
+
+43098119850510546X
+2*****6
 
 
 

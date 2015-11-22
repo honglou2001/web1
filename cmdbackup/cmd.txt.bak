@@ -1,5 +1,5 @@
 ﻿
-githua：honglou2001@qq.com /52***0
+github：honglou2001@qq.com /52***0
 本地ubuntu：yqx/1
 关机：$sudo shutdown -h now
 重启：$sudo reboot -h now
@@ -125,3 +125,14 @@ sudo apt-get remove wps-office
 sudo mkdir Java      //创建文件夹
 
 ls -all     //显示所有文件
+
+ping网络质量：ping 192.168.0.1 -t > D:\1.txt
+
+nano快捷键：
+ctrl+w 查找
+ctrl+o 保存文件
+vtrl+x 退出
+
+--
+查看 磁盘剩余空间 
+df -hl 

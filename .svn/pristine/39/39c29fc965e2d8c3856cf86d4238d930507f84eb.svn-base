@@ -1,0 +1,280 @@
+﻿---
+把  log4j-1.2.11.jar 放在 Java\sdk\jre\lib\ext（放此位置会产生全局影响），其中Java\sdk为JAVA_HOME 
+
+java -cp .;G:/Java/workspace/web8/NRFCare.Watch/lib/log4j-1.2.11.jar; nrfCare.FrontEnd.nrfConsole
+
+java -cp .;myClass.jar packname.mainclassname   
+
+javac -cp .;G:/Java/workspace/web8/NRFCare.Watch/lib/log4j-1.2.11.jar; socketServer.java
+javac -cp .;G:/Java/workspace/web8/NRFCare.Watch/lib/log4j-1.2.11.jar;G:\Java\workspace\web8\NRFCare.Watch\src\nrfCare\FrontEnd\socketServer.class nrfConsole.java
+
+--所有java文件在同一目录下
+javac -d . *java
+
+-当前目录下运行 / nrfCare、.FrontEnd 分别为目录，同时也为包路径
+java nrfCare.FrontEnd.nrfConsole
+
+服务部署：
+__________________________
+
+部署到本地ubuntu
+
+sudo axel -n 10 http://192.168.2.114:807/nrfConsole.rar
+sudo mv nrfConsole.rar /usr/local/nrfConsole.jar
+java -jar nrfConsole.jar
+sudo mkdir socketserver   --创建目录
+sudo mv nrfConsole.jar socketserver  --移动到目录下
+sudo rm 1.rar  --删除文件
+rm -rf logs --删除目录及子目录
+sudo chmod a+rw socketserver -- 给目录读写权限 
+log4j.propertiest 放到相同目录下
+java -jar nrfConsole.jar & 运行服务端
+netstat -anp | grep 7799 检查socket端口是否在监听
+kill -9 1367  kill某个进程
+sudo chmod +x run.sh -- shell文件授权
+
+run.sh
+_________
+
+#!/bin/bash
+
+export JAVA_HOME=/usr/jdk18005 
+export JRE_HOME=${JAVA_HOME}/jre 
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib 
+export PATH=${JAVA_HOME}/bin:$PATH
+
+nohup java -jar nrfConsole.jar & 
+_________
+
+./run.sh 运行shell文件
+
+在windows修改的文件，查看格式  
+vi run.sh  
+退出vim
+在末行模式下，输入命令　　:wq 
+
+---------------
+
+stop.sh
+
+#!/bin/bash
+PID=`ps -ef | grep watchsocket | grep -v "grep" | awk '{print $2}'`
+echo $PID
+#to check PID is right
+kill -9 $PID
+
+________
+
+sudo chmod +x stop.sh 
+
+
+shell 启动服务
+--
+sudo nano /etc/init.d/watchsocket
+
+#!/bin/sh   
+#Socket Server  auto-start
+#
+# description: Auto-starts watch tcp server
+# processname: watchsocket	
+# pidfile: /var/run/watchsock.pid
+
+case $1 in
+start)
+         echo "socketserver service is starting..."
+         cd /usr/local/socketserver         
+         /bin/bash /usr/local/socketserver/run.sh
+        ;;
+stop)
+        echo "socketserver  service is stopped..." 
+        /bin/bash  /usr/local/socketserver/stop.sh
+        ;;
+restart)
+				/bin/bash  /usr/local/socketserver/stop.sh
+				/bin/bash /usr/local/socketserver/run.sh
+        ;;
+esac  
+
+
+把/etc/init.d/watchsocket 设置成可执行,chmod +x 追加权限
+sudo chmod +x /etc/init.d/watchsocket
+
+将watchsocket加入服务，update-rc.d添加这服务并让watchsocket开机自动执行
+cd  /etc/init.d
+sudo update-rc.d watchsocket defaults 98
+
+remove：
+sudo update-rc.d -f watchsocket remove
+
+sudo service watchsocket [status|start|stop]  
+
+
+----------------增加primary server begin----------------
+目录权限：
+cd /usr/local 
+sudo chmod a+rw socketpriserver -- 给目录读写权限 
+cd /usr/local/socketpriserver 
+sudo chmod +x run.sh -- shell文件授权
+sudo chmod +x stop.sh -- shell文件授权
+
+----
+
+sudo nano /etc/init.d/watchprisocket
+
+#!/bin/sh   
+#Socket Primary Server  auto-start
+#
+# description: Auto-starts watch tcp server
+# processname: watchprisocket	
+# pidfile: /var/run/watchprisocket.pid
+
+case $1 in
+start)
+         echo "socket primary server service is starting..."
+         cd /usr/local/socketpriserver         
+         /bin/bash /usr/local/socketpriserver/run.sh
+        ;;
+stop)
+        echo "socket primary server  service is stopped..." 
+        /bin/bash  /usr/local/socketpriserver/stop.sh
+        ;;
+restart)
+				/bin/bash  /usr/local/socketpriserver/stop.sh
+				/bin/bash /usr/local/socketpriserver/run.sh
+        ;;
+esac  
+
+
+把/etc/init.d/watchprisocket 设置成可执行,chmod +x 追加权限
+sudo chmod +x /etc/init.d/watchprisocket
+
+将watchsocket加入服务，update-rc.d添加这服务并让watchsocket开机自动执行
+cd  /etc/init.d
+sudo update-rc.d watchprisocket defaults 98
+
+remove：
+sudo update-rc.d -f watchprisocket remove
+
+sudo service watchprisocket start [status|start|stop]  
+
+----------------增加primary server end----------------
+
+cd /usr/tomcat7054/
+新建目录：
+sudo mkdir webapps2
+
+sw.war 复制到webapps2下
+
+---tomcat 多端口启用
+
+复制文件并改名：cp -i server.xml /usr/tomcat7054/conf/server_backup20150616.xml 
+
+sudo nano server.xml
+nano复制文本：ctrl+6 ,alt+6,ctrl+k
+Service name, Engine name，host appBase都需要修改。这样就可以一个tomcat完成俩个实例工作了
+
+
+
+复制文件：cp web1.war /usr/tomcat7054/webapps2
+
+sudo ./shutdown.sh
+
+cp - r /usr/tomcat7054/webapps2/web1 /usr/tomcat7054/webapps2   //将/usr/tomcat7054/webapps2/web1目录中的所有文件及其子目录拷贝到目录/usr/tomcat7054/webapps2中。
+
+—————————————部署—————————————————
+
+部署,先上传文件到服务器，然后再操作，减少宕机时间
+
+上传sw.war到 /usr/tomcat7054/ 下，
+
+-备份图片文件
+cp -r /usr/tomcat7054/webapps2/sw/upsnimg  /usr/tomcat7054/
+cp -r /usr/tomcat7054/webapps2/sw/upusrimg  /usr/tomcat7054/
+cp -r /usr/tomcat7054/webapps2/sw/uprewardimg  /usr/tomcat7054/  
+  
+
+sudo netstat -anp | grep 8087
+kill -9 1111
+
+sudo rm -rf /usr/tomcat7054/webapps2/sw.war
+sudo rm -rf /usr/tomcat7054/webapps2/sw
+sudo mv /usr/tomcat7054/sw.war  /usr/tomcat7054/webapps2/sw.war
+
+
+sudo rm -rf /usr/tomcat7054/webapps/web1.war
+sudo rm -rf /usr/tomcat7054/webapps/web1
+sudo mv /usr/tomcat7054/web1.war  /usr/tomcat7054/webapps/web1.war
+
+sudo service tomcat7054 start
+查看是否查看成功
+sudo netstat -anp | grep 8087
+
+--还原图片
+sudo mv /usr/tomcat7054/upusrimg  /usr/tomcat7054/webapps2/sw/
+sudo mv /usr/tomcat7054/upsnimg  /usr/tomcat7054/webapps2/sw/
+sudo mv /usr/tomcat7054/uprewardimg  /usr/tomcat7054/webapps2/sw/
+
+--------------------
+ChildServer.jar上传到/usr/local/
+
+cd /usr/local/socketserver/
+sudo netstat -anp | grep 8075
+kill -9 13315
+sudo rm -rf /usr/local/socketserver/ChildServer.jar 
+sudo mv /usr/local/ChildServer.jar /usr/local/socketserver/ChildServer.jar 
+./run.sh
+
+---------------------
+jboss:
+
+ejbpro1dep.jar 上传到 /usr/local/jboss423ga/
+
+cd /usr/local/jboss423ga/bin
+sudo netstat -anp | grep 8080
+sh shutdown.sh -S
+
+--nano /etc/init.d/jboss423ga
+
+--sudo service jboss423ga status （stop start)
+--sudo service jboss423ga stop
+sudo rm -rf /usr/local/jboss423ga/server/default/deploy/ejbpro1dep.jar
+sudo mv /usr/local/jboss423ga/ejbpro1dep.jar  /usr/local/jboss423ga/server/default/deploy/ejbpro1dep.jar
+sudo service jboss423ga start
+
+
+--pri server
+
+cd /usr/local/socketpriserver
+sudo netstat -anp | grep 8085 
+sudo service watchprisocket status
+sudo service watchprisocket start [status|start|stop]  
+ 
+ 
+ PrimaryServer.jar
+上传到/usr/local/ 
+
+ /usr/local/socketpriserver
+ 
+sudo rm -rf /usr/local/socketpriserver/PrimaryServer.jar
+sudo mv /usr/local/PrimaryServer.jar  /usr/local/socketpriserver/PrimaryServer.jar
+
+--server
+
+
+
+cd /usr/local/socketserver
+sudo netstat -anp | grep 8075  
+sudo service watchsocket [status|start|stop]  
+sudo service watchsocket status
+kill -9 1111
+
+
+sudo rm -rf /usr/local/socketserver/ChildServer.jar
+sudo mv /usr/local/ChildServer.jar  /usr/local/socketserver/ChildServer.jar
+sudo service watchsocket start
+
+
+—————————————部署—————————————————
+
+
+

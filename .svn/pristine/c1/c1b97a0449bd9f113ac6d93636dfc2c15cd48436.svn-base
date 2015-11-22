@@ -1,0 +1,252 @@
+﻿
+告警-
+
+经度纬度 进出表
+一个手机多个序列号
+维护信息表
+
+极光推送
+
+信鸽推送
+
+
+泰然科技园210栋坐标：
+114.032879,22.539483
+
+
+
+http://120.24.176.185:8087/sw/electfence/addElectFence?serialNumber=30020000000010&areaNumber=1&name=n&locationInfo=113.84992,22.738597&scope=500&mode=0
+
+
+update user set phone='13602654141' where phone='15710757989'
+update rtposition set query=1 where serialnumber='80680000100062' and id=2
+
+1、换高德地图接口；
+2、用户与序列号分开；
+3、测试实际闹钟；
+4、新增序列号增加接口，一手机号增加序列号；
+5、历史定位，围栏信息，默认一次20条，记录次数
+6、手机号，app用户信息
+7、轨迹，最新定位 地址
+
+http://apilocate.amap.com/position?accesstype=0&imei=352315052834187&smac=E0:DB:55:E4:C7:49&cdma=0&bts=460,01,40977,2205409,-65&nearbts=460,01,40977,2205409,-65|460,01,40977,2205409,-65|460,01,40977,2205409,-65&output=xml&key=1d34e0f045c122603c742b63084af4dc
+
+
+|10|100|1cc,0,2625,f2a,7e,2625,e6c,83,2625,f34,81,2625,f8d,7e,2625,e6b,7d,2625,f70,79,2625,1128,78|0000|00|050|042
+
+http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000010&userName=yyu222u&password=123&phone=13113689015
+
+delete from user where id >16;
+update serialnumber set isreg = 0 where id >10 
+
+http://lenovo-pcyang:8087/SW/user/userRegister?serialNumber=30020000000014&userName=yy1111233uu&password=123&phone=13713689132
+
+
+---------------
+
+————————————用户注册信息2 end————————————
+11、http://120.24.176.185:8087/sw/alarm/setAlarm?serialNumber=30020000000010&alarm=06:06.1,09:00.1,16:23.1
+
+4040 0020 30020000000010 2001 07 
+30 36 30 36 3b 30 39 30 30 3b 31 36 32 33   //0606;0900;1623  -- 01010606;01020900;00011623
+
+最高位[7] 为1表示有效，为0表示无效
+其他7位，从低位到高位分别表示星期一到星期天共7天，如果哪天有效，哪个位置的值为1，其他六位为0；
+如：0606
+
+0032 0d0a
+                                
+                              
+
+  /** 
+     * 将16位的short转换成byte数组 
+     *  
+     * @param s 
+     *            short 
+     * @return byte[] 长度为2 
+     * */  
+
+
+
+1、crc统一
+2、推送进出围栏，围栏序列号多对多关系
+3、修改读取字段，客户端
+4、通讯录号码新增，协议；
+5、轨迹时间范围
+6、留言，意见反馈
+7、远程查找，关机
+5、事务；
+
+
+加好友，发手表号码给指定手表
+7103
+查询加好友，返回头像url
+
+
+1、通讯录合成
+2、查找手机，远程关机，设置震动（类似闹钟，上课模式，开关及时间段） -- app接口
+3、加手表为好友；
+4、云之迅回调；
+5、奖励
+
+重发加好友
+
+通讯录（id（位置索引）+号码+名称（或点阵）+voip或传统模式+号码分类（sos、masterno，listenno））：通讯协议；
+
+查找手机，远程关机，设置震动（类似闹钟，上课模式）；
+
+设置模式，闹钟，有应答；隔两分半，重启；
+
+
+http://item.jd.com/1603679003.html#product-detail
+http://www.vmall.com/product/1600.html#2904
+
+
+http://120.24.176.185:8087/sw/user/userRegister?serialNumber=30020000000030&userName=twoserialnum&password=123&phone=13711112222
+
+G:\Java\android\Android Code\新建文件夹\RNQuality\bin\dexedLibs
+
+Android：
+adb所在目录
+G:\Java\android\Android\android-sdk-windows\platform-tools
+
+
+android 调试卡在：Waiting for Debugger - Application XXX is waiting for the debugger to Attach" 解决方法
+
+
+解决方法：重启adb。
+
+步骤：cmd进入命令行，进入adb所在目录先后执行adb kill-server，adb start-server。
+adb kill-server
+
+adb start-server
+
+adb devices
+
+
+安仕达农贸
+上海升徽电子有限公司
+http://www.xiangshanscale.com/cpzx/wangluosuyuancheng/2013/0412/31.html
+http://www.hamktech.com/list.asp?id=285
+http://detail.1688.com/offer/45928432556.html?spm=a261b.2187593.1998088710.227.hMsiNV
+http://detail.1688.com/offer/45928432556.html?spm=a261b.2187593.1998088710.227.hMsiNV
+
+窦振丽 女士 
+电      话：86 021 61124518移动电话：13818310769 传      真：86 021 60853102
+18917520406 陶工
+
+http://detail.1688.com/offer/1260841656.html?spm=a261b.2187593.1998088710.174.hMsiNV
+
+1、具体的一条交易数据是否可以立刻上传，每一笔数据可以即时上传；
+2、二维码可以即时打印，动态二维码；
+3、键盘可以输入电话号码：如 13713912812，然后 确认，上传到服务器；
+4、打印的二维码纸能不能调整大小
+5、PLU键组合
+6、折扣键的使用
+7、输入plu键能不能上传，这时没还产生重量、金额
+gps打开模式：10s，300s，600s；
+
+基站:180s
+
+13510221790
+
+http://lenovo-pcyang:8087/sw/gps/setLbs?serialNumber=80680000100062&lbs=1&gps=10
+发送超时，客户端编号：01014C4C,发送次数：4，updatetime：2015-08-03 17:39:40.791，createtime：2015-08-03 17:39:22.291，CMD：0004，ACK：2f80
+
+http://item.jd.com/1580142285.html#product-detail
+http://detail.1688.com/offer/40922333355.html?spm=a261b.2187593.1998088710.242.OP2RYI
+
+b6000
+
+min usb-otg转hdmi
+
+http://docs.ucpaas.com/doku.php?id=rest_api
+http://docs.ucpaas.com/doku.php?id=client%E7%AE%A1%E7%90%86api
+sales@wearme.cc 
+wear123456
+
+
+{"state":"1","info":"成功呼叫号码","data":{"resp":{"respCode":"000000","callback":{"callId":"c3b54d80a450a510297d5d586c00a7c7","createDate":"20150905155045"}}}}
+
+润农科技
+rntech
+hi-tech5188
+http://www.51job.com/
+
+654321
+
+http://lenovo-pcyang:8087/sw/family/callResultNotify?fromNum=18058149508&toNum=13713975317
+
+
+食槽秤、称重秤、下料电机、
+三色灯、温湿度、
+
+静默方式，参数；
+系统参数查询；
+
+ping 14.17.77.81 -t > E:\2.txt
+
+http://120.24.176.185:8087/sw/serialnum/numUsrRelation?serialnumid=296bfda1-92e4-46cc-96a8-25cc5d358492&usrid=07ec7e49-5649-4bd3-b07c-e6120237b940
+
+无限循环的ViewPager
+http://www.it165.net/pro/html/201408/20679.html
+
+1、双链路，哪个是主链路；
+2、是不是保证优先使用wan口有线；
+
+FlashFXP 4.4.2 (build 2012)
+
+M2M平台网址：https://m2m.10646.cn
+登录名：niuyunpeng
+密码：nyp149508
+
+13243777498
+
+313834 2C F0581807F0
+
+人才热线招聘网址：http://www.cjol.com/shenzhen/
+用户名：rntech
+密码：C85F66E8
+
+溯源电子秤核心功能：
+1、联网，每一笔交易即时到云端；
+2、动态二维码，每一笔交易都接受云端返回的二维码网址；
+
+软件开发价格 ＝ 开发工作量 × 开发费用／人·月  
+开发费用／人·月 ＝（P＋Q＋R）× S× τ 
+
+
+https://mp.weixin.qq.com/cgi-bin/home?t=home/index&lang=zh_CN&token=2134201264
+zhanglh@rntech.com.cn
+zlh123456
+
+
+honglou2001@qq.com  honglou2001@163.com 
+long**********12
+
+ honglou2001@126.com le****u
+ 
+ 
+开发者:16419857@qq.com  525300
+
+ AppID(应用ID) 
+wx2f4ef00e9be32411. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+​
+AppSecret(应用密钥) 
+32e3f0a597aecce5411c1df2157d98c4  隐藏 重置 
+
+中粮集团全产业链
+http://www.ce.cn/cysc/ztpd/zt/yq/cofco/zhibo/
+
+
+农牧行业转型、饲料加工解决方案，从农场到餐桌等解决方案，产业链运营线、质量线、产业链正反向追溯、产业链成本线；
+
+农牧食品行业互联网+：全产业链互联网平台、农业物联网、APP、智能监控、微信平台、大数据方向；
+
+全渠道营销：O2O全渠道解决方案；
+销售模式拓展：电商平台，微信系统对接；移动APP平台，加盟要货；
+仓储、物流；
+
+农牧食品行业的云攻略:SAP云平台；云计算的价值，云计算使企业对IT的投入大幅减低，
+
+还有农业食品业的一些著名企业的案例介绍；

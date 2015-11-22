@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE validators PUBLIC
+        "-//OpenSymphony Group//XWork Validator 1.0.2//EN"
+        "//www.opensymphony.com/xwork/xwork-validator-1.0.2.dtd">
+        
+        <!-- 框架校验部分 -->
+<validators>
+	<!-- 分别对每一个字段校验 -->
+	<field name="user.name">
+		<!-- 每一种校验标准 -->
+		<field-validator type="requiredstring">
+			<!-- field-validator下的一些属性标签  说白了 就是一些传入函数的参数 -->
+			<param name="trim">true</param>
+
+			<!-- 出错信息 -->
+			<message>username is required</message>
+		</field-validator>
+
+	</field>
+	
+    <!-- 一下都和username类似 将不做批注 -->  
+    <field name="user.Pwd">  
+        <!-- 每一种校验标准 -->  
+        <field-validator type="requiredstring">  
+            <!-- field-validator下的一些属性标签  说白了 就是一些传入函数的参数 -->  
+            <param name="trim">true</param>  
+  
+           <!-- 出错信息 -->  
+            <message>password is required</message>  
+        </field-validator>  
+  
+        <field-validator type="stringlength">  
+            <param name ="minLength">6</param>  
+            <param name ="maxLength">10</param>  
+            <message>  
+                password should between ${minLength} to ${maxLength}  
+            </message>  
+        </field-validator>  
+  
+    </field>
+	
+</validators>
