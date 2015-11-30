@@ -38,6 +38,8 @@ public interface <%= ModelName(SourceTable.Name)%>Service{
     public void Add<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) ;
 	
 	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) ;
+    
+    public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info,HashMap<String, String> map) ;
 	
 	public void Delete<%= ModelName(SourceTable.Name)%>(String id) ;
 	

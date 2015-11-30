@@ -17,6 +17,10 @@ $(function () {
 
 //修改分组的信息
 function UpdateInfo() {
+	
+	  $.messager.alert("提示", "待增加此功能", "error");
+      return;
+      
     //首先取出来用户选择的数据的ID
     var rows = $("#dgSerialnumber").datagrid("getSelections");
     //首先取出来值判断用户只能选择一个
@@ -132,7 +136,8 @@ function ListRecordDetail(queryData) {
         width: "auto",
         height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
         iconCls: 'icon-save',
-        pageSize: 15,
+        pageSize: 12,
+        pageList: [12,24,36,48],
         nowrap: true,
         fitColumns: true,
         singleSelect:true,

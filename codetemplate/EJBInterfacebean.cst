@@ -62,6 +62,25 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 	}
 	
 	@Override
+	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info,HashMap<String, String> map) 
+	{
+    	if(map!=null && map.size()>0){
+			if(map.containsKey("actionType")){
+				String actionType = map.get("actionType");
+				
+				if(actionType.equals("1"))
+				{    		    										   					
+					Query q = manager.createNativeQuery("UPDATE exampletb SET fphonenum = ?, fphonetime = ?,fdatastatus=?  WHERE funiqueid = ?");
+					q.setParameter(1, 1);					
+			     	Timestamp datetime = EJBTime.getTimeStamp();			    	
+					q.setParameter(2, datetime);	   			
+					q.executeUpdate();
+				}			
+			}
+		}	
+	}
+    
+	@Override
 	public void Delete<%= ModelName(SourceTable.Name)%>(String id) 
 	{
 		<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info = manager.find(<%= ModelName(SourceTable.Name)%>.class, id);

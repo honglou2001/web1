@@ -124,6 +124,19 @@ public class <%= ModelName(SourceTable.Name)%>DaoIml {
 		}
 		
 	}        
+
+   	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>,HashMap<String, String> map) {		
+		Context weblogicContext = ejbproxy.getInitialConnection();
+		<%= ModelName(SourceTable.Name)%>Service serviceClient;
+		try {
+			serviceClient = (<%= ModelName(SourceTable.Name)%>Service)weblogicContext.lookup("<%= ModelName(SourceTable.Name)%>Bean/remote");
+			serviceClient.Update<%= ModelName(SourceTable.Name)%>(<%= ParameterName(SourceTable.Name)%>,map);	
+		} catch (NamingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}    
    
 	public void Delete<%= ModelName(SourceTable.Name)%>(String id) {
 		Context weblogicContext = ejbproxy.getInitialConnection();

@@ -181,6 +181,7 @@ http://120.24.176.185:8087/sw/user/userRegister?serialNumber=30020000000013&user
 state为1：info返回序列号表示成功，info为fail表示登录失败
 state为-1：表示出现异常，提示弹出info信息
 data节点的funiqueid为后台标识用户的ID（后面接口常用到的usrid），后面查询，更新，删除用户信息等根据此值；此值允许APP用户换手机号码
+sex：1-为男，2为女；
 SerialNumber返回的定位模式：setgps - 定位频率；lbs-是否开启gps，与接口setLbs值对应
 
 27、
@@ -207,6 +208,7 @@ http://120.24.176.185:8087/sw/user/updatePassword?usrid=4028cf814e5deb25014e5dec
 31、
 http://120.24.176.185:8087/sw/user/userUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&femail=hong@163.com
 修改用户信息，usrid 为 查询得到的用户id，其他值在界面赋。
+sex：1-为男，2为女；
 
 
 32、
@@ -231,7 +233,7 @@ fphonenum为对应的手表电话号码；
 
 35、
 http://120.24.176.185:8087/sw/serialnum/serialNumUpdate?serialnumid=fbb8515c-d4bd-43ee-971c-92bb43d597ce&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
-修改手表信息， serialnumid 不能为空，为查询接口的data.funiqueid 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，urlencode编码后传参；
+修改手表信息， serialnumid 不能为空，为查询接口的data.funiqueid 。nickname、fschool、fgrade、fcallname、fremark 可以为中文，urlencode编码后传参；sex：1-为男，2为女；
 修改成功，返回序列号信息
 
 36、
@@ -359,6 +361,11 @@ http://120.24.176.185:8087/sw/serialnum/numUsrRelation?serialnumid=e5906013-f66f
 用户及序列号建立关联关系，按现有流程服务器先注册手表序列号，然后用户与序列号建立关联；
 参数为序列号serialnumid和用户id，serialnumid由前面结果更加序列号查到；
 这个接口主要是针对一个用户多个手表的情况，app用户按已有流程注册后，如要增加多个手表，使用此接口；
+
+
+50-2)、
+http://120.24.176.185:8087/sw/serialnum/numUsrRelationUnreg?serialnumid=e5906013-f66f-4eca-b13b-48b5382db76c&usrid=07ec7e49-5649-4bd3-b07c-e6120237b940
+与50号接口对应，取消序列号与用户的绑定关系，序列号标识为未注册状态，参数为序列号id和用户id
 
 ---------------------------------------
 
@@ -619,7 +626,7 @@ notify_time:2015-09-11 17:02:46;body:年度套餐;trade_status:WAIT_BUYER_PAY;is
 price:0.01;buyer_id:2088202771939785;notify_id:62c07b589a98081640203dcb59443d1f6c;use_coupon:N;sign_type:
 RSA;sign:EQG9PWQEoJx5UkFPyvoYTssKbArG0zxYQGT1GAMcWp18zI+kGbgSysJxtmMAG6UYy5N71rVDCxargwo8H0dLw4zwZwNwfZrV/14KyEqTrtZaoixuz1IdMAKrCuygbOmloKo6I+p1PRlC/62FeRQjgA4tzrpbv7dic8ihYGVHuws=;
 
-其中out_trade_no调用系统接口获得；
+其中out_trade_no调用本文档84号接口获得；
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>亲情号码（sos、listen、master号码）统一使用通讯录<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -731,13 +738,14 @@ fee为对应套餐的月费用；discount为折扣；
 http://120.24.176.185:8087/sw/pay/getTradeNoAction?usrid=07ec7e49-5649-4bd3-b07c-e6120237b940&serialnumid=7742bd73-f22a-4034-bfcd-3a66ef47e26e
 获取支付宝订单号 out_trade_no；传递参数：app用户id，序列号id
 APP获取到此单号进行支付，回调时服务器带此参数(out_trade_no)值，根据此参数进行充值记录；
+如果不根据此接口获取订单编号，app支付回调会失败；
 
 ---------------手环、秤注册流程---------------
 
 85、
 http://120.24.176.185:8087/sw/serialnum/serialNumAdd?devtype=2&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialNumber=28D21122EERR&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
 注册手环或秤(devtype=1表示注册手环、为2表示为脂肪秤)，用户新增手环或脂肪秤，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空（为设备的mac号）；
-nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；
+nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；sex：1-为男，2为女；
 返回信息：{"state":1,"info":"新增序列号成功","serialnumid":"fbb8515c-d4bd-43ee-971c-92bb43d597ce"}，serialnumid 作为后面查找，更新序列号的id；
 
 
@@ -766,5 +774,50 @@ Serialnumber：设备信息；
 sportdata：运动数据，返回数据与新增数据对应；
 
 
+88、
 
+家庭成员与数据关联步骤流程：
+
+1、每个APP账号下维护家庭成员；
+2、指定设备某个时刻起与某位家庭成员关联，也可以指定归属的开始结束日期，如不指定默认就是APP用户本身；
+3、同一个设备一个时刻只能和一位家庭成员关联，关联后，设备在此刻起产生的数据在指定的开始结束日期内都归属于此家庭成员；
+4、目前暂时只对称重数据进行设置；
+
+http://120.24.176.185:8087/sw/sport/memberAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
+http://lenovo-pcyang:8087/sw/sport/memberAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
+
+新增家庭成员
+usrid：app登录用户id；realname 真实姓名；weight-体重（kg）；height 高度（cm），nickname 昵称；callname-称呼；sex：1-为男，2为女；relation：与app用户的关系，如父亲、女儿；fremark：备注；
+涉及到中文的要url编码后提交；
+
+89、
+http://120.24.176.185:8087/sw/sport/memberQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+http://lenovo-pcyang:8087/sw/sport/memberQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
+
+查询家庭成员，参数usrid：app登录用户id；返回此用户下的家庭成员；
+fsndusrid 为此家庭成员记录id，对应以下的修改接口
+
+90、
+http://120.24.176.185:8087/sw/sport/memberUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
+http://lenovo-pcyang:8087/sw/sport/memberUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
+
+修改家庭成员，与新增对应，usrid为登录app的用户id，fsndusrid为查询接口得到的家庭成员记录id，realname为真实姓名，如果此记录外已经存在则不能修改；
+
+
+91、
+http://120.24.176.185:8087/sw/sport/memberDelete?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8
+http://lenovo-pcyang:8087/sw/sport/memberDelete?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8
+删除家庭成员，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；
+
+
+92、
+http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
+http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&begintime=2015-11-20 12:10:11&endtime=2015-11-30 12:10:11
+设备与家庭成员绑定，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
+也支持开始结束时间的接口，begintime为绑定的开始时间；endtime为绑定的结束时间，时间格式要求类似‘2015-11-30 12:10:11’
+
+
+93、
+http://120.24.176.185:8087/sw/sport/relevanceDel?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
+解除设备与家庭成员绑定，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
 

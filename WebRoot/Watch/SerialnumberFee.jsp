@@ -46,8 +46,8 @@
                     <th>关联手机号：</th>
                     <td >
                         <input type="text" id="txtFMobile" name="txtFMobile" class="easyui-validatebox"  value="" />&nbsp;
-                        <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="searchFun();">查询</a>
-                        <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-clear" plain="true" onclick="clearbox()">清空</a>
+                        <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-search" plain="true" onclick="UpdateInfo();">查询</a>
+                        <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-clear" plain="true" onclick="UpdateInfo()">清空</a>
 
                     </td>
                 </tr>
@@ -94,9 +94,7 @@
 
     
     <div id="div_Menu">
-        <a href="#" id="btnRefPhone" class="easyui-linkbutton" iconcls="icon-add" plain="true"  onclick="UpdateInfo();">设置关联手机号及回拨模式</a> 
-		<a href="#" id="btnApplyNumber" class="easyui-linkbutton" iconcls="icon-add" plain="true"  onclick="UpdateInfo1();">申请云之迅客户端号码</a>            
-        <a href="#" id="btnChargeRec" class="easyui-linkbutton" iconcls="icon-add" plain="true"   onclick="QueryChargRecord();">查看充值及消费记录</a>
+        <a href="#" id="btnRefPhone" class="easyui-linkbutton" iconcls="icon-add" plain="true"   onclick="UpdateInfo();">手动充值</a> 
 <!--         <a href="#" id="btnApplyCallBack" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true">推送信息</a> -->
         <a href="#" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true" onclick="refresh();">刷新</a>
     </div>

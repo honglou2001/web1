@@ -200,7 +200,7 @@ public class SerialnumberImpl extends ActionSupport {
 		dataMap = new HashMap<String, Object>();		
 		int offset = this.getPage();		
 		
-		int pagesize = Constants.PAGE_SIZE;
+		int pagesize = 12;//Constants.PAGE_SIZE;
 		
 		if (offset>0){
 			offset = (offset-1) * pagesize;
@@ -231,7 +231,7 @@ public class SerialnumberImpl extends ActionSupport {
 		dataMap = new HashMap<String, Object>();		
 		int offset = this.getPage();		
 		
-		int pagesize = 10;//Constants.PAGE_SIZE;
+		int pagesize = 12;//Constants.PAGE_SIZE;
 		
 		if (offset>0){
 			offset = (offset-1) * pagesize;

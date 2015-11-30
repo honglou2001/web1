@@ -18,6 +18,7 @@ function initTable(queryData) {
         height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 87,
         iconCls: 'icon-save',
         pageSize: 12,
+        pageList: [12,24,36,48],
         nowrap: true,
         fitColumns: true,
         singleSelect:true,
