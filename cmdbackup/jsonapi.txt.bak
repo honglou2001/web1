@@ -778,10 +778,10 @@ sportdata：运动数据，返回数据与新增数据对应；
 
 家庭成员与数据关联步骤流程：
 
-1、每个APP账号下维护家庭成员；
-2、指定设备某个时刻起与某位家庭成员关联，也可以指定归属的开始结束日期，如不指定默认就是APP用户本身；
+1、每个APP账号下维护家庭成员（增加、查询、修改、删除）；
+2、指定设备与某位家庭成员关联，开始结束时间为空表示一直关联直到下次改变；也可以在一定的开始结束日期范围内关联，如不指定默认就是APP用户本身；
 3、同一个设备一个时刻只能和一位家庭成员关联，关联后，设备在此刻起产生的数据在指定的开始结束日期内都归属于此家庭成员；
-4、目前暂时只对称重数据进行设置；
+4、目前暂时只对称重数据进行设置，根据用户和设备id录入，自动根据配置好的规则归属给指定的家庭成员；
 
 http://120.24.176.185:8087/sw/sport/memberAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
 http://lenovo-pcyang:8087/sw/sport/memberAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
@@ -812,12 +812,28 @@ http://lenovo-pcyang:8087/sw/sport/memberDelete?usrid=a59b66a6-17a5-4bb4-8b24-62
 
 92、
 http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
-http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&begintime=2015-11-20 12:10:11&endtime=2015-11-30 12:10:11
+http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&begintime=2015-11-20 12:10:11&endtime=2016-11-30 12:10:11
 设备与家庭成员绑定，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
-也支持开始结束时间的接口，begintime为绑定的开始时间；endtime为绑定的结束时间，时间格式要求类似‘2015-11-30 12:10:11’
+也支持开始结束时间的接口，begintime为绑定的开始时间；endtime为绑定的结束时间，时间格式要求类似‘2015-11-30 12:10:11’，使用此接口开始结束时间要同时填写
 
 
 93、
 http://120.24.176.185:8087/sw/sport/relevanceDel?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
-解除设备与家庭成员绑定，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
+解除设备与家庭成员绑定，与上一绑定接口对应，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
+
+
+94、
+http://120.24.176.185:8087/sw/sport/weightAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&weight=1&height=2.1&bmi=11&calorie=11.2&fatcontent=22&bonecontent=14&musclecontent=35&watercontent=12&visceralfatcontent=45&fremark=beizhu
+
+http://lenovo-pcyang:8087/sw/sport/weightAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&weight=1&height=2.1&bmi=11&calorie=11.2&fatcontent=22&bonecontent=14&musclecontent=35&watercontent=12&visceralfatcontent=45&fremark=beizhu
+
+新增体重数据，参数为用户id、序列号id及相关称重数据，相关数据都为数值，备注如有中文要url编码；
+体重数据属于的家庭成员，由以上接口的绑定关系确定，属于在时间范围内绑定的成员，如没时间限制就一直属于此家庭成员；
+
+94、
+http://120.24.176.185:8087/sw/sport/weightQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&pagesize=100&pageindex=0
+http://lenovo-pcyang:8087/sw/sport/weightQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&pagesize=100&pageindex=0
+查询体重数据，参数为用户id、序列号id；pagesize 每次显示多少条数据；pageindex 显示第几页，0为第一页；排序为记录新增时间倒序；
+返回user为当前APP用户数据；serialnumber 为序列号数据；data 为称重数据列表；
+data 的 fsndusrid为家庭成员id，frealname、fcallname、frelation 为数据对应家庭成员的真实姓名、称呼、关系，这几个值如为空表示数据属于APP用户user本身
 
