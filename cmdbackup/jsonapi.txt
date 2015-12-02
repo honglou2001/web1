@@ -17,7 +17,7 @@ success —成功注册
 
 
 2、
-http://120.24.176.185:8087/sw/user/userLogin?phone=13602654141&password=123456
+http://120.24.176.185:8087/sw/user/userLogin?phone=13713689013&password=123
 登录接口，手机号码登录
 
 返回数据：
@@ -288,7 +288,7 @@ searchFamilyNo
 —查询亲情号码设置，修改返回的sos以数组返回，注意新增接口的参数sos参数类似：sos_num2=18058149508,sos_num3=,sos_num4=18058149508，有逗号隔开
 
 
-————————————留言 begin————————————
+————————————留言————————————
 42、
 http://120.24.176.185:8087/sw/feedback/getCatetory
 
@@ -304,9 +304,8 @@ http://120.24.176.185:8087/sw/feedback/getFeedBack?usrid=81474b8b-a04a-4269-a93e
 http://120.24.176.185:8087/sw/feedback/getFeedBack?category=1&usrid=81474b8b-a04a-4269-a93e-df3a27f696e5
 根据用户id获取最新100条留言，参数usrid为用户id，可带分类category
 
-————————————留言 end————————————
 
-————————————好友模块 begin————————————
+————————————好友模块————————————
 
 加好友流程：
 1、app用户A查询app用户B下的手表电话号码N2，查询到结果；
@@ -354,7 +353,7 @@ calltype为1表示好友之间是回拨，0为直拨；
 http://120.24.176.185:8087/sw/friend/repeatFriendReq?frelationid=b4795053-c972-4069-a6c4-afd96d82ae76&action=rerequest&attachText=contentinfo
 对已经被拒绝的或对方没操作的，重新发送请求加好友请求，attachText 为附件信息，在对方查看列表会重新显示在较前位置
 
-————————————好友模块 end————————————
+————————————序列号与用户绑定及解绑————————————
 
 50、
 http://120.24.176.185:8087/sw/serialnum/numUsrRelation?serialnumid=e5906013-f66f-4eca-b13b-48b5382db76c&usrid=07ec7e49-5649-4bd3-b07c-e6120237b940
@@ -368,7 +367,7 @@ http://120.24.176.185:8087/sw/serialnum/numUsrRelationUnreg?serialnumid=e5906013
 与50号接口对应，取消序列号与用户的绑定关系，序列号标识为未注册状态，参数为序列号id和用户id
 
 ---------------------------------------
-
+云之迅接口部分：
 51-1）
 http://120.24.176.185:8087/sw/family/createClientNum?phonenum=13713975317&clientType=1&charge=1
 创建号码，并设置充值方式，
@@ -411,10 +410,7 @@ param：与templateid对应，每个参数用英文逗号,隔开,ex:1001,学校,
 附urlencode、urldecode网址：
 http://tool.chinaz.com/Tools/URLEncode.aspx
 
----------------------------------------
-
-
-————————————手表指令/全局参数 begin————————————
+————————————手表指令/全局参数————————————
 52、
 http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=1
 操作指令：远程关机，serialnumid 为序列号id，action固定此值：
@@ -438,9 +434,8 @@ http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=f37cd085-244
 操作指令：发送通讯录是普通拨号还是回拨的全局参数
 serialnumid 为序列号id，action固定此值，type为0表示普通直接拨号，1表示回拨—-如果是回拨使用，则使用号码本身属性判断同网或者异网；
 
-————————————手表指令/全局参数 end————————————
 
-————————————奖励体系 begin————————————
+————————————奖励体系————————————
 56、
 http://120.24.176.185:8087/sw/reward/newReWard
 
@@ -467,9 +462,7 @@ http://120.24.176.185:8087/sw/reward/sendFromList?frewardid=e2003e7b-c468-4a56-8
 frewardid为前一接口的frewardid，usrid为app用户id，serialnumid为要发送的目标手表id；
 
 
-————————————奖励体系 end————————————
-
-》》》》》》》》》》》》》远程操作begin《《《《《《《《《《《《
+》》》》》》》》》》》》》远程操作《《《《《《《《《《《《
 
 下发协议—APP可不用，主要用来与设备通讯：
 
@@ -520,11 +513,6 @@ http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=cus
 
 62、云之迅：通知类回调接口-由云之迅平台使用
 http://120.24.176.185:8087/sw/family/callResultNotify
-
-
-
-
-》》》》》》》》》》》》》远程操作end《《《《《《《《《《《《
 
 ————————————参数设置查询 ————————————
 
@@ -626,7 +614,7 @@ notify_time:2015-09-11 17:02:46;body:年度套餐;trade_status:WAIT_BUYER_PAY;is
 price:0.01;buyer_id:2088202771939785;notify_id:62c07b589a98081640203dcb59443d1f6c;use_coupon:N;sign_type:
 RSA;sign:EQG9PWQEoJx5UkFPyvoYTssKbArG0zxYQGT1GAMcWp18zI+kGbgSysJxtmMAG6UYy5N71rVDCxargwo8H0dLw4zwZwNwfZrV/14KyEqTrtZaoixuz1IdMAKrCuygbOmloKo6I+p1PRlC/62FeRQjgA4tzrpbv7dic8ihYGVHuws=;
 
-其中out_trade_no调用本文档84号接口获得；
+其中out_trade_no调用本文档84号接口获得，根据84号接口获取到out_trade_no的回调才能正确回调到服务器；
 
 >>>>>>>>>>>>>>>>>>>>>>>>>>亲情号码（sos、listen、master号码）统一使用通讯录<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -736,13 +724,20 @@ fee为对应套餐的月费用；discount为折扣；
 
 84、
 http://120.24.176.185:8087/sw/pay/getTradeNoAction?usrid=07ec7e49-5649-4bd3-b07c-e6120237b940&serialnumid=7742bd73-f22a-4034-bfcd-3a66ef47e26e
-获取支付宝订单号 out_trade_no；传递参数：app用户id，序列号id
+获取支付宝订单号 out_trade_no，配合支付回调接口；传递参数：app用户id，序列号id
 APP获取到此单号进行支付，回调时服务器带此参数(out_trade_no)值，根据此参数进行充值记录；
 如果不根据此接口获取订单编号，app支付回调会失败；
 
 ---------------手环、秤注册流程---------------
 
 85、
+http://120.24.176.185:8087/sw/user/userRegister?devtype=0&serialNumber=80680000000030&userName=yyuu&password=123&phone=13713689012
+devtype：0为手表（或为空）表示手表、devtype=1表示注册手环、为2表示为脂肪秤；serialNumber 设备序列号（手表、手环、脂肪秤）；
+此接口注册是为了兼顾手环与脂肪秤的独立注册，此接口注册后可以添加手环与脂肪秤设备及使用以上接口绑定设备；
+注册返回的 usrid 为用户id；
+
+
+86、
 http://120.24.176.185:8087/sw/serialnum/serialNumAdd?devtype=2&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialNumber=28D21122EERR&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
 注册手环或秤(devtype=1表示注册手环、为2表示为脂肪秤)，用户新增手环或脂肪秤，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空（为设备的mac号）；
 nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；sex：1-为男，2为女；
@@ -751,7 +746,7 @@ nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传
 
 手环、脂肪秤的修改、查询、上传图片等与前面接口一致
 
-86、
+87、
 http://120.24.176.185:8087/sw/sport/sportAdd
 上传手环计步及心率数据，数据使用post方式提交给服务器，因为按照现在的心率统计方式，10分钟上传一次所有的心率数据，这里的心率数据约为2000-3000个字符；
 对应的key和值例子如下：
@@ -765,7 +760,7 @@ fheartrate=65  //已有的心率取值
 fremark=beizhu  //备注信息
 fheartstr  --时间段内心率所有数据，按数据协议（帧头使用基准时间，后面2个字节记录心率，1字节记录与基准时间的偏移，3个字节为一个心率数据，10分钟内产生的数据余约600个数据，共1800个字节），这个字段post的数据约为2000-3000个字符；
 
-87、
+88、
 http://120.24.176.185:8087/sw/sport/sportQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&sportdate=151108
 查询计步数及心率数据，usrid 为用户id；serialnumid 为设备id，sportdate 与新增接口对应，支持左匹配模糊查询,如151108，执行为151108%
 返回结果：
@@ -774,66 +769,57 @@ Serialnumber：设备信息；
 sportdata：运动数据，返回数据与新增数据对应；
 
 
-88、
-
+89、
 家庭成员与数据关联步骤流程：
 
 1、每个APP账号下维护家庭成员（增加、查询、修改、删除）；
-2、指定设备与某位家庭成员关联，开始结束时间为空表示一直关联直到下次改变；也可以在一定的开始结束日期范围内关联，如不指定默认就是APP用户本身；
+2、指定设备与某位家庭成员关联，开始结束时间为空表示一直关联直到下次改变；也可以在一定的开始结束日期范围内关联，如无指定数据默认就是APP用户本身；
 3、同一个设备一个时刻只能和一位家庭成员关联，关联后，设备在此刻起产生的数据在指定的开始结束日期内都归属于此家庭成员；
-4、目前暂时只对称重数据进行设置，根据用户和设备id录入，自动根据配置好的规则归属给指定的家庭成员；
+4、目前暂时只对称重数据进行数据归属到家庭成员，根据用户和设备id录入，自动根据配置好的规则归属给指定的家庭成员；
 
 http://120.24.176.185:8087/sw/sport/memberAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
-http://lenovo-pcyang:8087/sw/sport/memberAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
-
 新增家庭成员
 usrid：app登录用户id；realname 真实姓名；weight-体重（kg）；height 高度（cm），nickname 昵称；callname-称呼；sex：1-为男，2为女；relation：与app用户的关系，如父亲、女儿；fremark：备注；
 涉及到中文的要url编码后提交；
 
-89、
+90、
 http://120.24.176.185:8087/sw/sport/memberQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
-http://lenovo-pcyang:8087/sw/sport/memberQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
-
 查询家庭成员，参数usrid：app登录用户id；返回此用户下的家庭成员；
 fsndusrid 为此家庭成员记录id，对应以下的修改接口
 
-90、
+91、
 http://120.24.176.185:8087/sw/sport/memberUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
-http://lenovo-pcyang:8087/sw/sport/memberUpdate?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&realname=yang&birthday=1985-05-05&phone=13713512571&weight=56&height=172&address=dizhi&height=171&nickname=name&callname=cname&sex=1&email=qq@163.com&relation=parent&fremark=beizhu
-
 修改家庭成员，与新增对应，usrid为登录app的用户id，fsndusrid为查询接口得到的家庭成员记录id，realname为真实姓名，如果此记录外已经存在则不能修改；
 
 
-91、
+92、
 http://120.24.176.185:8087/sw/sport/memberDelete?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8
-http://lenovo-pcyang:8087/sw/sport/memberDelete?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8
 删除家庭成员，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；
 
 
-92、
-http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
-http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&begintime=2015-11-20 12:10:11&endtime=2016-11-30 12:10:11
-设备与家庭成员绑定，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
-也支持开始结束时间的接口，begintime为绑定的开始时间；endtime为绑定的结束时间，时间格式要求类似‘2015-11-30 12:10:11’，使用此接口开始结束时间要同时填写
-
-
 93、
+1）http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
+2）http://120.24.176.185:8087/sw/sport/relevanceAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&begintime=2015-11-20 12:10:11&endtime=2016-11-30 12:10:11
+设备与家庭成员绑定，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
+也支持开始结束时间的接口，begintime为绑定的开始时间；endtime为绑定的结束时间，时间格式要求类似‘2015-11-30 12:10:11’，使用此接口开始结束时间要同时填写；
+如果开始结束时间为空表示一直关联直到下次改变；如指定开始结束日期,则在此时间范围内关联
+
+
+94、
 http://120.24.176.185:8087/sw/sport/relevanceDel?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&fsndusrid=788a8485-75bd-45c6-a440-3704969440b8&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30
 解除设备与家庭成员绑定，与上一绑定接口对应，参数usrid：app登录用户id；fsndusrid 为查询接口得到的家庭成员记录id；Serialnumid为序列号id;
 
 
-94、
-http://120.24.176.185:8087/sw/sport/weightAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&weight=1&height=2.1&bmi=11&calorie=11.2&fatcontent=22&bonecontent=14&musclecontent=35&watercontent=12&visceralfatcontent=45&fremark=beizhu
-
-http://lenovo-pcyang:8087/sw/sport/weightAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&weight=1&height=2.1&bmi=11&calorie=11.2&fatcontent=22&bonecontent=14&musclecontent=35&watercontent=12&visceralfatcontent=45&fremark=beizhu
-
-新增体重数据，参数为用户id、序列号id及相关称重数据，相关数据都为数值，备注如有中文要url编码；
+95、
+http://120.24.176.185:8087/sw/sport/weightAdd?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&localdate=201511201510&weight=1&height=2.1&bmi=11&calorie=11.2&fatcontent=22&bonecontent=14&musclecontent=35&watercontent=12&visceralfatcontent=45&fremark=beizhu
+新增体重数据，参数为用户id、序列号id、localdate为本地数据产生的时间，格式为年月日时分；及相关称重数据（字段名称与原本地数据库对应），相关数据都为数值，备注如有中文要url编码；
 体重数据属于的家庭成员，由以上接口的绑定关系确定，属于在时间范围内绑定的成员，如没时间限制就一直属于此家庭成员；
 
-94、
+96、
 http://120.24.176.185:8087/sw/sport/weightQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&pagesize=100&pageindex=0
-http://lenovo-pcyang:8087/sw/sport/weightQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&pagesize=100&pageindex=0
+http://120.24.176.185:8087/sw/sport/weightQuery?usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&Serialnumid=d3ac7e7a-2e15-44d1-b62d-24c0d0a72e30&localdate=20151120&pagesize=100&pageindex=0
 查询体重数据，参数为用户id、序列号id；pagesize 每次显示多少条数据；pageindex 显示第几页，0为第一页；排序为记录新增时间倒序；
+localdate，数据上传的本地时间， 与新增接口对应，支持左匹配模糊查询,如20151120，执行为20151120%；
 返回user为当前APP用户数据；serialnumber 为序列号数据；data 为称重数据列表；
-data 的 fsndusrid为家庭成员id，frealname、fcallname、frelation 为数据对应家庭成员的真实姓名、称呼、关系，这几个值如为空表示数据属于APP用户user本身；
+data 的 fsndusrid为家庭成员id，frealname、fcallname、frelation 为数据对应家庭成员的真实姓名、称呼、关系，这几个值如为空表示数据没关联到家庭成员，属于APP用户user本身；
 
