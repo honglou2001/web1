@@ -122,7 +122,11 @@
 		<action name="payfee" class="SPsnnumberAction" method="List">
 		    <result>/Watch/SerialnumberFee.jsp</result>
 		</action>
-		 
+		
+		<action name="msgpush" class="SPsnnumberAction" method="List">
+		    <result>/Watch/MsgPush.jsp</result>
+		</action>		
+				 
 		<action name="snnumber*" class="SPsnnumberAction" method="{1}">
 			<result type="json">
 				<param name="root">dataMap</param>

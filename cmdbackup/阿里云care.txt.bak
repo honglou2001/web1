@@ -486,13 +486,15 @@ http://lenovo-pcyang:8087/sw/push/setInfo?action=1&usrid=a59b66a6-17a5-4bb4-8b24
 312C003c - 1,60
 
 http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=302C0168&cusIsHex=1
-http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=302C0168&cusIsHex=1
+http://120.24.176.185:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=0,180&cusIsHex=0
 
 http://lenovo-pcyang:8087/sw/serialnum/serialNumAction?serialnumid=3&action=customfull&customcmd=4102&cusdataHexStr=302C0168
 
 40 40 00 15 30 02 00 00 00 00 01 41 02 30 2C 00 B4 95 ab 0d 0a
 
 [64, 64, 0, 21, 48, 2, 0, 0, 0, 0, 1, 65, 2, 48, 44, 0, -76, -107, -85, 13, 10]
+
+30020000000013
 
 
 

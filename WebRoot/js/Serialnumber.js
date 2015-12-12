@@ -43,6 +43,20 @@ function initTable(queryData) {
             }
             ,
             {
+                field: 'fdevtype', title: '设备类型', width: 30, align: 'center', formatter: function (value) {
+                    if (value==null || value=='' || value =='0'){
+                    	return '手表';
+                    }
+                    else if (value =='1'){
+                    	return '手环';
+                    }
+                    else if (value =='2'){
+                    	return '脂肪秤';
+                    }
+                }
+            }
+            ,
+            {
                 field: 'nickname', title: '昵称', width: 50, align: 'left', formatter: function (value) {
                     return value;
                 }
@@ -79,17 +93,7 @@ function initTable(queryData) {
                 }
             }
             ,
-            {
-                field: 'fphonetime', title: '录入时间', width: 60, align: 'center', formatter: function (value) {
-                    if (value!=null){
-                    	return value.replace("T"," ");
-                    }
-                    else{
-                    	return value;
-                    }
-                }
-            }
-            ,
+   
             {
                 field: 'fclientnumber', title: '云之迅号码', width: 60, align: 'center', formatter: function (value) {
                     return value;
@@ -210,6 +214,44 @@ function BindShowUpdateInfo1() {
     });
 }
 
+
+//修改分组的信息
+function OpenPushDiv() {
+  //首先取出来用户选择的数据的ID
+  var rows = $("#dgSerialnumber").datagrid("getSelections");
+  //首先取出来值判断用户只能选择一个
+  if (rows.length != 1) {
+      $.messager.alert("提示", "每次只能修改一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
+      return;
+  }
+  
+  var isreg = rows[0].isreg;  //设备是否已经注册
+  if (isreg==null || isreg==''|| isreg=='0') {
+      $.messager.alert("提示", "此设备尚未注册到指定APP用户", "error");
+      return;
+  }
+
+  $("#frmpushmsg input,textarea").val('');
+	
+  //处理修改的信息，弹出修改的对话框,然后显示选择的分组的详细信息             
+  $('#div_pushmsg').dialog('open');
+  //绑定修改显示详细信息的方法
+  BindPushDiv();
+}
+
+function BindPushDiv() {
+	
+
+    var phonenum = $("#dgSerialnumber").datagrid("getSelections")[0].fusrphone;  //获取到了用用户选择的ID    	
+	var fusrid = $("#dgSerialnumber").datagrid("getSelections")[0].fusrid; 	
+	
+	$("#fmsgusrid").val(fusrid);        
+    $("#fmsgphonenum").val(phonenum);              
+
+     
+}
+
+
 function QueryChargRecord() {	
 
     var rows = $("#dgSerialnumber").datagrid("getSelections");
@@ -235,6 +277,58 @@ function QueryChargRecord() {
 //	ListRecordDetail(queryData);
 }
 
+function QueryMsgPush() {	
+
+    var rows = $("#dgSerialnumber").datagrid("getSelections");
+    //首先取出来值判断用户只能选择一个
+    if (rows.length != 1) {
+        $.messager.alert("提示", "目前只支持给一个手表对应的用户推送信息，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
+        return;
+    }
+
+	
+	var serialnumid = $("#dgSerialnumber").datagrid("getSelections")[0].funiqueid;  //获取到了用用户选择的ID
+	var fusrid = $("#dgSerialnumber").datagrid("getSelections")[0].fusrid; 	
+	var serialnum = $("#dgSerialnumber").datagrid("getSelections")[0].serialnumber;
+	
+	var tabtitle ="手表费用查询";
+	
+	addTabExt(tabtitle,"msgpush.action?serialnumid="+serialnumid+"&snnumber="+serialnum+"&fusrid="+fusrid,"icon-nav");
+	
+}
+
+//实现分组的修改
+function AddPushMsg() {
+	
+    var rows = $("#dgSerialnumber").datagrid("getSelections");
+    //首先取出来值判断用户只能选择一个
+    if (rows.length != 1) {
+        $.messager.alert("提示", "目前只支持给一个手表对应的用户推送信息，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
+        return;
+    }
+    
+	 if($("#frmpushmsg").form('validate')==false)
+	 {
+	   return ;
+	 }	
+    //获取需要传递的参数传递给前台
+    var postData = $("#frmpushmsg").serializeArray();
+    //发送异步请求到后台保存分组数据
+    $.post("/web1/snnumberPushMsgToAPP.action", postData, function (data) {
+    	//debugger;   	
+        if (data.success == true&& data.errcode==0) {
+            //添加成功  1.关闭弹出层，2.刷新DataGird
+        	 $.messager.alert('提示', data.message, 'info');
+
+            $("#div_pushmsg").dialog("close");
+            refresh();
+            $("#frmpushmsg input,textarea").val('');
+        }
+        else {
+           $.messager.alert('提示', data.message, 'error');
+        }
+    });
+}
 
 function ListRecordDetail(queryData) {
     $('#dgchargerecord').datagrid({
@@ -459,3 +553,9 @@ function cancel() {
 function cancelApply() {    
     $('#div_getCliNumber').dialog('close');
 }
+
+function cancelMsg() {    
+    $('#div_pushmsg').dialog('close');
+}
+
+

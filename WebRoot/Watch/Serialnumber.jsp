@@ -90,7 +90,7 @@
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a>
     </div>
     
-    
+      <!--------------------------信息的弹出层---------------------------->
       <div id="div_getCliNumber" title="申请云之迅客户端号码，如已申请则查看，否则进行申请"  toolbar="#div_CliToolBar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
         <form id="frmApplyClient" method="post">   
             <div style="height: 180px">                    
@@ -122,12 +122,44 @@
         <table id="dgchargerecord">
         </table>
     </div>
+   
+   <!--------------------------信息的弹出层---------------------------->  
+  <div id="div_pushmsg" title="新增推送信息" toolbar="#div_PushToolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
+        <form id="frmpushmsg" method="post">   
+            <div style="height: 180px">                    
+                    <input type="hidden" id="fmsgusrid" name="serialnumber.fusrid"/>
+                    <br/>
+                 <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">用户电话:</span>
+                    <input type="text" id="fmsgphonenum" name="serialnumber.fphonenum" class="easyui-validatebox"  readonly="readonly" style="width: 180px"/>
+                </div>  
+                 <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">推送类型:</span>                   
+                    <select class="easyui-combobox" id="pushmsgtitle" name="pushmsgtitle" style="width:180px;" data-options="editable:false" required="true" missingMessage="推送类型必须选择">   
+ 						<option value="soundin">进电子围栏</option>
+ 						<option value="soundout">出电子围栏</option>	
+ 						<option value="soundcharge">充值提醒</option>	
+ 						<option value="soundbattery">电量提醒</option>											
+ 					</select>   					
+                </div>                
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">推送内容:</span>
+                    <input type="text" id="pushmsgcontent" name="pushmsgcontent" class="easyui-validatebox" style="width: 180px"  required="true" missingMessage="推送内容必须选择"/>
+                </div>             
+            </div>
+        </form>
+    </div>
     
+    <div id="div_PushToolbar">
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="AddPushMsg();">确定</a>
+        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="cancelMsg();">取消</a>
+    </div>
+            
     <div id="div_Menu">
         <a href="#" id="btnRefPhone" class="easyui-linkbutton" iconcls="icon-add" plain="true"  onclick="UpdateInfo();">设置关联手机号及回拨模式</a> 
 		<a href="#" id="btnApplyNumber" class="easyui-linkbutton" iconcls="icon-add" plain="true"  onclick="UpdateInfo1();">申请云之迅客户端号码</a>            
         <a href="#" id="btnChargeRec" class="easyui-linkbutton" iconcls="icon-add" plain="true"   onclick="QueryChargRecord();">查看充值及消费记录</a>
-<!--         <a href="#" id="btnApplyCallBack" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true">推送信息</a> -->
+        <a href="#" id="btnPushMsg" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true"  onclick="OpenPushDiv();">给对应用户APP推送信息</a>
         <a href="#" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true" onclick="refresh();">刷新</a>
     </div>
 

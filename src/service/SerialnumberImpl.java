@@ -3,14 +3,25 @@ package service;
 
 import bean.Constants;
 
+import cn.jpush.api.JPushClient;
+import cn.jpush.api.common.resp.APIConnectionException;
+import cn.jpush.api.common.resp.APIRequestException;
+import cn.jpush.api.push.PushClient;
+import cn.jpush.api.push.PushResult;
+import cn.jpush.api.push.model.PushPayload;
+
 import com.RestTest;
 import com.users.ejb.SerialnumberApiphone;
 import com.users.ejb.SerialnumberFee;
+import com.users.ejb.SerialnumberJpush;
 import com.watch.ejb.Serialnumber;
+import com.watch.ejb.SerialnumberJpushmsg;
 
 import dao.SerialnumberApiphoneDaoIml;
 import dao.SerialnumberDaoIml;
 import dao.SerialnumberFeeDaoIml;
+import dao.SerialnumberJpushDaoIml;
+import dao.SerialnumberJpushmsgDaoIml;
 import domain.ApiResponse;
 
 import java.sql.Timestamp;
@@ -40,6 +51,10 @@ public class SerialnumberImpl extends ActionSupport {
     private String getIsReg;
     private String getIsOnline;
     private String chargefee;
+    
+    //消息推送标题及内容
+    private String pushmsgtitle;
+	private String pushmsgcontent;
 
 
 	private String clientnumber ;
@@ -108,6 +123,23 @@ public class SerialnumberImpl extends ActionSupport {
 		this.chargefee = chargefee;
 	}
 	
+    public String getPushmsgtitle() {
+		return pushmsgtitle;
+	}
+
+	public void setPushmsgtitle(String pushmsgtitle) {
+		this.pushmsgtitle = pushmsgtitle;
+	}
+
+	public String getPushmsgcontent() {
+		return pushmsgcontent;
+	}
+
+	public void setPushmsgcontent(String pushmsgcontent) {
+		this.pushmsgcontent = pushmsgcontent;
+	}
+
+	
     public SerialnumberDaoIml getSerialnumberDao() {
 		return serialnumberDao;
 	}
@@ -115,6 +147,7 @@ public class SerialnumberImpl extends ActionSupport {
 	public void setSerialnumberDao (SerialnumberDaoIml rserialnumberDao) {		     
          this.serialnumberDao = rserialnumberDao;
 	}
+	
        
 	public String AddSerialnumber() {	
     
@@ -259,7 +292,128 @@ public class SerialnumberImpl extends ActionSupport {
         
 		return SUCCESS;
 	} 
-    
+	public String QueryPushMsg() {
+		dataMap = new HashMap<String, Object>();		
+		int offset = this.getPage();		
+		
+		int pagesize = 12;//Constants.PAGE_SIZE;
+		
+		if (offset>0){
+			offset = (offset-1) * pagesize;
+		}
+                
+        SerialnumberFeeDaoIml feeDao = new SerialnumberFeeDaoIml();       
+        HashMap<String, String> mapSerial = new HashMap<String, String>();
+		mapSerial.put("FSNID",  this.serialnumber.getFuniqueid());
+        
+        try {
+		
+			List<SerialnumberFee> listFee = feeDao.ListSerialnumberFee(offset,pagesize,mapSerial);					
+			int size =feeDao.GetSerialnumberFeeCount(mapSerial);
+					
+			dataMap.put("rows", listFee);
+			dataMap.put("total", size);
+        
+ 	    } catch (RuntimeException ex) {
+			this.message = ex.getMessage();
+			this.errcode = ex.hashCode();
+		}  
+        
+        dataMap.put("errcode", this.errcode);
+		dataMap.put("message", this.message);
+        
+		return SUCCESS;
+	}
+	public String PushMsgToAPP() {	
+		
+		boolean bSuccess = true;
+	    try {
+	 	  if(this.serialnumber.getFusrid() == null || this.serialnumber.getFusrid().length() <= 0){		
+	 		 bSuccess = false;
+	 		 this.message ="推送信息失败，app用户id为空";
+		  }
+	 	  else if(pushmsgtitle == null || pushmsgtitle.length() <= 0){		
+		 		 bSuccess = false;
+		 		 this.message ="推送信息失败，分类标题为空";
+			  }
+	 	  else if(pushmsgcontent == null || pushmsgcontent.length() <= 0){		
+		 		 bSuccess = false;
+		 		 this.message ="推送信息失败，推送内容为空";
+			  }
+	      else{
+				HashMap<String, String> map = new HashMap<String, String>();
+				map.put("FUserID", this.serialnumber.getFusrid());
+				
+				SerialnumberJpushDaoIml pushCheckDao = new SerialnumberJpushDaoIml();
+				List<SerialnumberJpush> configLists = pushCheckDao.ListSerialnumberJpush(0, 100, map);
+				
+				if(configLists==null || configLists.size()==0){
+					 bSuccess = false;
+					 this.message ="推送信息失败，检查到此序列号尚未使用服务器分配的别名";	
+				}
+				else{
+	    	 	    
+					SerialnumberJpush pushConfig = configLists.get(0);
+					
+					String toalias = pushConfig.getFalias();
+					
+					
+					PushClient pushClient = new PushClient(Constants.MASTER_SECRET, Constants.APP_KEY);
+				    PushResult result =null;
+				        
+		        	PushPayload payload=JPushClient.buildPushObject_allAlias_audienceMore_alertWithExtras(toalias,pushmsgtitle,pushmsgcontent);
+		        	try {
+						result =pushClient.sendPush(payload);
+						
+						if(result.isResultOK()){
+				        	
+							 
+					    	 SerialnumberJpushmsgDaoIml pushdao = new SerialnumberJpushmsgDaoIml();
+					    	 SerialnumberJpushmsg pushmsg = new SerialnumberJpushmsg();
+					    	 
+					    	 pushmsg.setFuserid(this.serialnumber.getFusrid());
+					    	 pushmsg.setFtitle(pushmsgtitle);
+					    	 pushmsg.setFcontent(pushmsgcontent);
+					    	 
+					    	 pushdao.AddSerialnumberJpushmsg(pushmsg);
+					    	 
+					    	 bSuccess = true;	
+							 this.message ="成功发送推送消息";
+			        	}else
+			        	{
+			        		 bSuccess = false;	
+							 this.message ="调用接口返回失败，返回代码:"+result.getResponseCode();
+			        	}
+						
+					} catch (APIConnectionException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						 bSuccess = false;	
+						 this.message ="调用接口APIConnectionException异常，返回信息:"+ e.getMessage();
+						 
+					} catch (APIRequestException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						
+						 bSuccess = false;	
+						 this.message ="调用接口APIRequestException异常，返回信息:"+ e.getErrorMessage();
+					}		        			        			        	
+		        
+				}
+		  }     
+	      } catch (RuntimeException ex) {
+	    	  bSuccess = false;
+			  this.message = ex.getMessage();
+			  this.errcode = ex.hashCode();
+		   }
+		  
+		  dataMap = new HashMap<String, Object>();
+	      dataMap.put("errcode", this.errcode);
+		  dataMap.put("success", bSuccess);
+		  dataMap.put("message", this.message);
+		  
+		  return SUCCESS;   			
+		}
  	public String FindSerialnumber() {		    
 		 if(this.serialnumber.getFuniqueid() == null || this.serialnumber.getFuniqueid().length() <= 0){		
 			 

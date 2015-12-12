@@ -494,6 +494,8 @@ http://lenovo-pcyang:8087/sw/serialnum/serialNumAction?serialnumid=3&action=cust
 
 [64, 64, 0, 21, 48, 2, 0, 0, 0, 0, 1, 65, 2, 48, 44, 0, -76, -107, -85, 13, 10]
 
+test push 30020000000030
+
 
 
 

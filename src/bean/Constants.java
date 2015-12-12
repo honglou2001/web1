@@ -12,4 +12,8 @@ public class Constants {
 	 * ÿҳ�ļ�¼��
 	 */
 	public static int PAGE_SIZE = 12;
+	
+	//极光推送信息
+	public static final String APP_KEY ="e1569bdd69a17c156b6cab08";
+	public static final String MASTER_SECRET = "18ed902faa3d67976582dcb2";
 }

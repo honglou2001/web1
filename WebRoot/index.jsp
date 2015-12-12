@@ -45,9 +45,9 @@
 									{"menuid":"52","menuname":"商品列表","icon":"icon-nav","url":"demo1.html"},
 									{"menuid":"53","menuname":"商品订单","icon":"icon-nav","url":"demo2.html"}
 								]
-						},{"menuid":"51","icon":"icon-sys","menuname":"手表管理",
+						},{"menuid":"51","icon":"icon-sys","menuname":"设备管理",
 							"menus":[
-							{"menuid":"60","menuname":"手表信息","icon":"icon-nav","url":"snnumber.action"},
+							{"menuid":"60","menuname":"设备信息","icon":"icon-nav","url":"snnumber.action"},
 							{"menuid":"61","menuname":"定位查询","icon":"icon-nav","url":"LocElt.action"}
 								]
 						}

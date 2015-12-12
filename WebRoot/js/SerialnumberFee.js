@@ -263,6 +263,32 @@ function UpdateSnPhoneNumber() {
     });
 }
 
+//实现分组的修改
+function AddPushMsg() {
+	
+	 if($("#frmpushmsg").form('validate')==false)
+	 {
+	   return ;
+	 }	
+    //获取需要传递的参数传递给前台
+    var postData = $("#frmpushmsg").serializeArray();
+    //发送异步请求到后台保存分组数据
+    $.post("/web1/snnumberPushMsgToAPP.action", postData, function (data) {
+    	//debugger;   	
+        if (data.success == true&& data.errcode==0) {
+            //添加成功  1.关闭弹出层，2.刷新DataGird
+        	 $.messager.alert('提示', data.message, 'info');
+
+            $("#div_pushmsg").dialog("close");
+            refresh();
+            $("#frmpushmsg input,textarea").val('');
+        }
+        else {
+           $.messager.alert('提示', data.message, 'error');
+        }
+    });
+}
+
 //查找云之迅客户端号码
 function GetClientNumber() {
 	

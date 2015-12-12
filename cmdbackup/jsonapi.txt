@@ -1,7 +1,7 @@
 ﻿注册接口：
 
 1、http://120.24.176.185:8087/sw/user/userRegister?serialNumber=80680000100079&userName=yyuu&password=123&phone=13713689012
-返回示例：{"state":1,"info":"2"}
+返回示例：{"state":1,"info":"2"}，usrid为用户id；
 
 接口返回结果统一说明：
 所有服务器接口都会返回state及info，具体接口在这基础上返回其他信息；
@@ -17,7 +17,7 @@ success —成功注册
 
 
 2、
-http://120.24.176.185:8087/sw/user/userLogin?phone=13713689013&password=123
+http://120.24.176.185:8087/sw/user/userLogin?phone=13313689012&password=123
 登录接口，手机号码登录
 
 返回数据：
@@ -661,7 +661,7 @@ http://120.24.176.185:8087/sw/family/sendContacts?fcontactid=3a7641fe-ea47-457c-
 79、
 http://120.24.176.185:8087/sw/push/androidInfo?action=1&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
 Android调用-极光推送，查询服务器分配的极光配置信息，action=1固定，usrid为用户id，推送的别名和标签由服务器分配，方便调整；
-返回的alias为别名；tag 为标签信息，app查询到结果后，在本地赋值调用极光接口；
+返回的alias为别名；tag 为标签信息，app查询到结果后，在本地赋值调用极光接口 ；
 
 80、
 http://120.24.176.185:8087/sw/push/iosInfo?action=2&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78
@@ -669,7 +669,11 @@ IOS调用-极光推送，查询服务器分配的极光配置信息，action=2�
 返回的alias为别名；tag 为标签信息，app查询到结果后，在本地赋值调用极光接口；
 
 
-81、APP不调用以下接口，由后台管理或测试用
+81、极光推送，APP不调用以下接口，由后台管理或测试用
+0）http://120.24.176.185:8087/sw/push/setInfo?action=1&usrid=638db661-ebe0-44c7-9ed9-6387024204d3&alias=638db661_ebe0_44c7_9ed9_6387024204d3&tag=1001
+极光推送，设置客户端别名，usrid为用户id，alias为别名，tag为要设置的推送标签；
+此设置发送给服务器的与APP本地调用极光接口的要一致，服务端保存后，客户端要有相应的获取；
+
 1）http://120.24.176.185:8087/sw/push/pushMsg?type=1&content=contentmsg
 极光推送，广播所有客户端，信息类型：alert
 2）http://120.24.176.185:8087/sw/push/pushMsg?type=2&toalias=07ec7e49-5649-4bd3-b07c-e6120237b940&title=titlemsg&content=contentmsg1
@@ -690,9 +694,11 @@ IOS调用-极光推送，查询服务器分配的极光配置信息，action=2�
 7）http://120.24.176.185:8087/sw/push/pushMsg?type=1&mastersecret=e95a9dee702e4fcbf4f51467&appkey=3e01f651247e71e14e3b4cec&totag=1001&title=titlemsg&content=contentmsg7
 极光推送，输入极光分配的mastersecret、appkey，动态修改服务器值对应服务端，push信息；
 
-系统推送使用以上2-3接口，客户端接收到返回的结果：
-ftitle：soundin-进电子围栏；soundout出电子围栏;soundcharge-充值;soundbattery-电量
+系统推送使用以上81 2）、3)接口（toalias-推到给具体别名用户；totag：推送给指定分组），客户端接收到返回的结果：
+ftitle：soundin-进电子围栏；soundout出电子围栏;soundcharge-充值提醒;soundbattery-电量提醒
 ftype：1
+
+
 
 ---------------套餐查询及相关管理---------------
 
@@ -732,9 +738,9 @@ APP获取到此单号进行支付，回调时服务器带此参数(out_trade_no)
 
 85、
 http://120.24.176.185:8087/sw/user/userRegister?devtype=0&serialNumber=80680000000030&userName=yyuu&password=123&phone=13713689012
+用户注册：此接口注册是为了兼顾手环与脂肪秤的独立注册，此接口注册后可以添加手环与脂肪秤设备及使用以上接口绑定设备；接口1保留，接口1默认注册的是devtype=0的手表；
 devtype：0为手表（或为空）表示手表、devtype=1表示注册手环、为2表示为脂肪秤；serialNumber 设备序列号（手表、手环、脂肪秤）；
-此接口注册是为了兼顾手环与脂肪秤的独立注册，此接口注册后可以添加手环与脂肪秤设备及使用以上接口绑定设备；
-注册返回的 usrid 为用户id；
+手表注册流程要求序列号要先保存在服务器，手环、脂肪秤序列号可以直接新增，注册返回的 usrid 为用户id；
 
 
 86、
@@ -768,6 +774,7 @@ user：用户信息；
 Serialnumber：设备信息；
 sportdata：运动数据，返回数据与新增数据对应；
 
+---------------家庭成员、脂肪秤数据---------------
 
 89、
 家庭成员与数据关联步骤流程：

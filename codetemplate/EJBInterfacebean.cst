@@ -29,6 +29,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.sql.Timestamp;
+import com.common.ejb.EJBTime;
 /**
  * <p>Title: ejb title </p>
  * <p>Description: <%=SourceTable.Name%> EJB Interface Bean 处理类</p>
@@ -52,12 +54,17 @@ public class <%= ModelName(SourceTable.Name)%>Bean  implements <%= ModelName(Sou
 <% 
 } 
 %>
+     	Timestamp datetime = EJBTime.getTimeStamp();
+     	<%= ParameterName(SourceTable.Name)%>Info.setFaddtime(datetime);
+     	<%= ParameterName(SourceTable.Name)%>Info.setFupdatetime(datetime);
 		manager.persist(<%= ParameterName(SourceTable.Name)%>Info);		
 	}
 	
 	@Override
 	public void Update<%= ModelName(SourceTable.Name)%>(<%= ModelName(SourceTable.Name)%> <%= ParameterName(SourceTable.Name)%>Info) 
 	{
+        Timestamp datetime = EJBTime.getTimeStamp();
+     	<%= ParameterName(SourceTable.Name)%>Info.setFupdatetime(datetime);
 		manager.merge(<%= ParameterName(SourceTable.Name)%>Info);		
 	}
 	
