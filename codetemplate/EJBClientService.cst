@@ -144,7 +144,7 @@ public class <%= ModelName(SourceTable.Name)%>Impl extends ActionSupport {
 		dataMap = new HashMap<String, Object>();		
 		int offset = this.getPage();		
 		
-		int pagesize = RnConstants.PAGE_SIZE;
+		int pagesize = Constants.PAGE_SIZE;
 		
 		if (offset>0){
 			offset = (offset-1) * pagesize;

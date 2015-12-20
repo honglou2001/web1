@@ -125,7 +125,21 @@
 	</bean>
 	 	
 	<bean name="refsnnumberDao" class="dao.SerialnumberDaoIml">
+	</bean>	
+
+	<bean id="SPemailTemAction" class="service.SerialnumberEmailtemplateImpl"  scope="prototype">
+		 <property name="serialnumberemailtemplateDao" ref="refemailTemDao"></property>
+	</bean>
+	 	
+	<bean name="refemailTemDao" class="dao.SerialnumberEmailtemplateDaoIml">
 	</bean>		
+
+	<bean id="SPemailHisAction" class="service.SerialnumberEmailhistoryImpl"  scope="prototype">
+		 <property name="serialnumberemailhistoryDao" ref="refemailHisDao"></property>
+	</bean>
+	 	
+	<bean name="refemailHisDao" class="dao.SerialnumberEmailhistoryDaoIml">
+	</bean>			
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">

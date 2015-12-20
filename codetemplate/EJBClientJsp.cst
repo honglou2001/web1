@@ -31,16 +31,16 @@ Description:
 <head>
     <title>轻云平台</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <link href="/aid/css/default.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/aid/css/gray/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="/aid/css/icon.css" />
-    <link href="/aid/css/syCss.css" rel="stylesheet" />
-    <script type="text/javascript" src="/aid/js/jquery-1.8.0.min.js"></script>
-    <script type="text/javascript" src="/aid/js/jquery.easyui.min.js"></script>
-    <script type="text/javascript" src="/aid/js/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="/aid/js/highcharts.js"></script>
-    <script type="text/javascript" src="/aid/js/SysUtils.js"></script>  
-    <script type="text/javascript" src="/aid/js/<%= ModelName(SourceTable.Name)%>.js"></script>  
+    <link href="/web1/css/default.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="/web1/css/gray/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="/web1/css/icon.css" />
+    <link href="/web1/css/syCss.css" rel="stylesheet" />
+    <script type="text/javascript" src="/web1/js/jquery-1.8.0.min.js"></script>
+    <script type="text/javascript" src="/web1/js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="/web1/js/easyui-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="/web1/js/highcharts.js"></script>
+    <script type="text/javascript" src="/web1/js/SysUtils.js"></script>  
+    <script type="text/javascript" src="/web1/js/<%= ModelName(SourceTable.Name)%>.js"></script>  
      
   </head>
 <body class="easyui-layout" style="overflow-y: hidden;">

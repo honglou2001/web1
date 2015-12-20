@@ -186,28 +186,27 @@ var _menus = {"menus":[
 									{"menuid":"15","menuname":"权限设置","icon":"icon-set","url":"demo.html"},
 									{"menuid":"16","menuname":"系统日志","icon":"icon-log","url":"demo1.html"}
 								]
-						},{"menuid":"8","icon":"icon-sys","menuname":"权限管理",
+						},{"menuid":"2","icon":"icon-sys","menuname":"权限管理",
 							"menus":[{"menuid":"21","menuname":"员工列表","icon":"icon-nav","url":"List.action"},
 									{"menuid":"22","menuname":"菜单管理","icon":"icon-nav","url":"Menu.action"},
 									{"menuid":"23","menuname":"角色管理","icon":"icon-nav","url":"Roles.action"}
 								]
-						},{"menuid":"56","icon":"icon-sys","menuname":"分销管理",
+						},{"menuid":"3","icon":"icon-sys","menuname":"分销管理",
 							"menus":[
 									{"menuid":"31","menuname":"提成比例设置","icon":"icon-nav","url":"Btype.action"},
 									{"menuid":"32","menuname":"分销商管理","icon":"icon-nav","url":"ScmDistor.action"},
 									{"menuid":"33","menuname":"销售及分成","icon":"icon-nav","url":"ScmSales.action"}
 								]
-						},{"menuid":"28","icon":"icon-sys","menuname":"财务管理",
+						},{"menuid":"4","icon":"icon-sys","menuname":"财务管理",
 							"menus":[{"menuid":"41","menuname":"收支分类","icon":"icon-nav","url":"demo.html"},
 									{"menuid":"42","menuname":"报表统计","icon":"icon-nav","url":"demo1.html"},
 									{"menuid":"43","menuname":"添加支出","icon":"icon-nav","url":"demo2.html"}
 								]
-						},{"menuid":"39","icon":"icon-sys","menuname":"商城管理",
-							"menus":[{"menuid":"51","menuname":"商品分类","icon":"icon-nav","url":"LocElt1.action"},
-									{"menuid":"52","menuname":"商品列表","icon":"icon-nav","url":"demo1.html"},
-									{"menuid":"53","menuname":"商品订单","icon":"icon-nav","url":"demo2.html"}
+						},{"menuid":"5","icon":"icon-sys","menuname":"邮件管理",
+							"menus":[{"menuid":"51","menuname":"邮件模板","icon":"icon-nav","url":"EmailTemList.action"},
+									{"menuid":"52","menuname":"邮件记录","icon":"icon-nav","url":"EmailHisList.action"}
 								]
-						},{"menuid":"51","icon":"icon-sys","menuname":"设备管理",
+						},{"menuid":"6","icon":"icon-sys","menuname":"设备管理",
 							"menus":[
 							{"menuid":"60","menuname":"设备信息","icon":"icon-nav","url":"snnumber.action"},
 							{"menuid":"61","menuname":"定位查询","icon":"icon-nav","url":"LocElt.action"}

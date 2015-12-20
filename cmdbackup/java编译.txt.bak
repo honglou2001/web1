@@ -186,7 +186,7 @@ cp - r /usr/tomcat7054/webapps2/web1 /usr/tomcat7054/webapps2   //将/usr/tomcat
 部署,先上传文件到服务器，然后再操作，减少宕机时间
 
 上传sw.war到 /usr/tomcat7054/ 下，
-
+cd /usr/tomcat7054/
 -备份图片文件
 cp -r /usr/tomcat7054/webapps2/sw/upsnimg  /usr/tomcat7054/
 cp -r /usr/tomcat7054/webapps2/sw/upusrimg  /usr/tomcat7054/
@@ -276,11 +276,13 @@ sudo service watchsocket start
 
 查看日志，检查手表给服务器的数据；（与tomcat虚拟目录配合）：
 
+查看通讯日志，检查手表发送给服务器的数据及应答；
+
 1、http://120.24.176.185:8087/serverlog/logs
 2、http://120.24.176.185:8087/serverlog/logs_2015-09-12-08.log
 
-1查询得是当前小时的通讯日志；如当前时间是 2015.09.12上午10点；
-2查询的是当前小时之前的日志，最后的08表示的是2015.09.12上午8点，使用此地址，自己修改日期和小时值。
+1查询得是当前小时的通讯日志；如当前时间是 2015.09.12上午10点，serverlog/logs 就是10点的数据；
+2查询的是当前小时之前的日志，logs_2015-09-12-08.log的08表示的是2015.09.12上午8点，使用此地址，自己修改日期和小时值。
 
 查找： Child received:2424 的记录，是手表发给服务器的数据，可用来查看手表有没给服务器应答。
 

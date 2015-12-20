@@ -132,7 +132,25 @@
 				<param name="root">dataMap</param>
 			</result>	
 		</action>	
-				               								 		                    	             
+		<action name="EmailTemList" class="SPemailTemAction" method="List">
+		    <result>/Email/Emailtemplate.jsp</result>
+		</action> 
+		 
+		<action name="emailTem*" class="SPemailTemAction" method="{1}">
+			<result type="json">
+				<param name="root">dataMap</param>
+			</result>	
+		</action>
+
+		<action name="EmailHisList" class="SPemailHisAction" method="List">
+		    <result>/Email/Emailhistory.jsp</result>
+		</action> 
+		 
+		<action name="emailHis*" class="SPemailHisAction" method="{1}">
+			<result type="json">
+				<param name="root">dataMap</param>
+			</result>	
+		</action>							               								 		                    	             
 <!-- 		<action name="HelloWorld" class="action.HelloWorld"> -->
 <!-- 			<result>/HelloWorld.jsp</result> -->
 <!-- 		</action> -->

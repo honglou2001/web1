@@ -40,7 +40,7 @@ $(function () {
 function initTable(queryData) {
     $('#dg<%= ModelName(SourceTable.Name)%>').datagrid({
         loadMsg: "数据加载中,请稍候……",
-        url: '/aid/<%=StructPrefix%>Query<%= ModelName(SourceTable.Name)%>.action',
+        url: '/web1/<%=StructPrefix%>Query<%= ModelName(SourceTable.Name)%>.action',
         width: "auto",
         height: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight) - 87,
         iconCls: 'icon-save',
@@ -106,7 +106,7 @@ function UpdateInfo() {
 function BindShowUpdateInfo() {
     //首先用户发送一个异步请求去后台实现方法
     var ID = $("#dg<%= ModelName(SourceTable.Name)%>").datagrid("getSelections")[0].<%= GetMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>;  //获取到了用用户选择的ID  
-    $.post("/aid/<%=StructPrefix%>Find<%= ModelName(SourceTable.Name)%>.action", { "<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= GetMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>": ID }, function (cbData) {
+    $.post("/web1/<%=StructPrefix%>Find<%= ModelName(SourceTable.Name)%>.action", { "<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= GetMemberVariableName(SourceTable.PrimaryKey.MemberColumns[0].Name)%>": ID }, function (cbData) {
     	//debugger;
         <% foreach (ColumnSchema column in this.SourceTable.Columns) { %> 
         $("#<%= GetMemberVariableName(column.Name) %>").val(cbData.<%= GetMemberVariableName(ParameterName(SourceTable.Name))%>.<%= GetMemberVariableName(column.Name) %>); 
@@ -142,7 +142,7 @@ function Add<%= ModelName(SourceTable.Name)%>() {
     
     //$.messager.alert("提示", postData, "info");
     //发送异步请求到后台保存分组数据
-    $.post("/aid/<%=StructPrefix%>Add<%= ModelName(SourceTable.Name)%>.action", postData, function (data) {
+    $.post("/web1/<%=StructPrefix%>Add<%= ModelName(SourceTable.Name)%>.action", postData, function (data) {
     	//debugger;   	
         if (data.success == true&& data.errcode==0) {
             //添加成功  1.关闭弹出层，2.刷新DataGird
@@ -182,7 +182,7 @@ function Delete<%= ModelName(SourceTable.Name)%>() {
         //然后确认发送异步请求的信息到后台删除数据
         $.messager.confirm("删除信息", "您确认删除<font color='red' size='3'>" + names + "</font>吗？", function (DeleteUser) {
             if (DeleteUser) {
-                $.post("/aid/<%=StructPrefix%>Delete<%= ModelName(SourceTable.Name)%>.action", postData, function (data) {
+                $.post("/web1/<%=StructPrefix%>Delete<%= ModelName(SourceTable.Name)%>.action", postData, function (data) {
                 	debugger;
                 	if (data.success == true && data.errcode ==0) {
                         //添加成功  1.关闭弹出层，2.刷新DataGird
