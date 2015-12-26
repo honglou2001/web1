@@ -66,30 +66,7 @@
         <form id="frmSerialnumberEmailtemplate" method="post">   
             <div style="height: 180px">                    
                     <input type="hidden" id="ftemplateid" name="serialnumberemailtemplate.ftemplateid"/>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FIncreaseID:</span>--%>
-<%--                    <input type="text" id="fincreaseid" name="serialnumberemailtemplate.fincreaseid" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FAppId:</span>--%>
-<%--                    <input type="text" id="fappid" name="serialnumberemailtemplate.fappid" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FUserID:</span>--%>
-<%--                    <input type="text" id="fuserid" name="serialnumberemailtemplate.fuserid" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FSNID:</span>--%>
-<%--                    <input type="text" id="fsnid" name="serialnumberemailtemplate.fsnid" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FSNNumber:</span>--%>
-<%--                    <input type="text" id="fsnnumber" name="serialnumberemailtemplate.fsnnumber" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FTag:</span>--%>
-<%--                    <input type="text" id="ftag" name="serialnumberemailtemplate.ftag" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
+
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">标题:</span>
                     <input type="text" id="ftitle" name="serialnumberemailtemplate.ftitle" class="easyui-validatebox" style="width: 180px"/>
@@ -105,7 +82,12 @@
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">语言:</span>                    
                     <select class="easyui-combobox" id="flanguage" name="serialnumberemailtemplate.flanguage" style="width:180px;" data-options="editable:false" required="true" missingMessage="语言必须选择">   
  						<option value="0">中文</option>
- 						<option value="1">英文</option>												
+ 						<option value="1">英文</option>
+ 						<option value="2">韩文</option>	
+ 						<option value="3">日文</option>	
+ 						<option value="4">法文</option>	
+ 						<option value="5">德文</option>	
+ 						<option value="6">俄文</option>												
  					</select> 	
                 </div>               
                 <div class="a_left" style="height: 100px">
@@ -113,22 +95,7 @@
                     <textarea id="fcontent" name="serialnumberemailtemplate.fcontent" cols="22" rows="6" style="width: 180px" class="easyui-validatebox" ></textarea>
                 </div>
     
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FDataStatus:</span>--%>
-<%--                    <input type="text" id="fdatastatus" name="serialnumberemailtemplate.fdatastatus" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FFieldStatus:</span>--%>
-<%--                    <input type="text" id="ffieldstatus" name="serialnumberemailtemplate.ffieldstatus" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FAddTime:</span>--%>
-<%--                    <input type="text" id="faddtime" name="serialnumberemailtemplate.faddtime" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
-<%--                <div class="a_left">--%>
-<%--                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">FUpdateTime:</span>--%>
-<%--                    <input type="text" id="fupdatetime" name="serialnumberemailtemplate.fupdatetime" class="easyui-validatebox" style="width: 180px"/>--%>
-<%--                </div>--%>
+
                 <div class="a_left">
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">备注:</span>
                     <input type="text" id="fremark" name="serialnumberemailtemplate.fremark" class="easyui-validatebox" style="width: 180px"/>
@@ -147,6 +114,8 @@
     <div id="div_Menu">
       <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add();">增加</a>
       <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="UpdateInfo()">修改</a>
+            <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add2();">增加（HTML）</a>
+      <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="update2()">修改（HTML）</a>
       <a href="#" id="txbDelte" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="DeleteSerialnumberEmailtemplate()">删除</a>
       <a href="#" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true" onclick="refresh();">刷新</a>
     </div>

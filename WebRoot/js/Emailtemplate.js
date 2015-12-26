@@ -61,15 +61,31 @@ function initTable(queryData) {
                 field: 'flanguage', title: '语言', width: 60, align: 'center', formatter: function (value) {
                     if (value == '1'){
                     	return '英文';
-                    }
-                    else{
+                    }                    
+                    else  if (value == '0' || value == ''){
                     	return '中文';
                     }
+                    else  if (value == '2'){
+                    	return '韩文';
+                    }
+                    else  if (value == '3'){
+                    	return '日文';
+                    }
+                    else  if (value == '4'){
+                    	return '法文';
+                    }
+                    else  if (value == '5'){
+                    	return '德文';                    	
+                    }
+                    else  if (value == '6'){
+                    	return '俄文';                   	
+                    }else{
+                    	return '-';
+                    } 
                 }
             }
             ,
-
-       
+				      
             {
                 field: 'fupdatetime', title: '更新时间', width: 60, align: 'center', formatter: function (value) {
                     if (value!=null){
@@ -155,6 +171,40 @@ function add(id) {
     $("#frmSerialnumberEmailtemplate input,textarea").val('');	
     $('#div_AddSerialnumberEmailtemplate').dialog('open');
 }
+
+function add2() {
+	if(window.ActiveXObject){ 
+		window.showModalDialog("Email/ueditor/Template.html","addarg","toolbars=0,width=850;height=200,resable=false");
+	}
+}
+
+function update2() {
+	
+    //首先取出来用户选择的数据的ID
+    var rows = $("#dgSerialnumberEmailtemplate").datagrid("getSelections");
+    //首先取出来值判断用户只能选择一个
+    if (rows.length != 1) {
+        $.messager.alert("提示", "每次只能修改一条，你已经选择了<font color='red'  size='6'>" + rows.length + "</font>条。", "error");
+        return;
+    }
+    var temid = $("#dgSerialnumberEmailtemplate").datagrid("getSelections")[0].ftemplateid;  
+    
+    if(window.ActiveXObject){ 
+    	 var returnValue =window.showModalDialog("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(),temid,"toolbars=0,width=850;height=200,resable=false");
+    	 if(returnValue != null ){  
+    		 psetValue(returnValue);
+    	 }  
+    }
+    else{
+    	 	window.open("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(), 'newwindow','height=200,width=850,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
+    	}
+}
+
+function psetValue(id){  
+  
+} 
+
+
 //实现分组的修改
 function AddSerialnumberEmailtemplate() {
 	
