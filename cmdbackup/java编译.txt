@@ -183,12 +183,20 @@ cp - r /usr/tomcat7054/webapps2/web1 /usr/tomcat7054/webapps2   //将/usr/tomcat
 
 —————————————部署—————————————————
 
+打开或新建：nano d1.sh
+保存：Ctrl+O
+退出：Ctrl+X
+
+授权：chmod +x d1.sh
+执行：./d1.sh
+
 部署,先上传文件到服务器，然后再操作，减少宕机时间
 
 上传sw.war到 /usr/tomcat7054/ 下，
+
 cd /usr/tomcat7054/
 -备份图片文件
-d1.sh:
+./d1.sh:
 cp -r /usr/tomcat7054/webapps2/sw/upsnimg  /usr/tomcat7054/
 cp -r /usr/tomcat7054/webapps2/sw/upusrimg  /usr/tomcat7054/
 cp -r /usr/tomcat7054/webapps2/sw/uprewardimg  /usr/tomcat7054/  
@@ -197,12 +205,12 @@ cp -r /usr/tomcat7054/webapps2/sw/uprewardimg  /usr/tomcat7054/
 sudo netstat -anp | grep 8087
 kill -9 1111
 
-d2.sh
+./d2.sh
 sudo rm -rf /usr/tomcat7054/webapps2/sw.war
 sudo rm -rf /usr/tomcat7054/webapps2/sw
 sudo mv /usr/tomcat7054/sw.war  /usr/tomcat7054/webapps2/sw.war
 
-d3.sh
+./d3.sh
 sudo rm -rf /usr/tomcat7054/webapps/web1.war
 sudo rm -rf /usr/tomcat7054/webapps/web1
 sudo mv /usr/tomcat7054/web1.war  /usr/tomcat7054/webapps/web1.war
@@ -212,7 +220,7 @@ sudo service tomcat7054 start
 sudo netstat -anp | grep 8087
 
 --还原图片
-d4.sh
+./d4.sh
 sudo mv /usr/tomcat7054/upusrimg  /usr/tomcat7054/webapps2/sw/
 sudo mv /usr/tomcat7054/upsnimg  /usr/tomcat7054/webapps2/sw/
 sudo mv /usr/tomcat7054/uprewardimg  /usr/tomcat7054/webapps2/sw/
@@ -230,9 +238,11 @@ sudo mv /usr/local/ChildServer.jar /usr/local/socketserver/ChildServer.jar
 ---------------------
 jboss:
 
+
 ejbpro1dep.jar 上传到 /usr/local/jboss423ga/
 
 cd /usr/local/jboss423ga/bin
+
 sudo netstat -anp | grep 8080
 sh shutdown.sh -S
 

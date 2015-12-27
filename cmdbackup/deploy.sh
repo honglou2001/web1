@@ -29,12 +29,10 @@ sudo mv /usr/tomcat7054/uprewardimg  /usr/tomcat7054/webapps2/sw/
 -d4
 ---
 
-nano d1.sh
+打开或新建：nano d1.sh
+保存：Ctrl+O
+退出：Ctrl+X
 
-Ctrl+O
-Ctrl+X
 
-
-chmod +x file.sh
-d1.sh
-./d1.sh
+授权：chmod +x file.sh
+执行：./d1.sh

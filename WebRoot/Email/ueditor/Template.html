@@ -3,179 +3,232 @@
 <head>
 
 
-    <title>新增或修改邮件模板</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    
-    <link href="/web1/css/default.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="/web1/css/gray/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="/web1/css/icon.css" />
-    <link href="/web1/css/syCss.css" rel="stylesheet" />
+<title>新增或修改邮件模板</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    
-    <link href="themes/default/css/umeditor.css" type="text/css" rel="stylesheet">
-    <script type="text/javascript" src="third-party/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf-8" src="umeditor.config.js"></script>
-    <script type="text/javascript" charset="utf-8" src="umeditor.min.js"></script>
-    <script type="text/javascript" src="lang/zh-cn/zh-cn.js"></script>
-    <style type="text/css">
-        h1{
-            font-family: "微软雅黑";
-            font-weight: normal;
-        }
-        .btn {
-            display: inline-block;
-            *display: inline;
-            padding: 4px 12px;
-            margin-bottom: 0;
-            *margin-left: .3em;
-            font-size: 14px;
-            line-height: 20px;
-            color: #333333;
-            text-align: center;
-            text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-            vertical-align: middle;
-            cursor: pointer;
-            background-color: #f5f5f5;
-            *background-color: #e6e6e6;
-            background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-            background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-            background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-            background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-            background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
-            background-repeat: repeat-x;
-            border: 1px solid #cccccc;
-            *border: 0;
-            border-color: #e6e6e6 #e6e6e6 #bfbfbf;
-            border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-            border-bottom-color: #b3b3b3;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
-            filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
-            *zoom: 1;
-            -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-            -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
+<link href="/web1/css/default.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="/web1/css/gray/easyui.css" />
+<link rel="stylesheet" type="text/css" href="/web1/css/icon.css" />
+<link href="/web1/css/syCss.css" rel="stylesheet" />
 
-        .btn:hover,
-        .btn:focus,
-        .btn:active,
-        .btn.active,
-        .btn.disabled,
-        .btn[disabled] {
-            color: #333333;
-            background-color: #e6e6e6;
-            *background-color: #d9d9d9;
-        }
 
-        .btn:active,
-        .btn.active {
-            background-color: #cccccc \9;
-        }
+<link href="themes/default/css/umeditor.css" type="text/css"
+	rel="stylesheet">
+<script type="text/javascript" src="third-party/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="umeditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="umeditor.min.js"></script>
+<script type="text/javascript" src="lang/zh-cn/zh-cn.js"></script>
+<style type="text/css">
+h1 {
+	font-family: "微软雅黑";
+	font-weight: normal;
+}
 
-        .btn:first-child {
-            *margin-left: 0;
-        }
+.btn {
+	display: inline-block;
+	*display: inline;
+	padding: 4px 12px;
+	margin-bottom: 0;
+	*margin-left: .3em;
+	font-size: 14px;
+	line-height: 20px;
+	color: #333333;
+	text-align: center;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+	vertical-align: middle;
+	cursor: pointer;
+	background-color: #f5f5f5;
+	*background-color: #e6e6e6;
+	background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff),
+		to(#e6e6e6) );
+	background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+	background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+	background-repeat: repeat-x;
+	border: 1px solid #cccccc;
+	*border: 0;
+	border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	border-bottom-color: #b3b3b3;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff',
+		endColorstr='#ffe6e6e6', GradientType=0 );
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false );
+	*zoom: 1;
+	-webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+}
 
-        .btn:hover,
-        .btn:focus {
-            color: #333333;
-            text-decoration: none;
-            background-position: 0 -15px;
-            -webkit-transition: background-position 0.1s linear;
-            -moz-transition: background-position 0.1s linear;
-            -o-transition: background-position 0.1s linear;
-            transition: background-position 0.1s linear;
-        }
+.btn:hover,.btn:focus,.btn:active,.btn.active,.btn.disabled,.btn[disabled]
+	{
+	color: #333333;
+	background-color: #e6e6e6;
+	*background-color: #d9d9d9;
+}
 
-        .btn:focus {
-            outline: thin dotted #333;
-            outline: 5px auto -webkit-focus-ring-color;
-            outline-offset: -2px;
-        }
+.btn:active,.btn.active {
+	background-color: #cccccc \9;
+}
 
-        .btn.active,
-        .btn:active {
-            background-image: none;
-            outline: 0;
-            -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-            -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-        }
+.btn:first-child {
+	*margin-left: 0;
+}
 
-        .btn.disabled,
-        .btn[disabled] {
-            cursor: default;
-            background-image: none;
-            opacity: 0.65;
-            filter: alpha(opacity=65);
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-        }
-    </style>
+.btn:hover,.btn:focus {
+	color: #333333;
+	text-decoration: none;
+	background-position: 0 -15px;
+	-webkit-transition: background-position 0.1s linear;
+	-moz-transition: background-position 0.1s linear;
+	-o-transition: background-position 0.1s linear;
+	transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+	outline: thin dotted #333;
+	outline: 5px auto -webkit-focus-ring-color;
+	outline-offset: -2px;
+}
+
+.btn.active,.btn:active {
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	-moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px
+		rgba(0, 0, 0, 0.05);
+}
+
+.btn.disabled,.btn[disabled] {
+	cursor: default;
+	background-image: none;
+	opacity: 0.65;
+	filter: alpha(opacity = 65);
+	-webkit-box-shadow: none;
+	-moz-box-shadow: none;
+	box-shadow: none;
+}
+</style>
 </head>
+
 <body>
-<div id="div_AddSerialnumberEmailtemplate" title="修改模板内容" toolbar="#div_Toolbar" icon="icon-edit" style="width: 400px; height: 250px;" resizable="true" class="easyui-dialog" closed="true">
-        <form id="frmSerialnumberEmailtemplate" method="post">  
-        	<p></p> 
-            <div style="height: 180px">                    
-                    <input type="hidden" id="ftemplateid" name="serialnumberemailtemplate.ftemplateid"/>
 
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">标题:</span>
-                    <input type="text" id="ftitle" name="serialnumberemailtemplate.ftitle" class="easyui-validatebox" style="width: 180px"/>
-                </div>               
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">分类:</span>                  
-                     <select class="easyui-combobox" id="ftype" name="serialnumberemailtemplate.ftype" style="width:180px;" data-options="editable:false" required="true" missingMessage="分类必须选择">   
- 						<option value="2">注册通知</option>
- 						<option value="1">其他通知</option>												
- 					</select> 					
-                </div>
-             	<div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">语言:</span>                    
-                    <select class="easyui-combobox" id="flanguage" name="serialnumberemailtemplate.flanguage" style="width:180px;" data-options="editable:false" required="true" missingMessage="语言必须选择">   
- 						<option value="0">中文</option>
- 						<option value="1">英文</option>												
- 					</select> 	
-                </div>               
-                <div class="a_left" style="height: 100px">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">正文:</span>
-                      <input type="hidden" id="fcontent" name="serialnumberemailtemplate.fcontent"/>
-                    <!--style给定宽度可以影响编辑器的最终宽度-->
-					<script type="text/plain" id="myEditor" style="width:500px;height:200px;">
-					</script>
-                </div>
+<!-- <script type="text/javascript"> -->
+<!-- 	var um = UM.getEditor('myEditor');	 -->
+<!-- </script> -->
+
+
+
+		<form id="frmSerialnumberEmailtemplate" method="post">
+			<input type="hidden" id="ftemplateid"
+				name="serialnumberemailtemplate.ftemplateid" />
+			<p></p>
+			<table style="width: 100%;" >
+				<tr>
+					<td style="width: 120px;text-align:center" >标题:</td>
+					<td><input type="text" id="ftitle"
+						name="serialnumberemailtemplate.ftitle" class="easyui-validatebox"
+						style="width: 180px" />
+					</td>
+				</tr>
+
+				<tr>
+					<td style="width: 120px;text-align:center">分类:</td>
+					<td><select class="easyui-combobox" id="ftype"
+						name="serialnumberemailtemplate.ftype" style="width:180px;"
+						data-options="editable:false" required="true"
+						missingMessage="分类必须选择">
+						<option value="2">注册通知</option>
+ 						<option value="3">费用通知</option>
+ 						<option value="4">运动提醒</option>
+ 						<option value="1">其他通知</option>	
+					</select></td>
+				</tr>
+
+				<tr>
+					<td style="width: 120px;text-align:center">语言:</td>
+					<td><select class="easyui-combobox" id="flanguage"
+						name="serialnumberemailtemplate.flanguage" style="width:180px;"
+						data-options="editable:false" required="true"
+						missingMessage="语言必须选择">
+						<option value="0">中文</option>
+ 						<option value="1">英文</option>
+ 						<option value="2">韩文</option>	
+ 						<option value="3">日文</option>	
+ 						<option value="4">法文</option>	
+ 						<option value="5">德文</option>	
+ 						<option value="6">俄文</option>
+					</select></td>
+				</tr>
+
+				<tr>
+					<td style="width: 120px;text-align:center">正文:</td>
+					<td>
+						<!--style给定宽度可以影响编辑器的最终宽度-->
+					 <textarea  id="myEditor" style="width:510px;height:210px;" name="serialnumberemailtemplate.fcontent"></textarea> 
+					</td>
+				</tr>
+
+				<tr>
+					<td style="width: 120px;text-align:center">备注:</td>
+					<td><input type="text" id="fremark"
+						name="serialnumberemailtemplate.fremark"
+						class="easyui-validatebox" style="width: 180px" /></td>
+				</tr>
+
+				<tr>
+					<td></td>
+					<td  style="text-align:center"><a href="javascript:void(0)" class="easyui-linkbutton"
+						iconcls="icon-save" plain="true"
+						onclick="AddSerialnumberEmailtemplate();">保存</a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a
+						href="javascript:void(0)" class="easyui-linkbutton"
+						iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a></td>
+				</tr>
+
+			</table>
+			
+		</form>
+
+<!-- <script type="text/javascript"> -->
+<!-- 	 var um = new UM.ui.Editor({initialFrameHeight:360,initialFrameWidth:500}); -->
+<!-- 	 um.render("myEditor"); -->
+<!--  </script> -->
+ 
+ <script type="text/javascript">
+    //实例化编辑器，设置显示的工具栏
+    $opt={toolbar:[
+            'source | undo redo | bold italic underline strikethrough | forecolor backcolor |',
+            'insertorderedlist insertunorderedlist | link unlink ' ,
+            '| justifyleft justifycenter justifyright justifyjustify |paragraph fontfamily fontsize',
+            ' | fullscreen'
+    ]};
+    var um = UM.getEditor('myEditor',$opt);
     
+</script>
 
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">备注:</span>
-                    <input type="text" id="fremark" name="serialnumberemailtemplate.fremark" class="easyui-validatebox" style="width: 180px"/>
-                </div>
-               
-            </div>
-        </form>
-    </div>
+	<script type="text/javascript">
 
-    <div id="div_Toolbar">
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="AddSerialnumberEmailtemplate();">保存</a>
-        <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a>
-    </div>
-    
-
-<script type="text/javascript">
+	
+	
     //实例化编辑器
-     var um = UM.getEditor('myEditor');
-        
-//      var pwin=window.dialogArguments;//子窗口获取传递的参数
-// 	 if(pwin!=undefined && pwin!="addarg")
-// 	 {
-// 	  	$("#ftemplateid").val(pwin); 
-// 	 	BindShowUpdateInfo(pwin);
-// 	 }
+     //var um = UM.getEditor('myEditor');
+     
+//      var um =UM.getEditor('myEditor',{
+// 	    textarea:'content',
+// 	    initialFrameHeight:320,
+// 	    autoHeightEnabled: true,
+// 	    autoFloatEnabled: true
+// 	  });
+  
 	 
 	 var requesttid = GetQueryString("requesttid");
 	 if(requesttid!=null && requesttid!=undefined&&requesttid!="")
@@ -201,7 +254,7 @@
 	        
 	        $("#ftype").val(cbData.serialnumberemailtemplate.ftype);
 	        
-	        $("#fcontent").val(cbData.serialnumberemailtemplate.fcontent); 
+	        //$("#fcontent").val(cbData.serialnumberemailtemplate.fcontent); 
 	        UM.getEditor('myEditor').setContent(cbData.serialnumberemailtemplate.fcontent);
 	        
 	        var d1 = cbData.serialnumberemailtemplate.flanguage;
@@ -213,14 +266,21 @@
    
    //实现分组的修改
 	function AddSerialnumberEmailtemplate() {
-		
-		 if($("#frmSerialnumberEmailtemplate").form('validate')==false)
-		 {
-		   return ;
-		 }	
+	
+		 var ftitle = $("#ftitle").val(); 
+		 if(ftitle=="")
+		 {	
+			alert('标题不能为空');
+		 	return ;
+		 }
 		 var contentdata = UM.getEditor('myEditor').getContent();
-		 $("#fcontent").val(contentdata); 
-
+		 if(contentdata=="")
+		 {
+		 	alert('正文不能为空');
+		 	return ;
+		 }
+		 
+		 //$("#fcontent").val(contentdata); 
 	    //获取需要传递的参数传递给前台
 	    var postData = $("#frmSerialnumberEmailtemplate").serializeArray();
 	    
@@ -230,14 +290,15 @@
 	    	//debugger;   	
 	        if (data.success == true&& data.errcode==0) {
 	            //添加成功  1.关闭弹出层，2.刷新DataGird
-	        	 $.messager.alert('提示', data.message, 'info');
+	        	 //$.messager.alert('提示', data.message, 'info');
+	        	 alert(data.message);
 
 	            $("#frmSerialnumberEmailtemplate input,textarea").val('');
 	            
 	            getReturnValue("ok");
 	        }
 	        else {
-	           $.messager.alert('提示', data.message, 'error');
+	           alert(data.message);
 	        }
 	    });
 	}
@@ -258,16 +319,18 @@
     }
     
     function getReturnValue(id){
-	if(window.ActiveXObject){ //IE
-		window.returnValue =id;
-		window.close();
-	}else{ //非IE
-		if(window.opener) {
-			window.opener.psetValue(id) ;
-		}
+
+		window.opener.psetValue(id) ;
+		window.opener=null;
 		window.close();
 	}
-}
+	
+	function cancel() { 
+	   window.opener=null;
+       //window.open('', '_self', ''); 
+       window.close(); 
+
+	}
    
 </script>
 

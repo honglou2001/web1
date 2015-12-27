@@ -11,7 +11,6 @@
     <script type="text/javascript" src="/web1/js/jquery-1.8.0.min.js"></script>
     <script type="text/javascript" src="/web1/js/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="/web1/js/easyui-lang-zh_CN.js"></script>
-    <script type="text/javascript" src="/web1/js/highcharts.js"></script>
     <script type="text/javascript" src="/web1/js/SysUtils.js"></script>  
     <script type="text/javascript" src="/web1/js/Emailtemplate.js"></script>  
      
@@ -75,6 +74,8 @@
                     <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">分类:</span>                  
                      <select class="easyui-combobox" id="ftype" name="serialnumberemailtemplate.ftype" style="width:180px;" data-options="editable:false" required="true" missingMessage="分类必须选择">   
  						<option value="2">注册通知</option>
+ 						<option value="3">费用通知</option>
+ 						<option value="4">运动提醒</option>
  						<option value="1">其他通知</option>												
  					</select> 					
                 </div>

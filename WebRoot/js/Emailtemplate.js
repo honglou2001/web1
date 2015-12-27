@@ -37,7 +37,7 @@ function initTable(queryData) {
           
 
             {
-                field: 'ftitle', title: '标题', width: 60, align: 'center', formatter: function (value) {
+                field: 'ftitle', title: '标题', width: 60, align: 'left', formatter: function (value) {
                     return value;
                 }
             }
@@ -49,6 +49,12 @@ function initTable(queryData) {
                     } 
                     else if (value == '1'){
                     	return '其他通知';
+                    }
+                    else if (value == '3'){
+                    	return '费用通知';
+                    }
+                    else if (value == '4'){
+                    	return '运动提醒';
                     }
                     else{
                     	return '-';
@@ -173,9 +179,12 @@ function add(id) {
 }
 
 function add2() {
-	if(window.ActiveXObject){ 
-		window.showModalDialog("Email/ueditor/Template.html","addarg","toolbars=0,width=850;height=200,resable=false");
-	}
+//	if(window.ActiveXObject){ 
+//			window.showModalDialog("Email/ueditor/Template.html","addarg","dialogWidth=650px;dialogHeight=410px");
+//	}else
+//		{
+			window.open("Email/ueditor/Template.html?xxx=" + Math.random(), 'newwindow','height=420,width=650,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
+//		}
 }
 
 function update2() {
@@ -189,19 +198,13 @@ function update2() {
     }
     var temid = $("#dgSerialnumberEmailtemplate").datagrid("getSelections")[0].ftemplateid;  
     
-    if(window.ActiveXObject){ 
-    	 var returnValue =window.showModalDialog("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(),temid,"toolbars=0,width=850;height=200,resable=false");
-    	 if(returnValue != null ){  
-    		 psetValue(returnValue);
-    	 }  
-    }
-    else{
-    	 	window.open("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(), 'newwindow','height=200,width=850,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
-    	}
+
+    window.open("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(), 'newwindow','height=420,width=650,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
+
 }
 
 function psetValue(id){  
-  
+	refresh();
 } 
 
 
@@ -291,24 +294,3 @@ function refresh() {
 function cancel() {    
     $('#div_AddSerialnumberEmailtemplate').dialog('close');
 }
-/*
--- struct action
-<action name="emailTem" class="SPemailTemAction" method="List">
-    <result>/SCM/SerialnumberEmailtemplate.jsp</result>
-</action> 
- 
-<action name="emailTem*" class="SPemailTemAction" method="{1}">
-	<result type="json">
-		<param name="root">dataMap</param>
-	</result>	
-</action>	
----
--- spring action
-<bean id="SPemailTemAction" class="service.SerialnumberEmailtemplateImpl"  scope="prototype">
-	 <property name="serialnumberemailtemplateDao" ref="refemailTemDao"></property>
-</bean>
- 	
-<bean name="refemailTemDao" class="dao.SerialnumberEmailtemplateDaoIml">
-</bean>	
----
-*/

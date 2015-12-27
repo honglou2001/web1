@@ -742,7 +742,8 @@ http://120.24.176.185:8087/sw/user/userRegister?devtype=1&serialNumber=221133445
 devtype：0为手表（或为空）表示手表（此时按手表要先提交到服务器的逻辑）、devtype=1表示注册手环、为2表示为脂肪秤；serialNumber 设备序列号（手表、手环、脂肪秤）；
 serialNumber、userName、password、phone 不能为空，其他可选，nickname有中文要url编码，sex：1-为男，2为女；
 lang：为语言版本，为空或0表示为中文，为1表示英文，如果有注册邮箱，根据此语言版本发送不同的邮件模板；
-手表注册流程要求序列号要先保存在服务器，手环、脂肪秤序列号可以直接新增，注册返回的 usrid 为用户id；
+手表注册流程要求序列号要先保存在服务器，手环、脂肪秤序列号可以直接新增，
+注册返回：usrid 为用户id；userInfo：此用户id对应的用户信息；serialnumberInfo：注册的序列号信息（后面两个对象看已有的接口返回说明）
 
 85 -2）、
 http://120.24.176.185:8087/sw/user/userLogin?phone=13313689012&password=123
