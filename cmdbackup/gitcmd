@@ -1,0 +1,48 @@
+﻿git clone https://github.com/honglou2001/ejb1.git
+git push origin web1new:web1new  //更新分支，没存在则建立远程分支
+
+ git diff //比较工作区与add之间的区别
+ git diff --cached //比较add commit间区别
+ git diff HEAD//较工作区与commit之间的区别
+ 
+ 用'git add'命令：文件载入(stage)
+ 
+ 这三大部分中：
+working tree：就是你所工作在的目录，每当你在代码中进行了修改，working tree的状态就改变了。
+index file：是索引文件，它是连接working tree和commit的桥梁，每当我们使用git-add命令来登记后，index file的内容就改变了，此时index file就和working tree同步了。
+commit：是最后的阶段，只有commit了，我们的代码才真正进入了git仓库。我们使用git-commit就是将index file里的内容提交到commit中。
+总结一下：
+git diff：是查看working tree与index file的差别的。
+git diff --cached：是查看index file与commit的差别的。
+git diff HEAD：是查看working tree和commit的差别的。（你一定没有忘记，HEAD代表的是最近的一次commit的信息）
+$ git status
+
+Changes to be committed表示已经存在于index file里，但尚未提交。
+Changed but not updated表示在working tree已经做修改，但还没有使用git add登记到index file里。
+
+cat .gitignore //查看忽略文件，.class文件是不需要提交的
+
+//初始化仓库
+git init
+git add .
+git commit -m "本地数据文件，初始化仓库"
+git remote rm origin
+git remote add origin https://github.com/honglou2001/refproject.git
+git push -u origin master
+
+$git push origin master:master (在local repository中找到名字为master的branch，使用它去更新remote repository下名字为master的branch，如果remote repository下不存在名字是master的branch，那么新建一个)
+$git push origin master （省略了<dst>，等价于“git push origin master:master”）
+$git push origin master:refs/for/mybranch (在local repository中找到名字为master的branch，用他去更新remote repository下面名字为mybranch的branch)
+$git push origin HEAD:refs/for/mybranch （HEAD指向当前工作的branch，master不一定指向当前工作的branch，所以我觉得用HEAD还比master好些）
+$git push origin :mybranch （再origin repository里面查找mybranch，删除它。用一个空的去更新它，就相当于删除了）
+
+
+refs/for/mybranch需要经过code review之后才可以提交；refs/heads/mybranch不需要code review。
+
+关于：refs/for/ 
+这个不是git的规则，而是gerrit的规则，
+Branches, remote-tracking branches, and tags等等都是对commite的引用（reference）,引用都以 “refs/……”表示. 比如remote branch: origin/git_int(=refs/remotes/origin/git_int)， local tag: v2.0(=refs/tags/v2.0)， local branch: git_int(=refs/heads/git_int)…
+简单点说，就是refs/for/mybranch需要经过code review之后才可以提交；refs/heads/mybranch不需要code review
+
+ 
+
