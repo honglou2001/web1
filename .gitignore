@@ -36,3 +36,6 @@ Icon
 .Trashes
 
 web1.war
+
+# java application
+*.class

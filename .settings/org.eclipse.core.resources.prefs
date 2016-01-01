@@ -1,4 +1,4 @@
-#Sun Dec 20 13:12:15 CST 2015
+#Fri Jan 01 15:23:15 CST 2016
 eclipse.preferences.version=1
 encoding//WebRoot/Email/Emailhistory.jsp=UTF-8
 encoding//WebRoot/SCM/BaseType.jsp=UTF-8
@@ -9,3 +9,6 @@ encoding//WebRoot/Watch/LocElectFecnce.jsp=UTF-8
 encoding//WebRoot/Watch/Serialnumber.jsp=UTF-8
 encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/index1.jsp=UTF-8
+encoding//src/dao/UserDaoIml.java=UTF-8
+encoding//src/service/ScmDistributorsImpl.java=UTF-8
+encoding//src/service/SerialnumberImpl.java=UTF-8

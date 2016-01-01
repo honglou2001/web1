@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
@@ -80,7 +80,6 @@
 	<classpathentry kind="lib" path="G:/Java/Jboss/jboss-4.2.3.GA/client/wsdl4j.jar"/>
 	<classpathentry kind="lib" path="G:/Java/Jboss/jboss-4.2.3.GA/client/wstx.jar"/>
 	<classpathentry kind="lib" path="G:/Java/Jboss/jboss-4.2.3.GA/client/xmlsec.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/ejbpro1"/>
 	<classpathentry kind="lib" path="WebRoot/WEB-INF/lib/restcall.jar"/>
 	<classpathentry kind="lib" path="C:/Users/帆/.m2/repository/org/apache/httpcomponents/httpclient/4.2.3/httpclient-4.2.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/帆/.m2/repository/org/apache/httpcomponents/httpcore/4.2.2/httpcore-4.2.2.jar"/>
