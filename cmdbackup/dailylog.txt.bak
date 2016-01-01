@@ -289,25 +289,10 @@ admin_niu_istrator
 admin_niu@123
 后面是服务器ip账号密码
 
-信息系统的几在用系统的演示网址
---------------大栏饲喂器--------------------------
-丰塘ifs(现场)：
-http://218.76.158.168:83/login.aspx
-用户名：rntech，密码：feedbigpig
+工作空间：
 
+E:\ycare\server\ChildServer1
+G:\Java\workspace\web8
+E:\ycare\server\SWweb1
+G:\Java\workspace\mavenWeb1
 
---------------sf-产房单体饲喂器--------------------------
-sf-产房单体饲喂器（秘盒，云端）：
-http://www.rnpig.com/Home/Index
-其中一用户名：jinjin，密码：runnongkeji
-
-
---------------测定站--------------------------
-鹿邑九鼎登录地址（3G路由器，云端）：http://www.rntech.com.cn:8103/Default.aspx
-研发用户名（勿外泄）：admin
-密码：rnpmsencrypt
-
-
-大北农外网登录（现场）：http://dbnlys.6655.la:88/login.aspx
-用户名：admin
-密码：rnuser_4101

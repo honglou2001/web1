@@ -289,3 +289,11 @@ admin_niu_istrator
 admin_niu@123
 后面是服务器ip账号密码
 
+工作空间：
+
+E:\ycare\server\ChildServer1
+G:\Java\workspace\web8
+E:\ycare\server\SWweb1
+G:\Java\workspace\mavenWeb1
+E:\ycare\server\PrimaryServer1
+

@@ -1,7 +1,8 @@
 ﻿注册接口：
 
-1、http://120.24.176.185:8087/sw/user/userRegister?serialNumber=80680000100079&userName=yyuu&password=123&phone=13713689012
+1、http://120.24.176.185:8087/sw/user/userRegister?serialNumber=82190001500301&userName=yyuu&password=123&phone=13713689012
 返回示例：{"state":1,"info":"2"}，usrid为用户id；
+和注册有关的接口25、85，看对应说明；
 
 接口返回结果统一说明：
 所有服务器接口都会返回state及info，具体接口在这基础上返回其他信息；
