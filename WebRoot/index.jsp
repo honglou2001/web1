@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>jQuery.EasyUI- 1.2.6 后台经典框架使用DEMO</title>
+    <title>小猪嘟嘟后台管理</title>
     <link href="css/default.css" rel="stylesheet" type="text/css" />
 
     <link rel="stylesheet" type="text/css" href="js/themes/default/easyui.css" />
@@ -10,174 +10,12 @@
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/jquery.easyui.min172.js"></script>
 	<script type="text/javascript" src='js/XiuCai.index.js'> </script>
+	
+	<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=0a7e4fbdc57180d7411aa41ca5a7ade1"></script> 
 
     <script type="text/javascript">
 
-// 	var _menus = {
-// 	"menus": [{
-// 		"menuid": "1",
-// 		"icon": "icon-sys",
-// 		"menuname": "控件使用",
-// 		"menus": [{
-// 			"menuid": "12",
-// 			"menuname": "管理后台",
-// 			"icon": "icon-add",
-// 			"url": "http://www.baidu.com",
-// 			"child": [{
-// 				"menuid": "140",
-// 				"menuname": "角色管理 3",
-// 				"icon": "icon-role",
-// 				"url": "List.action"
-// 			},
-// 			{
-// 				"menuid": "150",
-// 				"menuname": "权限设置 3",
-// 				"icon": "icon-set",
-// 				"url": "demo.html"
-// 			}]
-// 		},
-// 		{
-// 			"menuid": "13",
-// 			"menuname": "用户管理",
-// 			"icon": "icon-users",
-// 			"url": "demo2.html",
-// 			"child": [{
-// 				"menuid": "141",
-// 				"menuname": "角色管理 3",
-// 				"icon": "icon-role",
-// 				"url": "demo2.html"
-// 			},
-// 			{
-// 				"menuid": "151",
-// 				"menuname": "权限设置 3",
-// 				"icon": "icon-set",
-// 				"url": "demo.html"
-// 			}]
-// 		},
-// 		{
-// 			"menuid": "14",
-// 			"menuname": "角色管理",
-// 			"icon": "icon-role",
-// 			"url": "demo2.html",
-// 			"child": [{
-// 				"menuid": "142",
-// 				"menuname": "角色管理 3",
-// 				"icon": "icon-role",
-// 				"url": "demo2.html"
-// 			},
-// 			{
-// 				"menuid": "152",
-// 				"menuname": "权限设置 3",
-// 				"icon": "icon-set",
-// 				"url": "demo.html"
-// 			}]
-// 		},
-// 		{
-// 			"menuid": "15",
-// 			"menuname": "权限设置",
-// 			"icon": "icon-set",
-// 			"url": "demo.html",
-// 			"child": [{
-// 				"menuid": "143",
-// 				"menuname": "角色管理 3",
-// 				"icon": "icon-role",
-// 				"url": "demo2.html"
-// 			},
-// 			{
-// 				"menuid": "153",
-// 				"menuname": "权限设置 3",
-// 				"icon": "icon-set",
-// 				"url": "demo.html"
-// 			}]
-// 		},
-// 		{
-// 			"menuid": "16",
-// 			"menuname": "系统日志",
-// 			"icon": "icon-log",
-// 			"url": "demo1.html",
-// 			"child": [{
-// 				"menuid": "144",
-// 				"menuname": "角色管理 3",
-// 				"icon": "icon-role",
-// 				"url": "demo2.html"
-// 			},
-// 			{
-// 				"menuid": "154",
-// 				"menuname": "权限设置 3",
-// 				"icon": "icon-set",
-// 				"url": "demo.html"
-// 			}]
-// 		}]
-// 	},
-// 	{
-// 		"menuid": "8",
-// 		"icon": "icon-sys",
-// 		"menuname": "员工管理",
-// 		"menus": [{
-// 			"menuid": "21",
-// 			"menuname": "员工列表",
-// 			"icon": "icon-nav",
-// 			"url": "demo.html"
-// 		},
-// 		{
-// 			"menuid": "22",
-// 			"menuname": "视频监控",
-// 			"icon": "icon-nav",
-// 			"url": "demo1.html",
-// 			"child": [{
-// 				"menuid": "221",
-// 				"menuname": "员工列表 3",
-// 				"icon": "icon-nav",
-// 				"url": "demo.html"
-// 			},
-// 			{
-// 				"menuid": "222",
-// 				"menuname": "视频监控 3",
-// 				"icon": "icon-nav",
-// 				"url": "demo1.html"
-// 			}]
-// 		}]
-// 	},
-// 	{
-// 		"menuid": "56",
-// 		"icon": "icon-sys",
-// 		"menuname": "部门管理",
-// 		"menus": [{
-// 			"menuid": "31",
-// 			"menuname": "添加部门",
-// 			"icon": "icon-nav",
-// 			"url": "demo1.html"
-// 		},
-// 		{
-// 			"menuid": "321",
-// 			"menuname": "部门列表",
-// 			"icon": "icon-nav",
-// 			"url": "demo2.html",
-// 			"child": [{
-// 				"menuid": "311",
-// 				"menuname": "添加部门 4",
-// 				"icon": "icon-nav",
-// 				"url": "demo1.html"
-// 			},
-// 			{
-// 				"menuid": "312",
-// 				"menuname": "部门列表 4",
-// 				"icon": "icon-nav",
-// 				"url": "demo2.html"
-// 			}]
-// 		}]
-// 	}
-// 	,{"menuid":"51","icon":"icon-sys","menuname":"设备管理",
-// 							"menus":[
-// 							{"menuid":"60","menuname":"设备信息","icon":"icon-nav","url":"snnumber.action"},
-// 							{"menuid":"61","menuname":"定位查询","icon":"icon-nav","url":"LocElt.action"}
-// 								]
-// 						}]
-	
-	
-// };
-
-var _menus = {"menus":[
+	var _menus = {"menus":[
 						{"menuid":"1","icon":"icon-sys","menuname":"控件使用",
 							"menus":[
 									{"menuid":"12","menuname":"疯狂秀才","icon":"icon-add","url":"#"},
@@ -320,10 +158,13 @@ var _menus = {"menus":[
     <div id="mainPanle" region="center" style="background: #eee; overflow-y:hidden">
         <div id="tabs" class="easyui-tabs"  fit="true" border="false" >
 			<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; " >
-				<h1 style="font-size:24px;">* 小猪嘟嘟后台管理-人员、设备、数据管理</h1>
-<h1 style="font-size:24px;">* BLOG: <a style="font-size:24px;color:green;" href="http://hxling.cnblogs.com">博客</a></h1>
-<h1 style="font-size:24px;">* 讨论群：112044258、32994605、36534121、56271061</h1>
-				<h1 style="font-size:24px;">* 广告：</h1>
+			
+<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/GdMap.jsp" target="_blank">查看详细地图1</a></h2>
+<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/MapTest.jsp" target="_blank">查看测试地图1</a></h2>
+<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/sample.jsp" target="_blank">查看测试地图1</a></h2>
+				<h1 style="font-size:24px;">高德地图示例</h1>
+				
+				<div id="MapContainer" style="width:500px;height:309px;" ></div> 
 			</div>
 		</div>
     </div>
@@ -365,7 +206,17 @@ var _menus = {"menus":[
 		<div class="menu-sep"></div>
 		<div id="exit">退出</div>
 	</div>
-
+ <script type="text/javascript">
+	var map = new AMap.Map('MapContainer');
+    map.setZoom(10);
+    map.setCenter([114.085175,22.542164]);
+    
+    var marker = new AMap.Marker({
+        position: [114.058739, 22.549457],
+        map:map
+    });
+    
+  </script>
 
 </body>
 </html>
