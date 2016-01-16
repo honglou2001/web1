@@ -38,11 +38,7 @@ http-equiv="X-UA-Compatible">
   onclick="javascript:iRectZoomOut();">鼠标框选放大</BUTTON><BUTTON onclick="javascript:removeRangingTool();">关闭鼠标放大缩小</BUTTON></LI>
   <LI><BUTTON onclick="javascript:iRangingTool();">测距插件</BUTTON><BUTTON onclick="javascript:removeRangingTool();">隐藏测距</BUTTON></LI>
   <LI><BUTTON onclick="javascript:myControl();">添加自定义控件</BUTTON><BUTTON onclick="javascript:removeMyControl();">移除自定义控件</BUTTON></LI></UL></DIV><!-- tongji begin--> 
-<SCRIPT type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Faeff88f19045b513af7681b011cea3bd' type='text/javascript'%3E%3C/script%3E"));
-</SCRIPT>
- <!-- tongji end --> 
+
 <SCRIPT language="javascript">
 var mapObj;
 var scale;

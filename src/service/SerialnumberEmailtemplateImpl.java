@@ -1,4 +1,4 @@
-
+﻿
 package service;
 
 import bean.Constants;
@@ -8,6 +8,9 @@ import dao.SerialnumberEmailtemplateDaoIml;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.List;
+
+import utils.SendMailUtil;
+
 import com.opensymphony.xwork2.ActionSupport; 
 import com.watch.ejb.SerialnumberEmailtemplate;
 
@@ -26,8 +29,17 @@ public class SerialnumberEmailtemplateImpl extends ActionSupport {
     private SerialnumberEmailtemplate serialnumberemailtemplate;
     private int page; 
     private int errcode;
+    private String ftoEmail;
     
-    public int getErrcode() {
+    public String getFtoEmail() {
+		return ftoEmail;
+	}
+
+	public void setFtoEmail(String ftoEmail) {
+		this.ftoEmail = ftoEmail;
+	}
+
+	public int getErrcode() {
 		return errcode;
 	}
 
@@ -70,7 +82,43 @@ public class SerialnumberEmailtemplateImpl extends ActionSupport {
 	public void setSerialnumberemailtemplateDao (SerialnumberEmailtemplateDaoIml rserialnumberemailtemplateDao) {		     
          this.serialnumberemailtemplateDao = rserialnumberemailtemplateDao;
 	}
-       
+      
+	
+	public String SendEmail() {	
+	    
+		 dataMap = new HashMap<String, Object>();
+		 
+	    try {
+		 	  if(this.serialnumberemailtemplate.getFtemplateid() == null || this.serialnumberemailtemplate.getFtemplateid().length() <= 0){		
+				 	
+		 		 this.message ="发送失败，模板id为空，请先保存模板，关闭此页面，然后点击模板修改到此界面再发送";
+		 		 dataMap.put("success", false);
+			  }
+		      else
+			  {	          	          
+		          SendMailUtil sender = new SendMailUtil(this.ftoEmail,this.serialnumberemailtemplate)  ;
+		          boolean result =  sender.SendEmail();
+		          if(result){
+			          this.message ="发送成功";
+			          dataMap.put("success", true);
+		          }else
+		          {
+		        	    this.message ="发送失败";
+				        dataMap.put("success", false);
+		          }
+			  }     
+	      } catch (Exception ex) {
+	    	  dataMap.put("success", false);
+			  this.message = ex.getMessage();
+			  this.errcode = ex.hashCode();
+		   }
+		  		 
+	      dataMap.put("errcode", this.errcode);		 
+		  dataMap.put("message", this.message);
+		  
+		  return SUCCESS;   			
+		}
+	
 	public String AddSerialnumberEmailtemplate() {	
     
     try {
@@ -99,56 +147,7 @@ public class SerialnumberEmailtemplateImpl extends ActionSupport {
 	private HashMap<String, String> GetQueryMap()
 	{				
         HashMap<String, String> map = new HashMap<String, String>();
-//		if(this.serialnumberemailtemplate!=null){
-//        if(this.serialnumberemailtemplate.getFtemplateid()!=null && !this.serialnumberemailtemplate.getFtemplateid().equals("")){
-//			map.put("ftemplateid", this.serialnumberemailtemplate.getFtemplateid().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFincreaseid()!=null && !this.serialnumberemailtemplate.getFincreaseid().equals("")){
-//			map.put("fincreaseid", this.serialnumberemailtemplate.getFincreaseid().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFappid()!=null && !this.serialnumberemailtemplate.getFappid().equals("")){
-//			map.put("fappid", this.serialnumberemailtemplate.getFappid().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFuserid()!=null && !this.serialnumberemailtemplate.getFuserid().equals("")){
-//			map.put("fuserid", this.serialnumberemailtemplate.getFuserid().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFsnid()!=null && !this.serialnumberemailtemplate.getFsnid().equals("")){
-//			map.put("fsnid", this.serialnumberemailtemplate.getFsnid().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFsnnumber()!=null && !this.serialnumberemailtemplate.getFsnnumber().equals("")){
-//			map.put("fsnnumber", this.serialnumberemailtemplate.getFsnnumber().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFtag()!=null && !this.serialnumberemailtemplate.getFtag().equals("")){
-//			map.put("ftag", this.serialnumberemailtemplate.getFtag().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFtitle()!=null && !this.serialnumberemailtemplate.getFtitle().equals("")){
-//			map.put("ftitle", this.serialnumberemailtemplate.getFtitle().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFtype()!=null && !this.serialnumberemailtemplate.getFtype().equals("")){
-//			map.put("ftype", this.serialnumberemailtemplate.getFtype().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFcontent()!=null && !this.serialnumberemailtemplate.getFcontent().equals("")){
-//			map.put("fcontent", this.serialnumberemailtemplate.getFcontent().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFlanguage()!=null && !this.serialnumberemailtemplate.getFlanguage().equals("")){
-//			map.put("flanguage", this.serialnumberemailtemplate.getFlanguage().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFdatastatus()!=null && !this.serialnumberemailtemplate.getFdatastatus().equals("")){
-//			map.put("fdatastatus", this.serialnumberemailtemplate.getFdatastatus().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFfieldstatus()!=null && !this.serialnumberemailtemplate.getFfieldstatus().equals("")){
-//			map.put("ffieldstatus", this.serialnumberemailtemplate.getFfieldstatus().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFaddtime()!=null && !this.serialnumberemailtemplate.getFaddtime().equals("")){
-//			map.put("faddtime", this.serialnumberemailtemplate.getFaddtime().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFupdatetime()!=null && !this.serialnumberemailtemplate.getFupdatetime().equals("")){
-//			map.put("fupdatetime", this.serialnumberemailtemplate.getFupdatetime().toString());
-//         }
-//        if(this.serialnumberemailtemplate.getFremark()!=null && !this.serialnumberemailtemplate.getFremark().equals("")){
-//			map.put("fremark", this.serialnumberemailtemplate.getFremark().toString());
-//         }
-//        }
+
 		
 		return map;		
 	}

@@ -1,4 +1,4 @@
-var situation;//url传的参数条件
+﻿var situation;//url传的参数条件
 var urldevices;
 $(function () {
     $.ajaxSetup({
@@ -183,7 +183,7 @@ function add2() {
 //			window.showModalDialog("Email/ueditor/Template.html","addarg","dialogWidth=650px;dialogHeight=410px");
 //	}else
 //		{
-			window.open("Email/ueditor/Template.html?xxx=" + Math.random(), 'newwindow','height=420,width=650,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
+			window.open("Email/ueditor/Template.html?xxx=" + Math.random(), 'newwindow','height=438,width=650,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
 //		}
 }
 
@@ -199,7 +199,7 @@ function update2() {
     var temid = $("#dgSerialnumberEmailtemplate").datagrid("getSelections")[0].ftemplateid;  
     
 
-    window.open("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(), 'newwindow','height=420,width=650,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
+    window.open("Email/ueditor/Template.html?requesttid="+temid+"&xxx=" + Math.random(), 'newwindow','height=438,width=650,top=150,left=300,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no');  
 
 }
 
@@ -240,6 +240,35 @@ function AddSerialnumberEmailtemplate() {
         }
     });
 }
+
+
+//实现分组的修改
+function DoSendEmail() {
+	
+	 if($("#frmTemplateSend").form('validate')==false)
+	 {
+	   return ;
+	 }	
+
+  var postData = $("#frmTemplateSend").serializeArray();
+
+  //发送异步请求到后台保存分组数据
+  $.post("/web1/emailTemSendEmail.action", postData, function (data) {
+  	//debugger;   	
+      if (data.success == true&& data.errcode==0) {
+
+      	 $.messager.alert('提示', data.message, 'info');
+
+          $("#div_TemplateSend").dialog("close");
+          refresh();
+          $("#frmTemplateSend input,textarea").val('');
+      }
+      else {
+         $.messager.alert('提示', data.message, 'error');
+      }
+  });
+}
+
 //实现删除数据
 function DeleteSerialnumberEmailtemplate() {
     //得到用户选择的数据的ID
@@ -293,4 +322,8 @@ function refresh() {
 
 function cancel() {    
     $('#div_AddSerialnumberEmailtemplate').dialog('close');
+}
+
+function cancelSend() {    
+    $('#div_TemplateSend').dialog('close');
 }

@@ -11,7 +11,6 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 -- 导出  表 dbtest.admin 结构
-DROP TABLE IF EXISTS `admin`;
 CREATE TABLE IF NOT EXISTS `admin` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -34,7 +33,6 @@ CREATE TABLE IF NOT EXISTS `admin` (
 
 
 -- 导出  表 dbtest.admin_log 结构
-DROP TABLE IF EXISTS `admin_log`;
 CREATE TABLE IF NOT EXISTS `admin_log` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(30) DEFAULT NULL,
@@ -49,7 +47,6 @@ CREATE TABLE IF NOT EXISTS `admin_log` (
 
 
 -- 导出  表 dbtest.alarm 结构
-DROP TABLE IF EXISTS `alarm`;
 CREATE TABLE IF NOT EXISTS `alarm` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serialnumber` varchar(20) NOT NULL,
@@ -63,7 +60,6 @@ CREATE TABLE IF NOT EXISTS `alarm` (
 
 
 -- 导出  表 dbtest.associatedaccount 结构
-DROP TABLE IF EXISTS `associatedaccount`;
 CREATE TABLE IF NOT EXISTS `associatedaccount` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serialnumber` varchar(20) NOT NULL,
@@ -76,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `associatedaccount` (
 
 
 -- 导出  表 dbtest.bindphone 结构
-DROP TABLE IF EXISTS `bindphone`;
 CREATE TABLE IF NOT EXISTS `bindphone` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serialnumber` varchar(20) NOT NULL,
@@ -92,7 +87,6 @@ CREATE TABLE IF NOT EXISTS `bindphone` (
 
 
 -- 导出  表 dbtest.config 结构
-DROP TABLE IF EXISTS `config`;
 CREATE TABLE IF NOT EXISTS `config` (
   `varname` varchar(20) NOT NULL DEFAULT '',
   `info` varchar(100) NOT NULL DEFAULT '',
@@ -106,7 +100,6 @@ CREATE TABLE IF NOT EXISTS `config` (
 
 
 -- 导出  表 dbtest.electfence 结构
-DROP TABLE IF EXISTS `electfence`;
 CREATE TABLE IF NOT EXISTS `electfence` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serialnumber` varchar(20) DEFAULT NULL,
@@ -127,7 +120,6 @@ CREATE TABLE IF NOT EXISTS `electfence` (
 
 
 -- 导出  表 dbtest.focus 结构
-DROP TABLE IF EXISTS `focus`;
 CREATE TABLE IF NOT EXISTS `focus` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -140,7 +132,6 @@ CREATE TABLE IF NOT EXISTS `focus` (
 
 
 -- 导出  表 dbtest.info 结构
-DROP TABLE IF EXISTS `info`;
 CREATE TABLE IF NOT EXISTS `info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `ip` varchar(20) DEFAULT NULL,
@@ -153,7 +144,6 @@ CREATE TABLE IF NOT EXISTS `info` (
 
 
 -- 导出  表 dbtest.locationinfo 结构
-DROP TABLE IF EXISTS `locationinfo`;
 CREATE TABLE IF NOT EXISTS `locationinfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serialnumber` varchar(20) DEFAULT NULL,
@@ -172,7 +162,6 @@ CREATE TABLE IF NOT EXISTS `locationinfo` (
 
 
 -- 导出  表 dbtest.myclass 结构
-DROP TABLE IF EXISTS `myclass`;
 CREATE TABLE IF NOT EXISTS `myclass` (
   `id` int(4) NOT NULL AUTO_INCREMENT,
   `name` char(20) NOT NULL,
@@ -185,7 +174,6 @@ CREATE TABLE IF NOT EXISTS `myclass` (
 
 
 -- 导出  表 dbtest.pedometer 结构
-DROP TABLE IF EXISTS `pedometer`;
 CREATE TABLE IF NOT EXISTS `pedometer` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `serialnumber` varchar(20) NOT NULL,
@@ -198,7 +186,6 @@ CREATE TABLE IF NOT EXISTS `pedometer` (
 
 
 -- 导出  表 dbtest.post 结构
-DROP TABLE IF EXISTS `post`;
 CREATE TABLE IF NOT EXISTS `post` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -213,7 +200,6 @@ CREATE TABLE IF NOT EXISTS `post` (
 
 
 -- 导出  表 dbtest.rtposition 结构
-DROP TABLE IF EXISTS `rtposition`;
 CREATE TABLE IF NOT EXISTS `rtposition` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `lng` varchar(15) DEFAULT NULL,
@@ -229,7 +215,6 @@ CREATE TABLE IF NOT EXISTS `rtposition` (
 
 
 -- 导出  表 dbtest.serialnumber 结构
-DROP TABLE IF EXISTS `serialnumber`;
 CREATE TABLE IF NOT EXISTS `serialnumber` (
   `funiqueid` varchar(50) NOT NULL,
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -276,7 +261,6 @@ CREATE TABLE IF NOT EXISTS `serialnumber` (
 
 
 -- 导出  表 dbtest.somepraise 结构
-DROP TABLE IF EXISTS `somepraise`;
 CREATE TABLE IF NOT EXISTS `somepraise` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -289,7 +273,6 @@ CREATE TABLE IF NOT EXISTS `somepraise` (
 
 
 -- 导出  表 dbtest.subfloor 结构
-DROP TABLE IF EXISTS `subfloor`;
 CREATE TABLE IF NOT EXISTS `subfloor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -304,7 +287,6 @@ CREATE TABLE IF NOT EXISTS `subfloor` (
 
 
 -- 导出  表 dbtest.supfloor 结构
-DROP TABLE IF EXISTS `supfloor`;
 CREATE TABLE IF NOT EXISTS `supfloor` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(20) DEFAULT NULL,
@@ -318,7 +300,6 @@ CREATE TABLE IF NOT EXISTS `supfloor` (
 
 
 -- 导出  表 dbtest.t_authority_menu 结构
-DROP TABLE IF EXISTS `t_authority_menu`;
 CREATE TABLE IF NOT EXISTS `t_authority_menu` (
   `FID` varchar(50) NOT NULL,
   `FParentID` varchar(50) NOT NULL,
@@ -345,7 +326,6 @@ CREATE TABLE IF NOT EXISTS `t_authority_menu` (
 
 
 -- 导出  表 dbtest.t_authority_resval 结构
-DROP TABLE IF EXISTS `t_authority_resval`;
 CREATE TABLE IF NOT EXISTS `t_authority_resval` (
   `FID` varchar(50) DEFAULT NULL,
   `FName` varchar(50) DEFAULT NULL,
@@ -357,7 +337,6 @@ CREATE TABLE IF NOT EXISTS `t_authority_resval` (
 
 
 -- 导出  表 dbtest.t_authority_rolemenu 结构
-DROP TABLE IF EXISTS `t_authority_rolemenu`;
 CREATE TABLE IF NOT EXISTS `t_authority_rolemenu` (
   `FID` char(36) NOT NULL,
   `FRoleID` char(36) NOT NULL,
@@ -369,7 +348,6 @@ CREATE TABLE IF NOT EXISTS `t_authority_rolemenu` (
 
 
 -- 导出  表 dbtest.t_authority_roles 结构
-DROP TABLE IF EXISTS `t_authority_roles`;
 CREATE TABLE IF NOT EXISTS `t_authority_roles` (
   `FID` char(36) NOT NULL,
   `FIncreaseID` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -389,7 +367,6 @@ CREATE TABLE IF NOT EXISTS `t_authority_roles` (
 
 
 -- 导出  表 dbtest.t_authority_tenant 结构
-DROP TABLE IF EXISTS `t_authority_tenant`;
 CREATE TABLE IF NOT EXISTS `t_authority_tenant` (
   `FTenantID` varchar(255) NOT NULL,
   `FIncreaseID` decimal(19,2) DEFAULT NULL,
@@ -415,7 +392,6 @@ CREATE TABLE IF NOT EXISTS `t_authority_tenant` (
 
 
 -- 导出  表 dbtest.t_authority_users 结构
-DROP TABLE IF EXISTS `t_authority_users`;
 CREATE TABLE IF NOT EXISTS `t_authority_users` (
   `FID` char(36) NOT NULL,
   `FIncreaseID` bigint(20) NOT NULL AUTO_INCREMENT,
@@ -434,7 +410,6 @@ CREATE TABLE IF NOT EXISTS `t_authority_users` (
 
 
 -- 导出  表 dbtest.t_base_area 结构
-DROP TABLE IF EXISTS `t_base_area`;
 CREATE TABLE IF NOT EXISTS `t_base_area` (
   `FAreaID` varchar(255) NOT NULL,
   `FIncreaseID` int(11) DEFAULT NULL,
@@ -453,7 +428,6 @@ CREATE TABLE IF NOT EXISTS `t_base_area` (
 
 
 -- 导出  表 dbtest.t_base_typecode 结构
-DROP TABLE IF EXISTS `t_base_typecode`;
 CREATE TABLE IF NOT EXISTS `t_base_typecode` (
   `FTypeID` varchar(100) NOT NULL COMMENT '�������ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '������',
@@ -479,7 +453,6 @@ CREATE TABLE IF NOT EXISTS `t_base_typecode` (
 
 
 -- 导出  表 dbtest.t_farm_batch 结构
-DROP TABLE IF EXISTS `t_farm_batch`;
 CREATE TABLE IF NOT EXISTS `t_farm_batch` (
   `FFBatchID` varchar(255) NOT NULL,
   `FIncreaseID` decimal(19,2) DEFAULT NULL,
@@ -506,7 +479,6 @@ CREATE TABLE IF NOT EXISTS `t_farm_batch` (
 
 
 -- 导出  表 dbtest.t_farm_feedrecord 结构
-DROP TABLE IF EXISTS `t_farm_feedrecord`;
 CREATE TABLE IF NOT EXISTS `t_farm_feedrecord` (
   `FFeedRecID` varchar(50) NOT NULL DEFAULT '',
   `FFBatchID` varchar(50) DEFAULT NULL,
@@ -526,32 +498,7 @@ CREATE TABLE IF NOT EXISTS `t_farm_feedrecord` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 dbtest.t_farm_info 结构
-DROP TABLE IF EXISTS `t_farm_info`;
-CREATE TABLE IF NOT EXISTS `t_farm_info` (
-  `FarmID` varchar(255) NOT NULL,
-  `FIncreaseID` decimal(19,2) DEFAULT NULL,
-  `FTenantID` varchar(255) DEFAULT NULL,
-  `FAreaID` varchar(255) DEFAULT NULL,
-  `FarmName` varchar(255) DEFAULT NULL,
-  `FarmAddress` varchar(255) DEFAULT NULL,
-  `FLng` varchar(255) DEFAULT NULL,
-  `FLat` varchar(255) DEFAULT NULL,
-  `FDataStatus` int(11) DEFAULT NULL,
-  `FFieldStatus` int(11) DEFAULT NULL,
-  `FUserID` varchar(255) DEFAULT NULL,
-  `FAddTime` datetime DEFAULT NULL,
-  `FUpdateTime` datetime DEFAULT NULL,
-  `FRemark` varchar(255) DEFAULT NULL,
-  `FTenantName` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`FarmID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 数据导出被取消选择。
-
-
 -- 导出  表 dbtest.t_farm_outrecord 结构
-DROP TABLE IF EXISTS `t_farm_outrecord`;
 CREATE TABLE IF NOT EXISTS `t_farm_outrecord` (
   `FRecordID` varchar(50) DEFAULT NULL,
   `FarmID` varchar(50) DEFAULT NULL,
@@ -575,33 +522,7 @@ CREATE TABLE IF NOT EXISTS `t_farm_outrecord` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 dbtest.t_farm_piginfo 结构
-DROP TABLE IF EXISTS `t_farm_piginfo`;
-CREATE TABLE IF NOT EXISTS `t_farm_piginfo` (
-  `FPigID` varchar(50) DEFAULT NULL,
-  `FFBatchID` varchar(50) DEFAULT NULL,
-  `FIncreaseID` bigint(20) DEFAULT NULL,
-  `FTenantID` varchar(50) DEFAULT NULL,
-  `FQBatchID` varchar(50) DEFAULT NULL,
-  `FarmID` varchar(50) DEFAULT NULL,
-  `FStrain` varchar(100) DEFAULT NULL,
-  `FBirth` varchar(20) DEFAULT NULL,
-  `FWeight` decimal(9,3) DEFAULT NULL,
-  `FEarNum` varchar(50) DEFAULT NULL,
-  `FPigPen` varchar(50) DEFAULT NULL,
-  `FDataStatus` int(11) DEFAULT NULL,
-  `FFieldStatus` int(11) DEFAULT NULL,
-  `FUserID` varchar(50) DEFAULT NULL,
-  `FAddTime` datetime DEFAULT NULL,
-  `FUpdateTime` datetime DEFAULT NULL,
-  `FRemark` varchar(500) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- 数据导出被取消选择。
-
-
 -- 导出  表 dbtest.t_farm_treatment 结构
-DROP TABLE IF EXISTS `t_farm_treatment`;
 CREATE TABLE IF NOT EXISTS `t_farm_treatment` (
   `FTreatID` varchar(50) DEFAULT NULL,
   `FFBatchID` varchar(50) DEFAULT NULL,
@@ -621,7 +542,6 @@ CREATE TABLE IF NOT EXISTS `t_farm_treatment` (
 
 
 -- 导出  表 dbtest.t_friend_contact 结构
-DROP TABLE IF EXISTS `t_friend_contact`;
 CREATE TABLE IF NOT EXISTS `t_friend_contact` (
   `FContactID` varchar(50) NOT NULL COMMENT '联系信息ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -654,7 +574,6 @@ CREATE TABLE IF NOT EXISTS `t_friend_contact` (
 
 
 -- 导出  表 dbtest.t_friend_relation 结构
-DROP TABLE IF EXISTS `t_friend_relation`;
 CREATE TABLE IF NOT EXISTS `t_friend_relation` (
   `FRelationID` varchar(50) NOT NULL COMMENT '关系ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -686,7 +605,6 @@ CREATE TABLE IF NOT EXISTS `t_friend_relation` (
 
 
 -- 导出  表 dbtest.t_loc_electfence 结构
-DROP TABLE IF EXISTS `t_loc_electfence`;
 CREATE TABLE IF NOT EXISTS `t_loc_electfence` (
   `FLocFenID` varchar(50) NOT NULL COMMENT '主键，唯一ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -719,7 +637,6 @@ CREATE TABLE IF NOT EXISTS `t_loc_electfence` (
 
 
 -- 导出  表 dbtest.t_loc_electfence_single 结构
-DROP TABLE IF EXISTS `t_loc_electfence_single`;
 CREATE TABLE IF NOT EXISTS `t_loc_electfence_single` (
   `FLocFenID` varchar(50) NOT NULL COMMENT '主键，唯一ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -752,7 +669,6 @@ CREATE TABLE IF NOT EXISTS `t_loc_electfence_single` (
 
 
 -- 导出  表 dbtest.t_mq_log 结构
-DROP TABLE IF EXISTS `t_mq_log`;
 CREATE TABLE IF NOT EXISTS `t_mq_log` (
   `FLogID` varchar(50) NOT NULL COMMENT '日志id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -787,7 +703,6 @@ CREATE TABLE IF NOT EXISTS `t_mq_log` (
 
 
 -- 导出  表 dbtest.t_mq_received 结构
-DROP TABLE IF EXISTS `t_mq_received`;
 CREATE TABLE IF NOT EXISTS `t_mq_received` (
   `FReceivedID` varchar(50) NOT NULL COMMENT '应答消息id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -814,7 +729,6 @@ CREATE TABLE IF NOT EXISTS `t_mq_received` (
 
 
 -- 导出  表 dbtest.t_mq_task 结构
-DROP TABLE IF EXISTS `t_mq_task`;
 CREATE TABLE IF NOT EXISTS `t_mq_task` (
   `FMQID` varchar(50) NOT NULL COMMENT '消息id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -845,7 +759,6 @@ CREATE TABLE IF NOT EXISTS `t_mq_task` (
 
 
 -- 导出  表 dbtest.t_notify_info 结构
-DROP TABLE IF EXISTS `t_notify_info`;
 CREATE TABLE IF NOT EXISTS `t_notify_info` (
   `FNotifyID` varchar(50) NOT NULL COMMENT '通知id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -871,7 +784,6 @@ CREATE TABLE IF NOT EXISTS `t_notify_info` (
 
 
 -- 导出  表 dbtest.t_reward_list 结构
-DROP TABLE IF EXISTS `t_reward_list`;
 CREATE TABLE IF NOT EXISTS `t_reward_list` (
   `FRewardID` varchar(50) NOT NULL COMMENT '奖励体系ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -901,7 +813,6 @@ CREATE TABLE IF NOT EXISTS `t_reward_list` (
 
 
 -- 导出  表 dbtest.t_scm_distributors 结构
-DROP TABLE IF EXISTS `t_scm_distributors`;
 CREATE TABLE IF NOT EXISTS `t_scm_distributors` (
   `FDistributorID` varchar(50) NOT NULL COMMENT '������������ID',
   `FParentID` varchar(50) DEFAULT NULL COMMENT '�ϼ�������ID',
@@ -932,7 +843,6 @@ CREATE TABLE IF NOT EXISTS `t_scm_distributors` (
 
 
 -- 导出  表 dbtest.t_scm_salesdata 结构
-DROP TABLE IF EXISTS `t_scm_salesdata`;
 CREATE TABLE IF NOT EXISTS `t_scm_salesdata` (
   `FSaleDataID` varchar(50) NOT NULL COMMENT '������ΨһID',
   `FDistributorID` varchar(50) DEFAULT NULL COMMENT '�����������ID',
@@ -959,7 +869,6 @@ CREATE TABLE IF NOT EXISTS `t_scm_salesdata` (
 
 
 -- 导出  表 dbtest.t_scm_salesdivided 结构
-DROP TABLE IF EXISTS `t_scm_salesdivided`;
 CREATE TABLE IF NOT EXISTS `t_scm_salesdivided` (
   `FDivided` varchar(50) NOT NULL COMMENT '����ֵ',
   `FSaleDataID` varchar(50) DEFAULT NULL COMMENT '�����salseID',
@@ -979,7 +888,6 @@ CREATE TABLE IF NOT EXISTS `t_scm_salesdivided` (
 
 
 -- 导出  表 dbtest.t_serialnumber_apiphone 结构
-DROP TABLE IF EXISTS `t_serialnumber_apiphone`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_apiphone` (
   `FClientID` varchar(50) NOT NULL COMMENT '记录id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1011,7 +919,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_apiphone` (
 
 
 -- 导出  表 dbtest.t_serialnumber_datarelate 结构
-DROP TABLE IF EXISTS `t_serialnumber_datarelate`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_datarelate` (
   `FDatarelateID` varchar(100) NOT NULL COMMENT '当前关联ID，此ID会给每一条数据进行分配',
   `fsndusrid` varchar(50) DEFAULT '' COMMENT '数据归属主键ID',
@@ -1038,7 +945,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_datarelate` (
 
 
 -- 导出  表 dbtest.t_serialnumber_datauser 结构
-DROP TABLE IF EXISTS `t_serialnumber_datauser`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_datauser` (
   `fsndusrid` varchar(50) NOT NULL DEFAULT '' COMMENT '数据归属主键ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1081,7 +987,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_datauser` (
 
 
 -- 导出  表 dbtest.t_serialnumber_detach 结构
-DROP TABLE IF EXISTS `t_serialnumber_detach`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_detach` (
   `FDetachID` varchar(50) NOT NULL COMMENT '移除id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1101,7 +1006,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_detach` (
 
 
 -- 导出  表 dbtest.t_serialnumber_emailhistory 结构
-DROP TABLE IF EXISTS `t_serialnumber_emailhistory`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_emailhistory` (
   `FEmailRecID` varchar(50) NOT NULL COMMENT '邮件记录id',
   `FTemplateID` varchar(50) DEFAULT NULL COMMENT '使用的模板id',
@@ -1130,8 +1034,34 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_emailhistory` (
 -- 数据导出被取消选择。
 
 
+-- 导出  表 dbtest.t_serialnumber_emailsmtp 结构
+CREATE TABLE IF NOT EXISTS `t_serialnumber_emailsmtp` (
+  `FSMtpRecID` varchar(50) NOT NULL COMMENT 'smtp记录id',
+  `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
+  `FType` int(11) DEFAULT NULL COMMENT '分类',
+  `FAppId` varchar(100) DEFAULT NULL COMMENT '应用程序id',
+  `FUserID` varchar(50) DEFAULT NULL COMMENT '用户ID',
+  `FName` varchar(50) DEFAULT NULL COMMENT 'smtp名称',
+  `FMailhost` varchar(200) DEFAULT NULL COMMENT '服务器地址',
+  `FMailUserName` varchar(200) DEFAULT NULL COMMENT '登录名称',
+  `FMailPassword` varchar(10000) DEFAULT NULL COMMENT '登录密码',
+  `FMailAddress` varchar(100) DEFAULT NULL COMMENT '邮箱地址',
+  `FMailFromName` varchar(100) DEFAULT NULL COMMENT '显示名称',
+  `FIsDefault` int(11) DEFAULT NULL COMMENT '为1为默认，保证只能一条',
+  `FDataStatus` int(11) DEFAULT NULL COMMENT '状态ID',
+  `FFieldStatus` int(11) DEFAULT NULL COMMENT '字段属性等，锁定，禁止删除等',
+  `FAddTime` datetime DEFAULT NULL COMMENT '创建时间',
+  `FUpdateTime` datetime DEFAULT NULL COMMENT '修改时间',
+  `FUpdateUser` varchar(50) DEFAULT NULL COMMENT '更新的用户',
+  `FRemark` varchar(500) DEFAULT NULL COMMENT '备注',
+  PRIMARY KEY (`FSMtpRecID`),
+  KEY `AK_Key_2` (`FIncreaseID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='SMTP发送服务器';
+
+-- 数据导出被取消选择。
+
+
 -- 导出  表 dbtest.t_serialnumber_emailtemplate 结构
-DROP TABLE IF EXISTS `t_serialnumber_emailtemplate`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_emailtemplate` (
   `FTemplateID` varchar(50) NOT NULL COMMENT '模板id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1157,7 +1087,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_emailtemplate` (
 
 
 -- 导出  表 dbtest.t_serialnumber_fee 结构
-DROP TABLE IF EXISTS `t_serialnumber_fee`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_fee` (
   `FFeeID` varchar(50) NOT NULL COMMENT '费用id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1191,7 +1120,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_fee` (
 
 
 -- 导出  表 dbtest.t_serialnumber_feepacket 结构
-DROP TABLE IF EXISTS `t_serialnumber_feepacket`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_feepacket` (
   `FPacketID` varchar(50) NOT NULL COMMENT '套餐iid',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1222,7 +1150,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_feepacket` (
 
 
 -- 导出  表 dbtest.t_serialnumber_jpush 结构
-DROP TABLE IF EXISTS `t_serialnumber_jpush`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_jpush` (
   `FPushID` varchar(50) NOT NULL COMMENT '记录id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1246,7 +1173,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_jpush` (
 
 
 -- 导出  表 dbtest.t_serialnumber_jpushmsg 结构
-DROP TABLE IF EXISTS `t_serialnumber_jpushmsg`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_jpushmsg` (
   `FPushMsgID` varchar(50) NOT NULL COMMENT '消息id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1272,7 +1198,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_jpushmsg` (
 
 
 -- 导出  表 dbtest.t_serialnumber_meter 结构
-DROP TABLE IF EXISTS `t_serialnumber_meter`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_meter` (
   `FMeterID` varchar(50) NOT NULL COMMENT '记录id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1297,7 +1222,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_meter` (
 
 
 -- 导出  表 dbtest.t_serialnumber_param 结构
-DROP TABLE IF EXISTS `t_serialnumber_param`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_param` (
   `FTypeID` varchar(100) NOT NULL COMMENT '主键类别ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1328,7 +1252,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_param` (
 
 
 -- 导出  表 dbtest.t_serialnumber_sport 结构
-DROP TABLE IF EXISTS `t_serialnumber_sport`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_sport` (
   `FSportRecID` varchar(50) NOT NULL COMMENT '记录id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1366,7 +1289,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_sport` (
 
 
 -- 导出  表 dbtest.t_serialnumber_weight 结构
-DROP TABLE IF EXISTS `t_serialnumber_weight`;
 CREATE TABLE IF NOT EXISTS `t_serialnumber_weight` (
   `FWUniqueID` varchar(100) NOT NULL COMMENT '重量主键id',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1397,7 +1319,6 @@ CREATE TABLE IF NOT EXISTS `t_serialnumber_weight` (
 
 
 -- 导出  表 dbtest.t_slaughter_batch 结构
-DROP TABLE IF EXISTS `t_slaughter_batch`;
 CREATE TABLE IF NOT EXISTS `t_slaughter_batch` (
   `FSlaRecID` varchar(50) NOT NULL COMMENT '屠宰批次关联ID',
   `FHouseID` varchar(50) DEFAULT NULL COMMENT '屠宰场ID',
@@ -1422,34 +1343,7 @@ CREATE TABLE IF NOT EXISTS `t_slaughter_batch` (
 -- 数据导出被取消选择。
 
 
--- 导出  表 dbtest.t_slaughter_house 结构
-DROP TABLE IF EXISTS `t_slaughter_house`;
-CREATE TABLE IF NOT EXISTS `t_slaughter_house` (
-  `FHouseID` varchar(50) NOT NULL COMMENT '屠宰场ID',
-  `FAreaID` varchar(50) DEFAULT NULL COMMENT '地区ID',
-  `FIncreaseID` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '递增ID',
-  `FTenantID` varchar(50) DEFAULT NULL COMMENT '租户id',
-  `FHouseName` varchar(50) DEFAULT NULL COMMENT '屠宰场名称',
-  `FLng` varchar(20) DEFAULT NULL COMMENT '经度',
-  `FLat` varchar(20) DEFAULT NULL COMMENT '纬度',
-  `FManager` varchar(50) DEFAULT NULL COMMENT '负责人',
-  `FAdddress` varchar(100) DEFAULT NULL COMMENT '地址',
-  `FPhone` varchar(20) DEFAULT NULL COMMENT '联系电话',
-  `FDataStatus` int(11) DEFAULT NULL COMMENT '状态ID',
-  `FFieldStatus` int(11) DEFAULT NULL COMMENT '字段属性等，锁定，禁止删除等',
-  `FUserID` varchar(50) DEFAULT NULL COMMENT '用户ID，t_authority_users主键值',
-  `FAddTime` datetime DEFAULT NULL COMMENT '创建时间',
-  `FUpdateTime` datetime DEFAULT NULL COMMENT '修改时间',
-  `FRemark` varchar(500) DEFAULT NULL,
-  PRIMARY KEY (`FHouseID`),
-  KEY `AK_Key_2` (`FIncreaseID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='屠宰场信息';
-
--- 数据导出被取消选择。
-
-
 -- 导出  表 dbtest.t_test 结构
-DROP TABLE IF EXISTS `t_test`;
 CREATE TABLE IF NOT EXISTS `t_test` (
   `Tid` varchar(255) DEFAULT NULL,
   `Ta` varchar(255) DEFAULT NULL
@@ -1459,7 +1353,6 @@ CREATE TABLE IF NOT EXISTS `t_test` (
 
 
 -- 导出  表 dbtest.t_users 结构
-DROP TABLE IF EXISTS `t_users`;
 CREATE TABLE IF NOT EXISTS `t_users` (
   `FID` varchar(255) NOT NULL,
   `FName` varchar(255) DEFAULT NULL,
@@ -1475,7 +1368,6 @@ CREATE TABLE IF NOT EXISTS `t_users` (
 
 
 -- 导出  表 dbtest.t_user_alarm 结构
-DROP TABLE IF EXISTS `t_user_alarm`;
 CREATE TABLE IF NOT EXISTS `t_user_alarm` (
   `FAlarmID` varchar(50) NOT NULL COMMENT '主键ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1501,7 +1393,6 @@ CREATE TABLE IF NOT EXISTS `t_user_alarm` (
 
 
 -- 导出  表 dbtest.t_user_feedback 结构
-DROP TABLE IF EXISTS `t_user_feedback`;
 CREATE TABLE IF NOT EXISTS `t_user_feedback` (
   `FFeedBackID` varchar(50) NOT NULL COMMENT '关系ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1525,7 +1416,6 @@ CREATE TABLE IF NOT EXISTS `t_user_feedback` (
 
 
 -- 导出  表 dbtest.t_user_snrelate 结构
-DROP TABLE IF EXISTS `t_user_snrelate`;
 CREATE TABLE IF NOT EXISTS `t_user_snrelate` (
   `FRelateID` varchar(50) NOT NULL COMMENT '关系ID',
   `FIncreaseID` int(11) NOT NULL AUTO_INCREMENT COMMENT '递增列',
@@ -1547,7 +1437,6 @@ CREATE TABLE IF NOT EXISTS `t_user_snrelate` (
 
 
 -- 导出  表 dbtest.user 结构
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
   `funiqueid` varchar(50) NOT NULL DEFAULT '',
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1583,7 +1472,6 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 
 -- 导出  表 dbtest.versioninfo 结构
-DROP TABLE IF EXISTS `versioninfo`;
 CREATE TABLE IF NOT EXISTS `versioninfo` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `versionnumber` int(11) DEFAULT NULL,

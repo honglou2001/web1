@@ -749,7 +749,7 @@ http://120.24.176.185:8087/sw/user/userLogin?femail=user@163.com&password=123
 
 86、
 http://120.24.176.185:8087/sw/serialnum/serialNumAdd?devtype=2&usrid=a59b66a6-17a5-4bb4-8b24-62f7f01a5d78&serialNumber=28D21122EERR&sex=1&nickname=yyy&birthday=1993-02-01&height=171&weight=65&fschool=csu&fgrade=2&fcallname=cname&fremark=beizhu
-注册手环或秤(devtype=1表示注册手环、为2表示为脂肪秤)，用户新增手环或脂肪秤，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空（为设备的mac号）；
+增加设备-手环或秤(devtype=1表示注册手环、为2表示为脂肪秤)，用户新增手环或脂肪秤，usrid 为 查询得到的用户id，usrid、serialNumber 不能为空（为设备的mac号）；
 nickname、fschool、fgrade、fcallname、fremark 可以为中文，编码后传参；sex：1-为男，2为女；
 返回信息：{"state":1,"info":"新增序列号成功","serialnumid":"fbb8515c-d4bd-43ee-971c-92bb43d597ce"}，serialnumid 作为后面查找，更新序列号的id；
 

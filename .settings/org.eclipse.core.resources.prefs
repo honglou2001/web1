@@ -1,4 +1,4 @@
-#Sun Jan 03 00:14:04 CST 2016
+#Sun Jan 10 16:28:28 CST 2016
 eclipse.preferences.version=1
 encoding//WebRoot/Email/Emailhistory.jsp=UTF-8
 encoding//WebRoot/Map/GdMap.jsp=UTF-8
@@ -13,4 +13,5 @@ encoding//WebRoot/index.jsp=UTF-8
 encoding//WebRoot/index1.jsp=UTF-8
 encoding//src/dao/UserDaoIml.java=UTF-8
 encoding//src/service/ScmDistributorsImpl.java=UTF-8
+encoding//src/service/SerialnumberEmailtemplateImpl.java=UTF-8
 encoding//src/service/SerialnumberImpl.java=UTF-8

@@ -184,14 +184,26 @@ h1 {
 						name="serialnumberemailtemplate.fremark"
 						class="easyui-validatebox" style="width: 180px" /></td>
 				</tr>
-
+				<tr>
+					<td style="width: 120px;text-align:center" >发送邮箱:</td>
+					<td><input type="text" id="ftoEmail"
+						name="ftoEmail" class="easyui-validatebox"
+						style="width: 180px" />
+					</td>
+				</tr>
 				<tr>
 					<td></td>
 					<td  style="text-align:center"><a href="javascript:void(0)" class="easyui-linkbutton"
 						iconcls="icon-save" plain="true"
-						onclick="AddSerialnumberEmailtemplate();">保存</a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <a
+						onclick="AddSerialnumberEmailtemplate('0');">保存</a>&nbsp; &nbsp; &nbsp;  &nbsp;
+						
+						 <a
 						href="javascript:void(0)" class="easyui-linkbutton"
-						iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a></td>
+						iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a>&nbsp; &nbsp;&nbsp; &nbsp;
+						<a href="javascript:void(0)" class="easyui-linkbutton"
+						iconcls="icon-save" plain="true"
+						onclick="AddSerialnumberEmailtemplate('1');">发送邮件</a>（使用启用的SMTP发送）
+						</td>
 				</tr>
 
 			</table>
@@ -265,9 +277,22 @@ h1 {
 	}
    
    //实现分组的修改
-	function AddSerialnumberEmailtemplate() {
+	function AddSerialnumberEmailtemplate(action) {
 	
 		 var ftitle = $("#ftitle").val(); 
+		 var ftemplateid = $("#ftemplateid").val(); 
+		 var ftoEmail = $("#ftoEmail").val(); 
+		 
+		 if(action=="1" && ftemplateid=="")
+		 {	
+			alert('模板id为空，请先保存模板，关闭此页面，然后点击模板修改到此界面再发送');
+		 	return ;
+		 }
+		 if(action=="1" && ftoEmail=="")
+		 {
+		  	alert('发送的目的邮件地址不能为空');
+		 	return ;
+		 }
 		 if(ftitle=="")
 		 {	
 			alert('标题不能为空');
@@ -280,18 +305,23 @@ h1 {
 		 	return ;
 		 }
 		 
+		var posturl = "/web1/emailTemAddSerialnumberEmailtemplate.action";
+		if(action=="1")
+		{
+			posturl = "/web1/emailTemSendEmail.action";
+		}
 		 //$("#fcontent").val(contentdata); 
 	    //获取需要传递的参数传递给前台
 	    var postData = $("#frmSerialnumberEmailtemplate").serializeArray();
 	    
 	    //$.messager.alert("提示", postData, "info");
 	    //发送异步请求到后台保存分组数据
-	    $.post("/web1/emailTemAddSerialnumberEmailtemplate.action", postData, function (data) {
+	    $.post(posturl, postData, function (data) {
 	    	//debugger;   	
 	        if (data.success == true&& data.errcode==0) {
 	            //添加成功  1.关闭弹出层，2.刷新DataGird
 	        	 //$.messager.alert('提示', data.message, 'info');
-	        	 alert(data.message);
+	        	alert(data.message);
 
 	            $("#frmSerialnumberEmailtemplate input,textarea").val('');
 	            

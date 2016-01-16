@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>邮件模板管理</title>
+    <title>邮件发送</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link href="/web1/css/default.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="/web1/css/gray/easyui.css" />
@@ -67,38 +67,23 @@
                     <input type="hidden" id="ftemplateid" name="serialnumberemailtemplate.ftemplateid"/>
 
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">标题:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">邮件地址:</span>
+                    <input type="text" id="fToEmail" name="fToEmail" class="easyui-validatebox" style="width: 180px"/>
+                </div>  
+                
+                <div class="a_left">
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">邮件标题:</span>
                     <input type="text" id="ftitle" name="serialnumberemailtemplate.ftitle" class="easyui-validatebox" style="width: 180px"/>
                 </div>               
-                <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">分类:</span>                  
-                     <select class="easyui-combobox" id="ftype" name="serialnumberemailtemplate.ftype" style="width:180px;" data-options="editable:false" required="true" missingMessage="分类必须选择">   
- 						<option value="2">注册通知</option>
- 						<option value="3">费用通知</option>
- 						<option value="4">运动提醒</option>
- 						<option value="1">其他通知</option>												
- 					</select> 					
-                </div>
-             	<div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">语言:</span>                    
-                    <select class="easyui-combobox" id="flanguage" name="serialnumberemailtemplate.flanguage" style="width:180px;" data-options="editable:false" required="true" missingMessage="语言必须选择">   
- 						<option value="0">中文</option>
- 						<option value="1">英文</option>
- 						<option value="2">韩文</option>	
- 						<option value="3">日文</option>	
- 						<option value="4">法文</option>	
- 						<option value="5">德文</option>	
- 						<option value="6">俄文</option>												
- 					</select> 	
-                </div>               
+            
                 <div class="a_left" style="height: 100px">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">正文:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">邮件正文:</span>
                     <textarea id="fcontent" name="serialnumberemailtemplate.fcontent" cols="22" rows="6" style="width: 180px" class="easyui-validatebox" ></textarea>
                 </div>
     
 
                 <div class="a_left">
-                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">备注:</span>
+                    <span style="width: 75px; text-align: left; display: block; float: left; margin-left: 20px">发送备注:</span>
                     <input type="text" id="fremark" name="serialnumberemailtemplate.fremark" class="easyui-validatebox" style="width: 180px"/>
                 </div>
                
@@ -109,14 +94,14 @@
     <div id="div_Toolbar">
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="AddSerialnumberEmailtemplate();">保存</a>
         <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-cancel" plain="true" onclick="cancel();">取消</a>
-    </div>  
-    
+    </div>
+
+
     <div id="div_Menu">
       <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add();">增加</a>
       <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="UpdateInfo()">修改</a>
-      <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add2();">增加（HTML）</a>
+            <a href="#" id="txbAdd" class="easyui-linkbutton" iconcls="icon-add" plain="true" onclick="add2();">增加（HTML）</a>
       <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="update2()">修改（HTML）</a>
-      <a href="#" id="txbUpdate" class="easyui-linkbutton" iconcls="icon-application_edit" plain="true" onclick="update2()">发送邮件</a>
       <a href="#" id="txbDelte" class="easyui-linkbutton" iconcls="icon-delete" plain="true" onclick="DeleteSerialnumberEmailtemplate()">删除</a>
       <a href="#" class="easyui-linkbutton" iconcls="icon-arrow_refresh" plain="true" onclick="refresh();">刷新</a>
     </div>

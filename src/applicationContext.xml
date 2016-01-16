@@ -139,7 +139,14 @@
 	</bean>
 	 	
 	<bean name="refemailHisDao" class="dao.SerialnumberEmailhistoryDaoIml">
-	</bean>			
+	</bean>	
+	
+	<bean id="SPStmpAction" class="service.SerialnumberEmailsmtpImpl"  scope="prototype">
+		 <property name="serialnumberemailsmtpDao" ref="refStmpDao"></property>
+	</bean>
+	 	
+	<bean name="refStmpDao" class="dao.SerialnumberEmailsmtpDaoIml">
+	</bean>				
  		<!-- 配置事务管理器 -->
 <!-- 	<bean id="transactionManager"
 		class="org.springframework.orm.hibernate3.HibernateTransactionManager">

@@ -23,12 +23,7 @@
 			<li><button onclick="javascript:xmMap();">鼓浪屿地图</button><button onclick="javascript:clearMap();">清空地图</button></li>
 		</ul>
 	</div>
-<!-- tongji begin-->
-<script type="text/javascript">
-var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
-document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Faeff88f19045b513af7681b011cea3bd' type='text/javascript'%3E%3C/script%3E"));
-</script>
-<!-- tongji end -->
+
 </body>
 <script language="javascript">
 var mapObj;

@@ -41,8 +41,10 @@
 									{"menuid":"43","menuname":"添加支出","icon":"icon-nav","url":"demo2.html"}
 								]
 						},{"menuid":"5","icon":"icon-sys","menuname":"邮件管理",
-							"menus":[{"menuid":"51","menuname":"邮件模板","icon":"icon-nav","url":"EmailTemList.action"},
-									{"menuid":"52","menuname":"邮件记录","icon":"icon-nav","url":"EmailHisList.action"}
+							"menus":[
+							{"menuid":"51","menuname":"SMTP配置","icon":"icon-nav","url":"EmailSmtpList.action"},
+							{"menuid":"52","menuname":"邮件模板","icon":"icon-nav","url":"EmailTemList.action"},
+							{"menuid":"53","menuname":"邮件记录","icon":"icon-nav","url":"EmailHisList.action"}
 								]
 						},{"menuid":"6","icon":"icon-sys","menuname":"设备管理",
 							"menus":[
@@ -160,8 +162,8 @@
 			<div title="欢迎使用" style="padding:20px;overflow:hidden; color:red; " >
 			
 <h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/GdMap.jsp" target="_blank">查看详细地图1</a></h2>
-<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/MapTest.jsp" target="_blank">查看测试地图1</a></h2>
-<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/sample.jsp" target="_blank">查看测试地图1</a></h2>
+<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/MapTest.jsp" target="_blank">查看测试地图2</a></h2>
+<h2 style="font-size:24px;"><a style="font-size:24px;color:green;" href="Map/sample.jsp" target="_blank">查看测试地图3</a></h2>
 				<h1 style="font-size:24px;">高德地图示例</h1>
 				
 				<div id="MapContainer" style="width:500px;height:309px;" ></div> 
@@ -207,15 +209,47 @@
 		<div id="exit">退出</div>
 	</div>
  <script type="text/javascript">
+	var marker;  
+	var marker1; 
+	var marker2;
+
 	var map = new AMap.Map('MapContainer');
     map.setZoom(10);
     map.setCenter([114.085175,22.542164]);
+    map.clearMap();
     
-    var marker = new AMap.Marker({
-        position: [114.058739, 22.549457],
-        map:map
-    });
+//     marker = new AMap.Marker({
+//         position: [114.058239, 22.541457],
+//         map:map
+//     });
     
+   // 实例化marker  
+	function addMarker(){  		
+	    marker=new AMap.Marker({                    
+	    icon:"images/map.gif",  
+	    position:new AMap.LngLat(114.157239,22.547164)  
+	    });  
+	    marker.setMap(map);  //在地图上添加点  
+	}  
+    addMarker();
+    
+    function addMarker1(){  		
+	    marker1=new AMap.Marker({                    
+	    icon:"images/map.gif",  
+	    position:new AMap.LngLat(114.058222,22.542123)  
+	    });  
+	    marker1.setMap(map);  //在地图上添加点  
+	}  
+    addMarker1();
+    
+        function addMarker2(){  		
+	    marker2=new AMap.Marker({                    
+	    icon:"images/map.gif",  
+	    position:new AMap.LngLat(114.088222,22.582123)  
+	    });  
+	    marker2.setMap(map);  //在地图上添加点  
+	}  
+    addMarker2();
   </script>
 
 </body>
