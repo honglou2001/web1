@@ -1,2 +1,9 @@
-装好CodeSmith4.0之后把System-JavaTableNameComments.csmap和System-JavaAlias.csmap放在
-C:\Documents and Settings\icd\My Documents\CodeSmith\Maps里，连接数据库就可以运行了。
+mysql ：Database=dbmcmsopen;Data Source=127.0.0.1;User Id=root;Password=Long!@#327;port=20826
+
+下载：mysql-connector-net-8.0.13.msi
+从安装目录X：XX\MySQL\..\Binaries里拷贝MySql.Data.dll，
+复制到X：XX..\..\SchemaProviders目录下。
+打开CodeSmith，连接MySql数据库，成功！
+
+codesmith连接mysql我用时好像只能自己填写Connection String，不能点高级设置，附上个连接串实例:
+Database=test;Data Source=127.0.0.1;User Id=root;Password=123456
